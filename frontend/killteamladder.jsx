@@ -23,6 +23,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // window.dispatch = store.dispatch;
   // window.actions = Actions;
 
-  // ReactDOM.render(<Root store={ store } />, root);
-  ReactDOM.render(<h1>CARCOSA KILL TEAM LADDER</h1>, root);
+  ReactDOM.render(<Root store={ store } />, root);
 });

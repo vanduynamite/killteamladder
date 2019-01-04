@@ -1,5 +1,10 @@
   <script>
+    <% if logged_in? %>
+    window.currentUser =
+      <%= render('api/users/session.json.jbuilder', user: current_user).html_safe %>
+    <% end %>
 
+    window.background = "<%= image_url('symbols-background.png') %>"
 
   </script>
 
