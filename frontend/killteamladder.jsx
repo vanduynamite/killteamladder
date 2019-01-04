@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/root';
 import { merge } from 'lodash';
-import * as Actions from './actions/comment_actions';
 
 const loadCurrentUser = ({ users, session }) => {
   return {
