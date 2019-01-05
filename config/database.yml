@@ -79,7 +79,11 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: killteamladder_production
-  username: killteamladder
-  password: <%= ENV['KILLTEAMLADDER_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  username: "postgres"
+  password: "TheShadowsLengthen"
+  database: "killteamladder_production"
+  host:   "/cloudsql/killzone-carcosa:us-east1:killzone-carcosa-db"

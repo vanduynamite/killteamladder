@@ -1,0 +1,9 @@
+entrypoint: bundle exec rackup --port $PORT
+env: flex
+runtime: ruby
+
+env_variables:
+  SECRET_KEY_BASE: 56c89186d7827dbe55ad1885e74d41cff0d8cc6163fff265cb8008201ae784ad23172a53233538f6f4d4312590d7c703ccf60a7c74f1fbd31def71a427085b00
+
+beta_settings:
+  cloud_sql_instances: killzone-carcosa:us-east1:killzone-carcosa-db
