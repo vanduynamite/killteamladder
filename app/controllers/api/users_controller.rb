@@ -15,6 +15,13 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+
+      approved = ApprovedEmail.find_by(email: user_params[:email])
+      unless approved
+        render json: ['Account created and pending approval. Please contact a Carcosa officer.'], status: 401
+        return
+      end
+
       login!(@user)
       render 'api/users/session.json.jbuilder'
     else

@@ -10,6 +10,13 @@ class Api::SessionsController < ApplicationController
     )
 
     if @user
+
+      approved = ApprovedEmail.find_by(email: params[:user][:email])
+      unless approved
+        render json: ['Account is pending approval. Please contact a Carcosa officer.'], status: 401
+        return
+      end
+
       login!(@user)
       render 'api/users/session.json.jbuilder'
     else
