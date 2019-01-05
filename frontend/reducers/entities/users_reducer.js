@@ -4,21 +4,17 @@ import {
 } from '../../actions/session_actions';
 import { merge } from 'lodash';
 
-const sessionReducer = (state = {}, action) => {
+const userReducer = (state = {}, action) => {
   Object.freeze(state);
   const newState = merge({}, state);
 
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
       delete newState.potentialId;
-      return merge(newState, {
-        id: action.session,
-      });
+      return merge(newState, action.users);
 
     case REMOVE_CURRENT_USER:
-      return merge(newState, {
-        id: null,
-      });
+      return merge(newState, {});
 
     default:
       return newState;
@@ -26,4 +22,4 @@ const sessionReducer = (state = {}, action) => {
 
 };
 
-export default sessionReducer;
+export default userReducer;

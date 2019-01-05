@@ -5,7 +5,7 @@ class Api::SessionsController < ApplicationController
     logout! if logged_in?
 
     @user = User.find_by_credentials(
-      params[:user][:username],
+      params[:user][:email],
       params[:user][:password]
     )
 
@@ -13,7 +13,7 @@ class Api::SessionsController < ApplicationController
       login!(@user)
       render 'api/users/session.json.jbuilder'
     else
-      render json: ['Wrong password. Try again or use the demo login.'], status: 401
+      render json: ['Password and email do not match'], status: 401
     end
   end
 

@@ -1,5 +1,9 @@
 
 export const signup = user => {
+
+  user.first_name = user.firstName;
+  user.last_name = user.lastName;
+
   return $.ajax({
     method: 'POST',
     url: '/api/users',

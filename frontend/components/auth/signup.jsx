@@ -21,7 +21,8 @@ class SignupForm extends React.Component {
 
   submit(e) {
     e.preventDefault();
-    if (this.formValid) this.props.signup(this.state.user);
+    debugger
+    if (this.formValid) this.props.signup(this.state);
   }
 
   updateField(field) {

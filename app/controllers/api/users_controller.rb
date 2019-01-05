@@ -22,23 +22,15 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  def search
-    @user = User.find_by(email: user_params[:email])
-
-    if @user
-      render 'api/users/session.json.jbuilder'
-    else
-      render json: ["Email not on file"], status: 400
-    end
-  end
-
   private
 
   def user_params
     params.require(:user).permit(
-      :name,
-      :password,
+      :first_name,
+      :last_name,
       :email,
+      :password,
+      :reenter_password,
     )
   end
 
