@@ -46,3 +46,8 @@ h1 {
   max-width: 500px;
   padding: 24px;
 }
+
+.link {
+  letter-spacing: 0.25px;
+  text-decoration: underline;
+}

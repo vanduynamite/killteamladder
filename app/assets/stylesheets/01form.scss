@@ -90,3 +90,21 @@ input {
   background-color: #363F4D;
   opacity: 0.3;
 }
+
+
+//errors
+
+#errors {
+  color: #A70300;
+  font-weight: 500;
+
+  margin-top: 24px;
+}
+
+label.error {
+  color: #A70300;
+}
+
+input.error {
+  border: 1px solid #A70300;
+}

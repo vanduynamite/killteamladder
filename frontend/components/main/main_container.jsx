@@ -2,8 +2,13 @@ import { connect } from 'react-redux';
 import Main from './main';
 
 const msp = state => {
-  return {
+  const loggedIn = state.session.id !== undefined;
+  let currentUser = undefined;
+  if (loggedIn) currentUser = state.entities.users[state.session.id];
 
+  return {
+    loggedIn,
+    currentUser,
   };
 };
 

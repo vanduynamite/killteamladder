@@ -4,7 +4,9 @@ export default function(text, active) {
   let klass = 'button ';
   klass += active ? 'submit-active' : 'submit-deactive';
 
+  let disabled = active ? '' : 'disabled';
+
   return (
-    <button className={ klass }>{ text }</button>
+    <button className={ klass } disabled={ disabled }>{ text }</button>
   );
 }

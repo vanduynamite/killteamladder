@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const store = configureStore(prevUserState);
   const root = document.getElementById('root');
-  // window.merge = merge;
-  // window.getState = store.getState;
+  // window.merge = merge
+  window.getState = store.getState;
   // window.dispatch = store.dispatch;
   // window.actions = Actions;
 

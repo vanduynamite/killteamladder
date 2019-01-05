@@ -1,103 +1,87 @@
 import React from 'react';
+import field from '../general/field';
+import cancelButtonLink from '../general/cancel_button_link';
+import submitButton from '../general/submit_button';
 import { Link } from 'react-router-dom';
 
-class SignupForm extends React.Component {
+class LoginForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = props.user;
-    this.submit = this.submit.bind(this);
+
+    this.state = {
+      email: '',
+      password: '',
+    };
+    this.formValid = true;
     this.updateField = this.updateField.bind(this);
   }
 
-  componentWillUnmount() {
-    this.props.clearPotentialSession();
+  componentDidMount() {
+    this.props.clearErrors();
   }
 
   submit(e) {
     e.preventDefault();
-    this.props.signup(this.state);
+    if (this.formValid) this.props.login(this.state);
   }
 
   updateField(field) {
-    return e => this.setState({[field]: e.target.value});
+    this.updateFormValidity();
+    return e => this.setState({ [field]: e.target.value });
   }
 
-  field(fieldName, label, password, focus=false) {
-    const error = this.props.errors[fieldName];
-
-    // label
-    let labelKlass = '';
-    if (this.state[fieldName] !== '') labelKlass += 'active-label';
-    if (error) labelKlass += ' error-label';
-    const inputLabel = <label htmlFor={fieldName} className={labelKlass}>{label}</label>;
-
-    // input
-    const inputType = password ? 'password' : 'text';
-    const inputKlass = error ? 'error-input': '';
-    const inputField =
-      <input type={ inputType }
-        className={ inputKlass }
-        id={ fieldName }
-        autoFocus={ focus }
-        onChange={ this.updateField(fieldName) }
-        value={ this.state[fieldName] }></input>;
-
-    // helper text
-    let helperText = this.props.helperTexts[fieldName] || '';
-    let helperKlass = 'helper-normal';
-    if (error) {
-      helperText = error;
-      helperKlass += ' helper-error';
-    }
-    const helperDiv = <div className={ helperKlass }>{ helperText }</div>;
-
-    return (
-      <div className='single-input'>
-        { inputLabel }
-        { inputField }
-        { helperDiv }
-      </div>
-    );
+  updateFormValidity() {
+    this.formValid = true;
+    if (this.state.email === '') this.formValid = false;
+    if (this.state.password === '') this.formValid = false;
+    if (this.state.password.length < 6) this.formValid = false;
   }
 
   render() {
-    const signInButton = <Link className="button-link" to='/login'>
-      Sign in instead</Link>;
-    const nextButton = <button className="blue-button">Next</button>;
-
     return (
-      <div className='session-window'>
-        <Link to='/'><img src={ window.mutube } id='signup-logo'/></Link>
-        <span className='signup-title'>Create your µTube Account</span>
-        <span className='signup-subtitle'>to continue to µTube</span>
-        <form onSubmit={this.submit}
-          autoComplete='off'
-          className='session-form'>
-          <input autoComplete='false'
-            name='hidden'
-            type='text'
-            style={{display:'none'}} />
+      <div className='frame'>
+        <h1>Login</h1>
+
+        { this.errorSection() }
+
+        <form onSubmit={ this.submit.bind(this) } autoComplete='off'>
+          <input autoComplete='false' name='hidden'
+            type='text' style={{ display:'none' }} />
 
           <div className='inputs'>
-            <div className='group-inputs'>
-              { this.field('firstName', 'First name', false, true) }
-              { this.field('lastName', 'Last name') }
-            </div>
-            { this.field('username', 'Username') }
-            { this.field('email', 'Your email address') }
-            { this.field('password', 'Password', true) }
+            { field('email', 'Email address', 'text', this) }
+            { field('password', 'Password', 'password', this) }
           </div>
 
-          <div className='buttons'>
-            { signInButton }
-            { nextButton }
+          <div className='form-buttons'>
+            { cancelButtonLink('Cancel', '/') }
+            { submitButton('Submit', this.formValid) }
           </div>
         </form>
       </div>
     );
   }
 
-};
+  // subcomponents
 
-export default SignupForm;
+  errorSection() {
+    const errors = Object.values(this.props.errors);
+
+    if (errors.length === 0) {
+      return (<></>);
+    } else {
+      return (
+        <>
+          <div id='errors'>
+            { errors }
+          </div>
+          <Link className='link' to='/signup'>Register new account</Link>
+        </>
+      );
+    }
+  }
+
+}
+
+export default LoginForm;

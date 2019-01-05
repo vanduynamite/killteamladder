@@ -1,4 +1,5 @@
 import React from 'react';
+import field from '../general/field';
 import cancelButtonLink from '../general/cancel_button_link';
 import submitButton from '../general/submit_button';
 import { Link } from 'react-router-dom';
@@ -18,6 +19,10 @@ class SignupForm extends React.Component {
     this.formValid = true;
     this.updateField = this.updateField.bind(this);
   }
+  
+  componentDidMount() {
+    this.props.clearErrors();
+  }
 
   submit(e) {
     e.preventDefault();
@@ -25,8 +30,18 @@ class SignupForm extends React.Component {
   }
 
   updateField(field) {
-
+    this.updateFormValidity();
     return e => this.setState({ [field]: e.target.value });
+  }
+
+  updateFormValidity() {
+    this.formValid = true;
+    if (this.state.firstName === '') this.formValid = false;
+    if (this.state.lastName === '') this.formValid = false;
+    if (this.state.email === '') this.formValid = false;
+    if (this.state.password === '') this.formValid = false;
+    if (this.state.password.length < 6) this.formValid = false;
+    if (this.state.password !== this.state.reenterPassword) this.formValid = false;
   }
 
   render() {
@@ -34,6 +49,7 @@ class SignupForm extends React.Component {
       <div className='frame'>
         <h1>Register</h1>
 
+        { this.errorSection() }
 
         <form onSubmit={ this.submit.bind(this) } autoComplete='off'>
           <input autoComplete='false' name='hidden'
@@ -41,17 +57,17 @@ class SignupForm extends React.Component {
 
           <div className='inputs'>
             <div className='name-inputs'>
-              { this.field('firstName', 'First name', false, true) }
-              { this.field('lastName', 'Last name', false, true) }
+              { field('firstName', 'First name', 'text', this) }
+              { field('lastName', 'Last name', 'text', this) }
             </div>
-            { this.field('email', 'Email address') }
-            { this.field('password', 'Password', true) }
-            { this.field('reenterPassword', 'Re-enter password', true) }
+            { field('email', 'Email address', 'text', this) }
+            { field('password', 'Password', 'password', this) }
+            { field('reenterPassword', 'Re-enter password', 'password', this) }
           </div>
 
           <div className='form-buttons'>
             { cancelButtonLink('Cancel', '/') }
-            { submitButton('Next', this.formValid) }
+            { submitButton('Submit', this.formValid) }
           </div>
         </form>
       </div>
@@ -80,6 +96,23 @@ class SignupForm extends React.Component {
         { inputField }
       </div>
     );
+  }
+
+  errorSection() {
+    const errors = Object.values(this.props.errors);
+
+    if (errors.length === 0) {
+      return (<></>);
+    } else {
+      return (
+        <>
+          <div id='errors'>
+            { errors }
+          </div>
+          <Link className='link' to='/login'>Login</Link>
+        </>
+      );
+    }
   }
 
 }

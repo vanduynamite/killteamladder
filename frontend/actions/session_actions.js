@@ -4,6 +4,7 @@ export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 export const RECEIVE_SESSION_ERRORS = 'RECEIVE_ERRORS';
 export const REMOVE_CURRENT_USER = 'REMOVE_CURRENT_USER';
+export const CLEAR_SESSION_ERRORS = 'CLEAR_SESSION_ERRORS';
 
 const receiveCurrentUser = ({ users, session }) => {
   return {
@@ -19,6 +20,12 @@ const receiveSessionErrors = errors => {
     errors,
   };
 };
+
+export const clearSessionErrors = () => {
+  return {
+    type: CLEAR_SESSION_ERRORS,
+  }
+}
 
 const removeCurrentUser = ({ users, session }) => {
   return {

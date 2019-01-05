@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
-import { signup } from '../../actions/session_actions';
+import {
+  signup,
+  clearSessionErrors } from '../../actions/session_actions';
 import Signup from './signup';
 
 const msp = state => {
-  // const errors = state.errors.session;
-  const errors = {};
+  const errors = state.errors.session;
 
   return {
     errors,
@@ -13,7 +14,8 @@ const msp = state => {
 
 const mdp = dispatch => {
   return {
-    signup: (user) => dispatch(signup(user)),
+    signup: user => dispatch(signup(user)),
+    clearErrors: () => dispatch(clearSessionErrors()),
   };
 };
 
