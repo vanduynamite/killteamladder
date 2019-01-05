@@ -8,23 +8,11 @@ class Main extends React.Component {
 
   render() {
     return (
-      <h1>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-        <br></br>CARCOSA KILL TEAM LADDER
-      </h1>
+      <div className='frame'>
+        <h1>
+          Rankings
+        </h1>
+      </div>
     );
   }
 }

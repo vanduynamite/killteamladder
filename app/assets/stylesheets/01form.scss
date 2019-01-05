@@ -1,0 +1,92 @@
+
+// inputs
+
+.inputs {
+  padding-top: 8px;
+  padding-bottom: 24px;
+}
+
+.single-input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+label {
+  margin-top: 16px;
+
+  font-family: 'Black Ops One', cursive;
+  font-weight: 400;
+  font-size: 16px;
+  color: #2E3A42;
+  line-height: 24px;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 7px;
+
+  color: #2E3A42;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+
+  background-color: #FFFFFF;
+  border: 1px solid #D5D9E0;
+}
+
+.name-inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#firstName {
+  width: calc(100% - 12px);
+}
+
+// buttons
+
+.form-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.button {
+  font-family: 'Black Ops One', cursive;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  height: 40px;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid #191C24;
+
+  opacity: 0.9;
+}
+
+.cancel {
+  margin-right: 12px;
+  color: #4F5B69;
+  background-color: #FFFFFF;
+}
+
+.submit-active {
+  color: #FFFFFF;
+  background-color: #363F4D;
+}
+
+.submit-deactive {
+  color: #FFFFFF;
+  background-color: #363F4D;
+  opacity: 0.3;
+}

@@ -8,9 +8,9 @@ import Main from './main/main_container';
 export default () => {
   return (
     <Switch>
+      <AuthRoute exact path='/login' component={ Login } />
+      <AuthRoute exact path='/signup' component={ Signup } />
       <Route path='/' component={ Main } />
     </Switch>
   );
-  // <AuthRoute exact path='/login' component={ Login } />
-  // <AuthRoute exact path='/signup' component={ Signup } />
 };
