@@ -29,3 +29,5 @@ bundle.js.map
 /config/master.key
 
 /heroku_errors.txt
+
+/db/emails.rb
