@@ -6,8 +6,10 @@ const Login = (props) => {
 
   return (
     <div id='bottom-nav'>
-      <img src={ window.logo } id='logo' />
-      { navButtons(props.history.location.pathname, props.loggedIn) }
+      <div id='internal-nav'>
+        <img src={ window.logo } id='logo' />
+        { navButtons(props.history.location.pathname, props.loggedIn) }
+      </div>
     </div>
   );
 
