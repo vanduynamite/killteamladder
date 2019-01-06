@@ -26,7 +26,7 @@ const navButtons = (path, loggedIn) => {
 
     case '/':
       if (loggedIn) {
-        return authButtons();
+        return accountAndMatchButtons();
       } else {
         return authButtons();
       }
@@ -41,10 +41,22 @@ const navButtons = (path, loggedIn) => {
   }
 };
 
+const accountAndMatchButtons = () => {
+  return (
+    <div id='nav-button-group'>
+      <Link to='/account'>
+        <img src={ window.account } className='img-button' />
+      </Link>
+      <Link to='/match'>
+        <img src={ window.add } className='img-button' />
+      </Link>
+    </div>
+  );
+};
 
 const authButtons = () => {
   return (
-    <div id='auth-buttons'>
+    <div id='nav-button-group'>
       <Link className='button nav-button' to='/signup'>Register</Link>
       <Link className='button nav-button' to='/login'>Login</Link>
     </div>

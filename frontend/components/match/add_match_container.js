@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import Main from './main';
+import AddMatch from './add_match';
 
 const msp = state => {
-  const loggedIn = state.session.id !== undefined && state.session.id !== null;
-  let currentUser;
+  const loggedIn = state.session.id !== undefined;
+  let currentUser = undefined;
   if (loggedIn) currentUser = state.entities.users[state.session.id];
 
   return {
@@ -18,4 +18,4 @@ const mdp = dispatch => {
   };
 };
 
-export default connect(msp, mdp)(Main);
+export default connect(msp, mdp)(AddMatch);

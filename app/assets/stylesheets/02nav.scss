@@ -1,19 +1,20 @@
 #bottom-nav {
   width: 100%;
+  max-width: 500px;
   min-height: 64px;
 
   position: fixed;
   bottom: 0px;
-  padding-right: 12px;
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  background-color: #FFFFFF;
-  opacity: 0.9;
+  background-image: linear-gradient(-180deg, rgba(255,255,255,0.90) 0%, #FFFFFF 100%);
   z-index: 2;
+
+  border-top: 1px solid #D5D9E0;
 }
 
 #logo {
@@ -23,7 +24,7 @@
   margin-left: 8px;
 }
 
-#auth-buttons {
+#nav-button-group {
   display: flex;
 }
 
@@ -40,7 +41,5 @@
 .img-button {
   width: 40px;
   height: 40px;
+  margin-right: 12px;
 }
-
-// 92px
-// 68px
