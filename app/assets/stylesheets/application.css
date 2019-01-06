@@ -24,12 +24,6 @@ main {}
 #root {
   display: flex;
   justify-content: center;
-
-  min-height: 100vh;
-  background-image: url('symbols-background.png');
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
 }
 
 h1 {
@@ -42,10 +36,26 @@ h1 {
   line-height: 32px;
 }
 
+#background {
+  position: fixed;
+  top: 0px;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+}
+
+#background img {
+  width: 100%;
+  height: 100%;
+
+}
+
 .frame {
   width: 100%;
   max-width: 500px;
   padding: 24px;
+  z-index: 2;
 }
 
 .link {
