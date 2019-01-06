@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import ImageButton from '../general/image_button';
 
 const Login = (props) => {
 
@@ -20,11 +21,10 @@ const navButtons = (path, loggedIn) => {
   switch (path) {
     case '/login':
     case '/signup':
-      return (
-        <Link to='/'>
-          <img src={ window.close } className='img-button' />
-        </Link>
-      );
+      return ImageButton('/', window.close);
+
+    case '/team/new':
+      return ImageButton('/account', window.close);
 
     case '/':
       if (loggedIn) {
@@ -35,11 +35,8 @@ const navButtons = (path, loggedIn) => {
       break;
 
     default:
-      return (
-        <Link to='/'>
-          <img src={ window.close } className='img-button' />
-        </Link>
-      );
+      return ImageButton('/', window.close);
+
   }
 };
 

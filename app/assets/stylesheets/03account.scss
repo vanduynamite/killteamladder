@@ -1,0 +1,44 @@
+.info-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #D5D9E0;
+  background-color: #FFFFFF;
+}
+
+#account-details {
+  margin-top: 24px;
+  height: 48px;
+}
+
+#account-names {
+  margin-left: 8px;
+  color: #191C24;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+#account-stats {
+  border-top: none;
+  margin-bottom: 24px;
+  flex-direction: column;
+  padding: 8px 0px;
+}
+
+.stat-container {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 8px;
+  font-weight: 500;
+  font-size: 12px;
+  color: #191C24;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+}
+
+.stat-container.grey {
+  background: #F1F3F4;
+}

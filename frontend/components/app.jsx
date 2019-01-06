@@ -9,6 +9,7 @@ import Background from './general/background';
 import Main from './main/main_container';
 import Account from './account/account_container';
 import AddMatch from './match/add_match_container';
+import NewTeam from './teams/new_team_container';
 
 export default () => {
   return (
@@ -20,6 +21,7 @@ export default () => {
         <AuthRoute exact path='/signup' component={ Signup } />
         <ProtectedRoute path='/account' component={ Account } />
         <ProtectedRoute path='/match' component={ AddMatch } />
+        <ProtectedRoute path='/team/new' component={ NewTeam } />
         <Route path='/' component={ Main } />
       </Switch>
     </>

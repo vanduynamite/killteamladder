@@ -1,7 +1,7 @@
 import React from 'react';
-import field from '../general/field';
-import cancelButtonLink from '../general/cancel_button_link';
-import submitButton from '../general/submit_button';
+import Field from '../general/field';
+import ButtonLink from '../general/button_link';
+import SubmitButton from '../general/submit_button';
 import { Link } from 'react-router-dom';
 
 class LoginForm extends React.Component {
@@ -50,13 +50,13 @@ class LoginForm extends React.Component {
             type='text' style={{ display:'none' }} />
 
           <div className='inputs'>
-            { field('email', 'Email address', 'text', this) }
-            { field('password', 'Password', 'password', this) }
+            { Field('email', 'Email address', 'text', this) }
+            { Field('password', 'Password', 'password', this) }
           </div>
 
           <div className='form-buttons'>
-            { cancelButtonLink('Cancel', '/') }
-            { submitButton('Submit', this.formValid) }
+            { ButtonLink('Cancel', '/', 'cancel') }
+            { SubmitButton('Submit', this.formValid) }
           </div>
         </form>
       </div>

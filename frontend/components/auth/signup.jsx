@@ -1,7 +1,7 @@
 import React from 'react';
-import field from '../general/field';
-import cancelButtonLink from '../general/cancel_button_link';
-import submitButton from '../general/submit_button';
+import Field from '../general/field';
+import ButtonLink from '../general/button_link';
+import SubmitButton from '../general/submit_button';
 import { Link } from 'react-router-dom';
 
 class SignupForm extends React.Component {
@@ -19,7 +19,7 @@ class SignupForm extends React.Component {
     this.formValid = true;
     this.updateField = this.updateField.bind(this);
   }
-  
+
   componentDidMount() {
     this.props.clearErrors();
   }
@@ -57,17 +57,17 @@ class SignupForm extends React.Component {
 
           <div className='inputs'>
             <div className='name-inputs'>
-              { field('firstName', 'First name', 'text', this) }
-              { field('lastName', 'Last name', 'text', this) }
+              { Field('firstName', 'First name', 'text', this) }
+              { Field('lastName', 'Last name', 'text', this) }
             </div>
-            { field('email', 'Email address', 'text', this) }
-            { field('password', 'Password', 'password', this) }
-            { field('reenterPassword', 'Re-enter password', 'password', this) }
+            { Field('email', 'Email address', 'text', this) }
+            { Field('password', 'Password', 'password', this) }
+            { Field('reenterPassword', 'Re-enter password', 'password', this) }
           </div>
 
           <div className='form-buttons'>
-            { cancelButtonLink('Cancel', '/') }
-            { submitButton('Submit', this.formValid) }
+            { ButtonLink('Cancel', '/', 'cancel') }
+            { SubmitButton('Submit', this.formValid) }
           </div>
         </form>
       </div>
@@ -79,14 +79,14 @@ class SignupForm extends React.Component {
   field(fieldName, label, password) {
     const inputLabel = (
       <label
-        htmlFor={ fieldName }>
+        htmlFor={ FieldName }>
         { label }
       </label>
     );
 
     const inputField =
       <input type={ password ? 'password' : 'text' }
-        id={ fieldName }
+        id={ FieldName }
         onChange={ this.updateField(fieldName) }
         value={ this.state[fieldName] }></input>;
 

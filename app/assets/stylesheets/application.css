@@ -15,6 +15,7 @@
  *= require_self
  *= require 01form
  *= require 02nav
+ *= require 03account
  */
 
 html {}
@@ -28,12 +29,23 @@ main {}
 
 h1 {
   width: 100%;
-
   font-family: 'Black Ops One', cursive;
   font-weight: 400;
   font-size: 24px;
   color: #2E3A42;
   line-height: 32px;
+}
+
+h2 {
+  width: 100%;
+  font-family: 'Black Ops One', cursive;
+  font-weight: 400;
+  font-size: 16px;
+  color: #2E3A42;
+  line-height: 24px;
+
+  margin-top: 24px;
+  margin-bottom: 8px;
 }
 
 #background {
@@ -48,6 +60,8 @@ h1 {
 #background img {
   width: 100%;
   height: 100%;
+
+  min-height: 500px;
 
 }
 
