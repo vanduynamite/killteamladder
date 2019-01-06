@@ -68,7 +68,7 @@ const authButtons = () => {
 
 
 const msp = state => {
-  const loggedIn = state.session.id !== undefined;
+  const loggedIn = state.session.id !== undefined && state.session.id !== null;
 
   return {
     loggedIn,
