@@ -1,0 +1,46 @@
+#bottom-nav {
+  width: 100%;
+  min-height: 64px;
+
+  position: fixed;
+  bottom: 0px;
+  padding-right: 12px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: #FFFFFF;
+  opacity: 0.9;
+  z-index: 2;
+}
+
+#logo {
+  width: 112px;
+  height: 48px;
+
+  margin-left: 8px;
+}
+
+#auth-buttons {
+  display: flex;
+}
+
+.nav-button {
+  width: 100%;
+  margin-right: 12px;
+  padding: 0px 8px;
+
+  color: #FFFFFF;
+  background-color: #363F4D;
+  opacity: 0.9;
+}
+
+.img-button {
+  width: 40px;
+  height: 40px;
+}
+
+// 92px
+// 68px
