@@ -21,7 +21,7 @@ export const newTeam = team => {
 
   return $.ajax({
     method: 'POST',
-    url: '/api/team/new',
+    url: '/api/teams',
     data: { team },
   });
 };

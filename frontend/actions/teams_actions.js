@@ -29,13 +29,8 @@ export const clearTeamErrors = () => {
 
 export const newTeam = team => dispatch => {
   return TeamAPI.newTeam(team).then(
-    payload => {
-      debugger
-      dispatch(receiveTeams(payload));
-    },
-    errors => {
-      dispatch(receiveTeamErrors(errors));
-    }
+    payload => dispatch(receiveTeams(payload)),
+    errors => dispatch(receiveTeamErrors(errors))
   );
 };
 
