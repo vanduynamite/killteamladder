@@ -17,8 +17,10 @@ class NewTeam extends React.Component {
   submit(e) {
     e.preventDefault();
     console.log(this.state);
-    // if (this.formValid) this.props.login(this.state);
-    // history.push('/');
+    if (this.formValid) {
+      this.props.newTeam(this.state);
+      this.props.history.push('/account');
+    }
   }
 
   updateField(field) {

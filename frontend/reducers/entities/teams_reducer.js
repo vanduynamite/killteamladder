@@ -1,7 +1,3 @@
-import {
-  RECEIVE_CURRENT_USER,
-  REMOVE_CURRENT_USER
-} from '../../actions/session_actions';
 import { RECEIVE_TEAMS } from '../../actions/teams_actions';
 import { merge } from 'lodash';
 
@@ -11,11 +7,7 @@ const userReducer = (state = {}, action) => {
 
   switch (action.type) {
     case RECEIVE_TEAMS:
-    case RECEIVE_CURRENT_USER:
-      return merge(newState, action.users);
-
-    case REMOVE_CURRENT_USER:
-      return merge(newState, {});
+      return merge(newState, action.teams);
 
     default:
       return newState;
