@@ -3,7 +3,7 @@ class Api::TeamsController < ApplicationController
 
   def create
     return false unless authorized_user?
-    
+
     @user = current_user
     @team = @user.teams.new(team_params)
 
@@ -33,6 +33,7 @@ class Api::TeamsController < ApplicationController
     params.require(:team).permit(
       :faction,
       :team_name,
+      :active,
     )
   end
 

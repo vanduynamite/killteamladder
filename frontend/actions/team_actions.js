@@ -1,7 +1,7 @@
-import * as TeamAPI from '../util/teams_api_util';
+import * as TeamAPI from '../util/team_api_util';
 
 export const RECEIVE_TEAMS = 'RECEIVE_TEAMS';
-export const RECEIVE_TEAM_ERRORS = 'RECEIVE_ERRORS';
+export const RECEIVE_TEAM_ERRORS = 'RECEIVE_TEAM_ERRORS';
 export const CLEAR_TEAM_ERRORS = 'CLEAR_TEAM_ERRORS';
 
 const receiveTeams = ({ teams, users }) => {

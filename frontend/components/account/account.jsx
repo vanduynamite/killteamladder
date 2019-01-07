@@ -9,6 +9,10 @@ class Account extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.getUser(this.props.currentUser.id);
+  }
+
   render() {
 
     return (

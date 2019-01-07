@@ -3,6 +3,9 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
+    @teams = @user.teams
+
+    puts @teams
 
     if @user
       render 'api/users/show.json.jbuilder'

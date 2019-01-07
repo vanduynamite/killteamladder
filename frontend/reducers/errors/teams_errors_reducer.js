@@ -2,7 +2,7 @@ import {
   RECEIVE_TEAMS,
   RECEIVE_TEAM_ERRORS,
   CLEAR_TEAM_ERRORS,
-} from '../../actions/teams_actions';
+} from '../../actions/team_actions';
 import { merge } from 'lodash';
 
 const sessionErrorsReducer = (state = {}, action) => {

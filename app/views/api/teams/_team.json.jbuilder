@@ -3,14 +3,6 @@ json.teams do
     json.id team.id
     json.faction team.faction
     json.teamName team.team_name
-    json.user user.id
-  end
-end
-
-json.users do
-  json.set! user.id do
-    json.id user.id
-    json.firstName user.first_name
-    json.lastName user.last_name
+    json.user team.user_id
   end
 end

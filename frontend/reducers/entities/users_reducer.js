@@ -2,7 +2,7 @@ import {
   RECEIVE_CURRENT_USER,
   REMOVE_CURRENT_USER
 } from '../../actions/session_actions';
-import { RECEIVE_TEAMS } from '../../actions/teams_actions';
+import { RECEIVE_TEAMS } from '../../actions/team_actions';
 import { merge } from 'lodash';
 
 const userReducer = (state = {}, action) => {
