@@ -23,12 +23,12 @@ label {
   line-height: 24px;
 }
 
-input {
+input, select {
   width: 100%;
   box-sizing: border-box;
 
   padding: 7px;
-  
+
   color: #2E3A42;
   font-size: 12px;
   font-weight: 500;
@@ -36,6 +36,10 @@ input {
 
   background-color: #FFFFFF;
   border: 1px solid #D5D9E0;
+}
+
+select {
+  border-radius: 0px;
 }
 
 .name-inputs {
