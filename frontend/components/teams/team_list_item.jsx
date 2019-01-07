@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function({ team, owner }) {
-  const owned = team.user === owner.id ? ' owned' : '';
+export default function({ team, owner, currentUserId }) {
+  const owned = team.user === currentUserId ? ' owned' : '';
   const ownerName = `${owner.firstName} ${owner.lastName}`;
 
   return (

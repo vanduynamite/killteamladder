@@ -34,7 +34,7 @@ class Account extends React.Component {
   // subcomponents
 
   accountDetails() {
-    const fullName = `${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`
+    const fullName = `${this.props.currentUser.firstName} ${this.props.currentUser.lastName}`;
 
     return (
       <div className='info-container' id='account-details'>
@@ -64,7 +64,17 @@ class Account extends React.Component {
 
   teamDetails() {
     const teamList = Object.values(this.props.teams).map(
-      team => <TeamListItem key={ team.id } team={ team } owner={ this.props.currentUser }/>);
+      team => {
+        if (team.user === this.props.currentUser.id) return (
+          <TeamListItem
+            key={ team.id }
+            team={ team }
+            owner={ this.props.currentUser }
+            currentUserId={ this.props.currentUser.id }/>
+        );
+      }
+    );
+
     return (
       <div id='my-teams'>
         <h2>My teams</h2>

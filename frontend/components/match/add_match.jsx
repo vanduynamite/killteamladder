@@ -16,7 +16,7 @@ class AddMatch extends React.Component {
         <h1>
           Log match
         </h1>
-        { `Hi${greeting}!` }
+        { `Hi${greeting}! Nothing here yet!` }
       </div>
     );
   }

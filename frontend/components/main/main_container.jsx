@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { getTeams } from '../../actions/team_actions';
 import Main from './main';
 
 const msp = state => {
@@ -6,15 +7,20 @@ const msp = state => {
   let currentUser;
   if (loggedIn) currentUser = state.entities.users[state.session.id];
 
+  const teams = Object.values(state.entities.teams);
+  const users = state.entities.users;
+
   return {
     loggedIn,
     currentUser,
+    teams,
+    users,
   };
 };
 
 const mdp = dispatch => {
   return {
-
+    getTeams: () => dispatch(getTeams()),
   };
 };
 

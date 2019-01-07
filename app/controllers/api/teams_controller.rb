@@ -15,11 +15,13 @@ class Api::TeamsController < ApplicationController
 
   end
 
-  def show
+  def index
+    @teams = Team.all.includes!(:user)
 
+    render 'api/teams/index.json.jbuilder'
   end
 
-  def index
+  def show
 
   end
 
