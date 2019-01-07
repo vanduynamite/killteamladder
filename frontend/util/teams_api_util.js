@@ -1,28 +1,30 @@
 
 export const newTeam = team => {
 
-  // return {
-  //   teams: {
-  //     1: {
-  //       id: 1,
-  //       faction: 'Adeptus Mechanicus',
-  //       teamName: 'Vigilus Strike Force IVV',
-  //       ownerId: 1,
-  //     }
-  //   },
-  //   users: {
-  //     1: {
-  //       id: 1,
-  //       firstName: "Paul",
-  //       lastName: "van Duyn"
-  //     },
-  //   },
-  // };
+  team.team_name = team.teamName;
 
   return $.ajax({
     method: 'POST',
     url: '/api/teams',
     data: { team },
+  });
+};
+
+export const getTeam = id => {
+  return $.ajax({
+    method: 'GET',
+    url: `/api/teams/${id}`,
+  });
+};
+
+export const updateTeam = team => {
+
+  team.team_name = team.teamName;
+
+  return $.ajax({
+    method: 'PATCH',
+    url: `/api/teams/${team.id}`,
+    data: team,
   });
 };
 

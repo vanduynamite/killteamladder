@@ -20,6 +20,7 @@ class User < ApplicationRecord
   validates :email, format: { with: VALID_EMAIL_REGEX, message: 'address is invalid'}
 
   has_many :sessions
+  has_many :teams
 
   attr_reader :password
 
