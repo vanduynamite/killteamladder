@@ -5,12 +5,14 @@ import Account from './account';
 
 const msp = state => {
   const loggedIn = state.session.id !== undefined;
+  const teams = state.entities.teams;
   let currentUser = undefined;
   if (loggedIn) currentUser = state.entities.users[state.session.id];
 
   return {
     loggedIn,
     currentUser,
+    teams,
   };
 };
 

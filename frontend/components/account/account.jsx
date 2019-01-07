@@ -2,6 +2,7 @@ import React from 'react';
 import ButtonLink from '../general/button_link';
 import SubmitButton from '../general/submit_button';
 import ImageButton from '../general/image_button';
+import TeamListItem from '../teams/team_list_item';
 
 class Account extends React.Component {
 
@@ -62,7 +63,14 @@ class Account extends React.Component {
   }
 
   teamDetails() {
-    return <h2>My teams</h2>;
+    const teamList = Object.values(this.props.teams).map(
+      team => <TeamListItem key={ team.id } team={ team } owner={ this.props.currentUser }/>);
+    return (
+      <div id='my-teams'>
+        <h2>My teams</h2>
+        { teamList }
+      </div>
+    );
   }
 
   retiredTeams() {

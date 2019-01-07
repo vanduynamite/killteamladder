@@ -1,0 +1,70 @@
+.team-list-item {
+ height: 56px;
+ width: 100%;
+ position: relative;
+ margin-bottom: 6px;
+}
+
+.team-rank {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #F5F5F5;
+  border: 1px solid #4F5B69;
+  color: #191C24;
+  font-size: 24px;
+  font-family: 'Black Ops One', cursive;
+  font-weight: 400;
+}
+
+.team-rank.owned {
+  background: #2E3A42;
+  background: #4F5B69;
+  border: 1px solid #2E3A42;
+  color: #FFFFFF;
+}
+
+.team-names {
+  position: absolute;
+  top: 0px;
+  left: 16px;
+
+  display: flex;
+  flex-direction: column;
+
+  width: calc(100% - 58px);
+  border: 1px solid #D5D9E0;
+  padding: 8px 8px 8px 32px;
+
+  background: #FFFFFF;
+}
+
+.team-names.owned {
+  border: 1px solid #2E3A42;
+}
+
+.team-names h2 {
+  margin: 0px;
+  color: #A70300;
+}
+
+.team-names div {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  color: #6B7D8C;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.25px;
+}
+
+.team-names.owned h2 {
+  color: #2E3A42;
+}
