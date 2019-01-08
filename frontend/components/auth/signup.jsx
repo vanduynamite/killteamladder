@@ -103,7 +103,7 @@ class SignupForm extends React.Component {
       <div key={ error }>{ error }</div>);
 
     if (errors.length === 0) {
-      return (<></>);
+      return;
     } else {
       return (
         <>

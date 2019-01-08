@@ -4,7 +4,7 @@ import NewTeam from './new_team';
 import { newTeam } from '../../actions/team_actions';
 
 const msp = state => {
-  const errors = state.errors.newTeam || {};
+  const errors = state.errors.teams || {};
 
   return {
     errors,

@@ -13,8 +13,32 @@
 
 
 class Team < ApplicationRecord
+  FACTION_LIST = [
+    'Adeptus Astartes',
+    'Adeptus Mechanicus',
+    'Astra Militarum',
+    'Asuryani',
+    'Death Guard',
+    'Deathwatch',
+    'Drukhari',
+    'Elucidean Starstriders',
+    'Gellerpox Infected',
+    'Genestealer Cults',
+    'Grey Knights',
+    'Harlequins',
+    'Heretic Astartes',
+    'Necrons',
+    'Orks',
+    'Servants of the Abyss',
+    'T\'au Empire',
+    'Thousand Sons',
+    'Tyranids',
+    'ass-deptus ass-farties',
+  ]
+
   validates :faction, :team_name, presence: true
   validates :team_name, uniqueness: true, length: { maximum: 40 }
+  validates :faction, :inclusion=> { :in => FACTION_LIST }
 
   belongs_to :user
 

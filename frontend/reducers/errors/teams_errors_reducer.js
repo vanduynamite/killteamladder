@@ -27,8 +27,9 @@ const sessionErrorsReducer = (state = {}, action) => {
 };
 
 const errorFieldMap = {
-  "First name can't be blank": "firstName",
-  "Last name can't be blank": "lastName",
+  "Team name is too long (maximum is 40 characters)": "teamName",
+  "Team name has already been taken": "teamName",
+  "Faction is not included in the list": "faction",
 };
 
 export default sessionErrorsReducer;

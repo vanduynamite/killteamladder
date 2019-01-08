@@ -69,7 +69,7 @@ class LoginForm extends React.Component {
     const errors = Object.values(this.props.errors);
 
     if (errors.length === 0) {
-      return (<></>);
+      return;
     } else {
       return (
         <>

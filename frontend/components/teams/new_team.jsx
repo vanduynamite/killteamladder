@@ -19,7 +19,7 @@ class NewTeam extends React.Component {
     console.log(this.state);
     if (this.formValid) {
       this.props.newTeam(this.state);
-      this.props.history.push('/account');
+      // this.props.history.push('/account');
     }
   }
 
@@ -44,6 +44,9 @@ class NewTeam extends React.Component {
         <h1>
           Create team
         </h1>
+
+        { this.errorSection() }
+
         <form onSubmit={ this.submit.bind(this) } autoComplete='off'>
           <input autoComplete='false' name='hidden'
             type='text' style={{ display:'none' }} />
@@ -86,6 +89,20 @@ class NewTeam extends React.Component {
       'Thousand Sons',
       'Tyranids',
     ];
+  }
+
+  errorSection() {
+    const errors = Object.values(this.props.errors);
+
+    if (errors.length === 0) {
+      return;
+    } else {
+      return (
+          <div id='errors'>
+            { errors }
+          </div>
+      );
+    }
   }
 
 }
