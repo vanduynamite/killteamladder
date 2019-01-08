@@ -1,26 +1,26 @@
 import { connect } from 'react-redux';
-import { logout } from '../../actions/session_actions';
-import { getUser } from '../../actions/user_actions';
-import Account from './account';
+import { getTeam } from '../../actions/team_actions';
+import Team from './team';
 
-const msp = state => {
+const msp = (state, ownProps) => {
   const loggedIn = state.session.id !== undefined;
   const teams = state.entities.teams;
   let currentUser;
   if (loggedIn) currentUser = state.entities.users[state.session.id];
+  const currentTeamId = ownProps.match.params.teamId;
 
   return {
     loggedIn,
     currentUser,
     teams,
+    currentTeamId,
   };
 };
 
 const mdp = dispatch => {
   return {
-    logout: () => dispatch(logout()),
-    getUser: id => dispatch(getUser(id)),
+    getTeam: id => dispatch(getTeam(id)),
   };
 };
 
-export default connect(msp, mdp)(Account);
+export default connect(msp, mdp)(Team);

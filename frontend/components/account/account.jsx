@@ -3,6 +3,7 @@ import ButtonLink from '../general/button_link';
 import SubmitButton from '../general/submit_button';
 import ImageButton from '../general/image_button';
 import TeamListItem from '../teams/team_list_item';
+import Statistic from '../general/statistic';
 
 class Account extends React.Component {
 
@@ -58,11 +59,11 @@ class Account extends React.Component {
 
     return (
       <div className='info-container' id='account-stats'>
-        { this.statistic('Total games played (this season)', user.matchesPlayed)}
-        { this.statistic('Wins', user.matchesWon, true)}
-        { this.statistic('Losses', user.matchesLost)}
-        { this.statistic('Ties', user.matchesTied, true)}
-        { this.statistic('Win percentage', winPercentage)}
+        <Statistic name='Total games played (this season)' stat={ user.matchesPlayed }/>
+        <Statistic name='Wins' stat={ user.matchesWon } grey={ true }/>
+        <Statistic name='Losses' stat={ user.matchesLost } />
+        <Statistic name='Ties' stat={ user.matchesTied } grey={ true }/>
+        <Statistic name='Win percentage' stat={ winPercentage }/>
       </div>
     );
   }
@@ -90,18 +91,6 @@ class Account extends React.Component {
 
   retiredTeams() {
     return <h2>Retired teams</h2>;
-  }
-
-  statistic(name, stat, grey) {
-    let klass = 'stat-container';
-    if (grey) klass += ' grey';
-
-    return (
-      <div className={ klass }>
-        <div>{ name }</div>
-        <div>{ stat }</div>
-      </div>
-    );
   }
 
 }

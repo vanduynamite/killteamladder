@@ -10,8 +10,10 @@ import Main from './main/main_container';
 import Account from './account/account_container';
 import AddMatch from './match/add_match_container';
 import NewTeam from './teams/new_team_container';
+import Team from './teams/team_container';
 
 export default () => {
+
   return (
     <>
       <Background />
@@ -22,6 +24,7 @@ export default () => {
         <ProtectedRoute path='/account' component={ Account } />
         <ProtectedRoute path='/match/new' component={ AddMatch } />
         <ProtectedRoute path='/team/new' component={ NewTeam } />
+        <Route path='/team/:teamId' component={ Team } />
         <Route path='/' component={ Main } />
       </Switch>
     </>

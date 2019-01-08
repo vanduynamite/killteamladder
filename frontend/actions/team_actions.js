@@ -42,3 +42,9 @@ export const getTeams = () => dispatch => {
     payload => dispatch(receiveTeams(payload))
   );
 };
+
+export const getTeam = id => dispatch => {
+  return TeamAPI.getTeam(id).then(
+    payload => dispatch(receiveTeams(payload))
+  );
+};
