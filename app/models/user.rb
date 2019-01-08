@@ -22,6 +22,9 @@ class User < ApplicationRecord
 
   has_many :sessions
   has_many :teams
+  has_many :matches,
+    through: :teams,
+    source: :matchups
 
   attr_reader :password
 

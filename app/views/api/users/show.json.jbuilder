@@ -1,5 +1,5 @@
-json.partial! 'api/users/user.json.jbuilder', user: @user
+json.partial! 'api/users/user_details.json.jbuilder', user: @user, matches: @matches
 
 @teams.each do |team|
-  json.partial! 'api/teams/team.json.jbuilder', team: team
+  json.partial! 'api/teams/team_basic.json.jbuilder', team: team
 end

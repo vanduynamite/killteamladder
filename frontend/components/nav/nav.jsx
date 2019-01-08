@@ -46,7 +46,7 @@ const accountAndMatchButtons = () => {
       <Link to='/account'>
         <img src={ window.account } className='img-button' />
       </Link>
-      <Link to='/match'>
+      <Link to='/match/new'>
         <img src={ window.add } className='img-button' />
       </Link>
     </div>

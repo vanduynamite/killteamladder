@@ -4,6 +4,7 @@ class Api::UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
     @teams = @user.teams
+    @matches = @user.matches
 
     puts @teams
 
@@ -27,6 +28,17 @@ class Api::UsersController < ApplicationController
 
       login!(@user)
       render 'api/users/session.json.jbuilder'
+    else
+      render json: @user.errors.full_messages, status: 422
+    end
+  end
+
+  def update
+    return false unless authorized_user?(params[:id])
+    @user = User.find_by(id: params[:id])
+
+    if @user.update(user_params)
+      render 'api/users/show.json.jbuilder'
     else
       render json: @user.errors.full_messages, status: 422
     end

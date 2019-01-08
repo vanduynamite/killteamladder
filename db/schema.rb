@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_07_034113) do
+ActiveRecord::Schema.define(version: 2019_01_08_192207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,19 @@ ActiveRecord::Schema.define(version: 2019_01_07_034113) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "matchups", force: :cascade do |t|
+    t.integer "team_id", null: false
+    t.integer "start_points", null: false
+    t.integer "end_points", null: false
+    t.integer "result", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "matchup_id"
+    t.integer "season", default: 1, null: false
+    t.index ["season"], name: "index_matchups_on_season"
+    t.index ["team_id"], name: "index_matchups_on_team_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -36,6 +49,7 @@ ActiveRecord::Schema.define(version: 2019_01_07_034113) do
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "points", default: 0, null: false
     t.index ["team_name"], name: "index_teams_on_team_name", unique: true
     t.index ["user_id"], name: "index_teams_on_user_id"
   end

@@ -51,13 +51,18 @@ class Account extends React.Component {
   }
 
   accountStats() {
+    const user = this.props.currentUser;
+    let winPercentage = Math.round((user.matchesWon / user.matchesPlayed) * 10000) / 100;
+    winPercentage = winPercentage.toString() + '%';
+    if (winPercentage === 'NaN%') winPercentage = 'Play a game!';
+
     return (
       <div className='info-container' id='account-stats'>
-        { this.statistic('Total games played (all time)', 16)}
-        { this.statistic('Wins', 8, true)}
-        { this.statistic('Losses', 6)}
-        { this.statistic('Ties', 2, true)}
-        { this.statistic('Win percentage', '56.25%')}
+        { this.statistic('Total games played (this season)', user.matchesPlayed)}
+        { this.statistic('Wins', user.matchesWon, true)}
+        { this.statistic('Losses', user.matchesLost)}
+        { this.statistic('Ties', user.matchesTied, true)}
+        { this.statistic('Win percentage', winPercentage)}
       </div>
     );
   }

@@ -20,7 +20,7 @@ export default () => {
         <AuthRoute exact path='/login' component={ Login } />
         <AuthRoute exact path='/signup' component={ Signup } />
         <ProtectedRoute path='/account' component={ Account } />
-        <ProtectedRoute path='/match' component={ AddMatch } />
+        <ProtectedRoute path='/match/new' component={ AddMatch } />
         <ProtectedRoute path='/team/new' component={ NewTeam } />
         <Route path='/' component={ Main } />
       </Switch>

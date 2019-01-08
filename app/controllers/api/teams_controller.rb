@@ -8,7 +8,7 @@ class Api::TeamsController < ApplicationController
     @team = @user.teams.new(team_params)
 
     if @team.save
-      render 'api/teams/show.json.jbuilder'
+      render 'api/teams/create.json.jbuilder'
     else
       render json: @team.errors.full_messages, status: 422
     end
@@ -22,6 +22,10 @@ class Api::TeamsController < ApplicationController
   end
 
   def show
+    @team = Team.find_by(id: params[:id])
+    return false unless authorized_user?(@team.user_id)
+
+    
 
   end
 

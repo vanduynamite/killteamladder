@@ -9,8 +9,8 @@
 #  active     :boolean          default(TRUE), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  points     :integer          default(0), not null
 #
-
 
 class Team < ApplicationRecord
   FACTION_LIST = [
@@ -40,5 +40,7 @@ class Team < ApplicationRecord
   validates :faction, :inclusion=> { :in => FACTION_LIST }
 
   belongs_to :user
+
+  has_many :matchups
 
 end
