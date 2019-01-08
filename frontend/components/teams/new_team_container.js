@@ -13,7 +13,7 @@ const msp = state => {
 
 const mdp = dispatch => {
   return {
-    newTeam: team => dispatch(newTeam(team)),
+    newTeam: (team, historyPush) => dispatch(newTeam(team, historyPush)),
   };
 };
 

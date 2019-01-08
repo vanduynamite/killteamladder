@@ -27,9 +27,12 @@ export const clearTeamErrors = () => {
 
 
 
-export const newTeam = team => dispatch => {
+export const newTeam = (team, historyPush) => dispatch => {
   return TeamAPI.newTeam(team).then(
-    payload => dispatch(receiveTeams(payload)),
+    payload => {
+      dispatch(receiveTeams(payload));
+      historyPush('/account');
+    },
     errors => dispatch(receiveTeamErrors(errors))
   );
 };

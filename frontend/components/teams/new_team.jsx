@@ -18,7 +18,7 @@ class NewTeam extends React.Component {
     e.preventDefault();
     console.log(this.state);
     if (this.formValid) {
-      this.props.newTeam(this.state);
+      this.props.newTeam(this.state, this.props.history.push);
       // this.props.history.push('/account');
     }
   }
