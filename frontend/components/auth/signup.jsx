@@ -99,7 +99,8 @@ class SignupForm extends React.Component {
   }
 
   errorSection() {
-    const errors = Object.values(this.props.errors);
+    const errors = Object.values(this.props.errors).map(error =>
+      <div key={ error }>{ error }</div>);
 
     if (errors.length === 0) {
       return (<></>);

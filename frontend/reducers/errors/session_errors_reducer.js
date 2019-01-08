@@ -33,6 +33,8 @@ const errorFieldMap = {
   "Password and email do not match": "password",
   "Password is too short (minimum is 6 characters)": "password",
   "Passwords do not match": "password",
+  "First name is too long (maximum is 20 characters)": "firstName",
+  "Last name is too long (maximum is 20 characters)": "lastName",
 };
 
 export default sessionErrorsReducer;

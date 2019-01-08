@@ -34,7 +34,8 @@ export default function(fieldName, label, type, ctx, optionsList) {
       id={ fieldName }
       className={ inError ? 'error' : '' }
       onChange={ ctx.updateField(fieldName) }
-      value={ ctx.state[fieldName] }></input>;
+      value={ ctx.state[fieldName] }
+      maxLength={ fieldName === 'email' ? 100 : 20 } />;
 
   }
 

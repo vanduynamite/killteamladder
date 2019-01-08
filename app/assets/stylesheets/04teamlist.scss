@@ -1,5 +1,5 @@
 .team-list-item {
- height: 56px;
+ height: 58px;
  width: 100%;
  position: relative;
  margin-bottom: 6px;
@@ -63,6 +63,9 @@
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.25px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .team-names.owned h2 {
