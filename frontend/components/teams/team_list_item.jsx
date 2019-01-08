@@ -8,13 +8,13 @@ export default function({ team, owner, currentUserId }) {
     <div className={ `team-list-item ${owned}` }>
       <div className={ `team-names ${owned}` }>
         <h2>{ team.teamName }</h2>
-        <div>
+        <div className={ 'team-faction-and-owner' }>
           <div>{ team.faction }</div>
-          <div>{ ownerName }</div>
+          <div className={ 'owner' }>{ ownerName }</div>
         </div>
       </div>
       <div className={ `team-rank ${owned}` }>
-      { team.id }
+        { team.id }
       </div>
     </div>
   );

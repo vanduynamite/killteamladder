@@ -14,7 +14,7 @@
 
 class Team < ApplicationRecord
   validates :faction, :team_name, presence: true
-  validates :team_name, uniqueness: true, length: { maximum: 20 }
+  validates :team_name, uniqueness: true, length: { maximum: 40 }
 
   belongs_to :user
 
