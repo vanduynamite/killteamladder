@@ -1,5 +1,6 @@
 .team-list-item {
  width: 100%;
+ max-width: 100%;
  position: relative;
  margin-bottom: 6px;
 }
@@ -52,6 +53,9 @@
 .team-names h2 {
   margin: 0px;
   color: #A70300;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: pre-line;
 }
 
 .team-faction-and-owner {

@@ -33,7 +33,6 @@ class Team < ApplicationRecord
     'T\'au Empire',
     'Thousand Sons',
     'Tyranids',
-    'ass-deptus ass-farties',
   ]
 
   validates :faction, :team_name, presence: true
