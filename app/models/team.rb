@@ -43,4 +43,20 @@ class Team < ApplicationRecord
 
   has_many :matchups
 
+  def plays
+    self.matchups.where(season: Matchup.season).count
+  end
+
+  def wins
+    self.matchups.where(result: 1, season: Matchup.season).count
+  end
+
+  def losses
+    self.matchups.where(result: -1, season: Matchup.season).count
+  end
+
+  def ties
+    self.matchups.where(result: 0, season: Matchup.season).count
+  end
+
 end

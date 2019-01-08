@@ -6,8 +6,6 @@ class Api::UsersController < ApplicationController
     @teams = @user.teams
     @matches = @user.matches
 
-    puts @teams
-
     if @user
       render 'api/users/show.json.jbuilder'
     else

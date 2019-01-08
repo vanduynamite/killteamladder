@@ -6,9 +6,9 @@ json.users do
     # json.email user.email # commented out for privacy for now
 
     # n+1 going on here
-    json.matchesPlayed matches.count
-    json.matchesWon matches.where(result: 1).count
-    json.matchesLost matches.where(result: -1).count
-    json.matchesTied matches.where(result: 0).count
+    json.matchesPlayed user.plays
+    json.matchesWon user.wins
+    json.matchesLost user.losses
+    json.matchesTied user.ties
   end
 end

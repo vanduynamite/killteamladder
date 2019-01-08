@@ -23,9 +23,13 @@ class Api::TeamsController < ApplicationController
 
   def show
     @team = Team.find_by(id: params[:id])
-    return false unless authorized_user?(@team.user_id)
+    @matchups = @team.matchups
 
-    
+    if @team
+      render 'api/teams/show.json.jbuilder', status: 200
+    else
+      render json: ['Team not found.'], status: 404
+    end
 
   end
 

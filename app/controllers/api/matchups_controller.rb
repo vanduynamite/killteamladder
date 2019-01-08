@@ -8,21 +8,22 @@ class Api::MatchupsController < ApplicationController
 
     @team2 = Team.find_by(id: matchup_params.opponent_team_id)
 
+    # TODO: check in here for no recent repeats
+    # and that teams have different owners
+
     matchup1 = @team1.matchups.new(
-      start_points: @team1.points,
       result: matchup_params.result,
     )
 
     matchup2 = @team2.matchups.new(
-      start_points: @team2.points,
       result: matchup_params.result * -1,
       opposite: matchup1,
     )
 
     matchup1.opposite = matchup2
 
-    matchup1.calculate_point_transfer(matchup2.start_points)
-    matchup2.calculate_point_transfer(matchup1.start_points)
+    matchup1.calculate_end_points!
+    matchup2.calculate_end_points!
 
     @team1.points = matchup1.end_points
     @team2.points = matchup2.end_points

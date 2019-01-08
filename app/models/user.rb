@@ -52,6 +52,22 @@ class User < ApplicationRecord
     self.sessions.find_by(token: old_session_token).destroy
   end
 
+  def plays
+    self.matches.where(season: Matchup.season).count
+  end
+
+  def wins
+    self.matches.where(result: 1, season: Matchup.season).count
+  end
+
+  def losses
+    self.matches.where(result: -1, season: Matchup.season).count
+  end
+
+  def ties
+    self.matches.where(result: 0, season: Matchup.season).count
+  end
+
   private
 
   def create_session!
