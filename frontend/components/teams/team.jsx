@@ -2,8 +2,8 @@ import React from 'react';
 import Statistic from '../general/statistic';
 import ImageButton from '../general/image_button';
 import ButtonLink from '../general/button_link';
+import MatchListItem from '../match/match_list_item';
 // import SubmitButton from '../general/submit_button';
-// import TeamListItem from '../teams/team_list_item';
 
 class Account extends React.Component {
 
@@ -16,7 +16,6 @@ class Account extends React.Component {
   }
 
   render() {
-
     return (
       <div className='frame'>
         <h1>
@@ -28,39 +27,39 @@ class Account extends React.Component {
         { this.matches() }
       </div>
     );
-    // { this.teamDetails() }
-    // { this.retiredTeams() }
-    // { SubmitButton('Log out', true, this.props.logout)}
   }
 
   // subcomponents
 
   teamDetails() {
-    const team = this.props.teams[this.props.currentTeamId];
-    const editLink = this.props.currentUser.id
+    if (!this.props.currentTeam) return;
 
-    if (team === undefined) return <></>;
+    const editLink = this.props.ownerViewing ?
+        <ImageButton
+          path={ `/team/${this.props.currentTeamId}/edit` }
+          image={ window.edit } /> : <></>;
+
     return (
       <div className='info-container' id='account-details'>
         <div id='account-names'>
-          { team.teamName }
+          { this.props.currentTeam.teamName }
           <br></br>
-          { team.faction }
+          { this.props.currentTeam.faction }
         </div>
         <div>
-          { ImageButton(`/team/${team.id}/edit`, window.edit) }
+          { editLink }
         </div>
       </div>
     );
   }
 
   teamStats() {
-    const team = this.props.teams[this.props.currentTeamId];
-    if (team === undefined) return <></>;
+    if (!this.props.currentTeam) return;
+    const team = this.props.currentTeam;
 
-  let winPercentage = Math.round((team.matchesWon / team.matchesPlayed) * 10000) / 100;
-    winPercentage = winPercentage.toString() + '%';
-    if (winPercentage === 'NaN%') winPercentage = 'Play a game!';
+    let winPercentage = Math.round((team.matchesWon / team.matchesPlayed) * 10000) / 100;
+      winPercentage = winPercentage.toString() + '%';
+      if (winPercentage === 'NaN%') winPercentage = 'Play a game!';
 
     return (
       <div className='info-container' id='account-stats'>
@@ -74,19 +73,25 @@ class Account extends React.Component {
   }
 
   matches() {
-    // const matchList = Object.values(this.props.teams).map(
-    //   team => {
-    //     if (team.userId === this.props.currentUser.id) return (
-    //       <TeamListItem
-    //         key={ team.id }
-    //         team={ team }
-    //         owner={ this.props.currentUser }
-    //         currentUserId={ this.props.currentUser.id }/>
-    //     );
-    //   }
-    // );
+    if (!this.props.currentTeam) return;
 
-    const matchList = <></>;
+    const matchList = this.props.currentTeam.matchIds.map(
+      id => {
+        const match = this.props.matches[id];
+        const team = this.props.teams[match.opposingTeamId];
+        const user = this.props.users[team.userId];
+
+        return <MatchListItem
+          key={ id }
+          match={ match }
+          team={ team }
+          user={ user }
+          ownerViewing= { this.props.ownerViewing }
+          currentUser={ this.props.currentUser } />;
+      }
+    );
+
+    console.log(matchList);
 
     return (
       <div id='my-teams'>

@@ -1,4 +1,4 @@
-json.matchups do
+json.matches do
   json.set! matchup.id do
     json.id matchup.id
     json.result matchup.result

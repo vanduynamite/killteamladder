@@ -45,7 +45,7 @@ class Account extends React.Component {
           { this.props.currentUser.email }
         </div>
         <div>
-          { ImageButton('/account/edit', window.edit) }
+          <ImageButton path='/account/edit' image={ window.edit } />
         </div>
       </div>
     );

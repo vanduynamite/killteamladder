@@ -75,3 +75,21 @@
 .team-names.owned h2 {
   color: #2E3A42;
 }
+
+
+// matches
+
+.match-names {
+  // position: relative;
+  // top: 0px;
+  // left: 16px;
+
+  display: flex;
+  flex-direction: column;
+
+  width: calc(100% - 0px);
+  border: 1px solid #D5D9E0;
+  // padding: 8px 8px 8px 32px;
+
+  background: #FFFFFF;
+}

@@ -21,10 +21,10 @@ const navButtons = (path, loggedIn) => {
   switch (path) {
     case '/login':
     case '/signup':
-      return ImageButton('/', window.close);
+      return <ImageButton path='/' image={ window.close } />;
 
     case '/team/new':
-      return ImageButton('/account', window.close);
+      return <ImageButton path='/account' image={ window.close } />;
 
     case '/':
       if (loggedIn) {
@@ -35,7 +35,7 @@ const navButtons = (path, loggedIn) => {
       break;
 
     default:
-      return ImageButton('/', window.close);
+      return <ImageButton path='/' image={ window.close } />;
 
   }
 };
