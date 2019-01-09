@@ -4,6 +4,7 @@ json.teams do
     json.faction team.faction
     json.teamName team.team_name
     json.userId team.user_id
+    json.points team.points
     json.matchIds team.matchups.map { |m| m.id }
 
     json.matchesPlayed team.plays

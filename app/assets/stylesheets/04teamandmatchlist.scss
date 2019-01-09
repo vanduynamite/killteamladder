@@ -46,11 +46,11 @@
   background: #FFFFFF;
 }
 
-.team-names.owned {
+.team-names.owned, .match-names.owned {
   border: 1px solid #2E3A42;
 }
 
-.team-names h2 {
+.team-names h2, .match-names h2 {
   margin: 0px;
   color: #A70300;
   text-overflow: ellipsis;
@@ -72,7 +72,7 @@
   text-align: right;
 }
 
-.team-names.owned h2 {
+.team-names.owned h2, .match-names.owned h2 {
   color: #2E3A42;
 }
 
@@ -87,9 +87,37 @@
   display: flex;
   flex-direction: column;
 
-  width: calc(100% - 0px);
+  width: calc(100% - 16px);
   border: 1px solid #D5D9E0;
-  // padding: 8px 8px 8px 32px;
+  padding: 8px 8px 8px 8px;
 
   background: #FFFFFF;
+}
+
+.date {
+ color: #191C24;
+ line-height: 16px;
+ letter-spacing: 0.25px;
+ font-weight: 500;
+ margin-bottom: 8px;
+}
+
+.match-results-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.match-results {
+  display: flex;
+  flex-direction: column;
+  color: #191C24;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.25px;
+}
+
+.match-results-container img {
+  margin: 0;
 }

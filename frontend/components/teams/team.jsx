@@ -63,6 +63,8 @@ class Account extends React.Component {
 
     return (
       <div className='info-container' id='account-stats'>
+        <Statistic name='Current standing' stat={ team.id } bold={ true }/>
+        <Statistic name='Total points' stat={ team.points } grey={ true } bold={ true }/>
         <Statistic name='Games played (this season)' stat={ team.matchesPlayed }/>
         <Statistic name='Wins' stat={ team.matchesWon } grey={ true }/>
         <Statistic name='Losses' stat={ team.matchesLost }/>
@@ -73,28 +75,28 @@ class Account extends React.Component {
   }
 
   matches() {
-    if (!this.props.currentTeam) return;
+    if (!this.props.currentTeam || !this.props.currentTeam.matchIds) return;
 
     const matchList = this.props.currentTeam.matchIds.map(
       id => {
         const match = this.props.matches[id];
-        const team = this.props.teams[match.opposingTeamId];
-        const user = this.props.users[team.userId];
+        const team = this.props.teams[match.teamId];
+        const opposingTeam = this.props.teams[match.opposingTeamId];
+        const opponent = this.props.users[opposingTeam.userId];
 
         return <MatchListItem
           key={ id }
           match={ match }
           team={ team }
-          user={ user }
+          opposingTeam={ opposingTeam }
+          opponent={ opponent }
           ownerViewing= { this.props.ownerViewing }
           currentUser={ this.props.currentUser } />;
       }
     );
 
-    console.log(matchList);
-
     return (
-      <div id='my-teams'>
+      <div id='main-list'>
         <h2>Matches</h2>
         { matchList }
       </div>

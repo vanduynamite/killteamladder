@@ -9,7 +9,7 @@
 # Team.delete_all
 
 # t1 = Team.first
-# t2 = Team.third
+# t2 = Team.fourth
 #
 # m1 = t1.matchups.new(
 #   result: -1,

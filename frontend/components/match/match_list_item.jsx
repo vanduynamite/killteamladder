@@ -1,25 +1,64 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ImageButton from '../general/image_button';
 
-export default function({ match, team, user, currentUser, ownerViewing }) {
+export default function({ match, team, opposingTeam, opponent, currentUser, ownerViewing }) {
+  const dateString = new Date(match.date).toDateString();
 
   const opponentViewing = currentUser ?
-    team.userId === currentUser.id :
+    opposingTeam.userId === currentUser.id :
     false;
 
   const owned = opponentViewing ? 'owned' : '';
+  const opponentName = `${opponent.firstName} ${opponent.lastName}`;
 
-  const opponentName = `${user.firstName} ${user.lastName}`;
+  let editButton = <></>;
+  if (opponentViewing || ownerViewing) {
+    editButton = <ImageButton path={ `/match/${match.id}/edit` } image={ window.edit } />;
+  }
 
   return (
     <div className={ `team-list-item ${owned}` }>
+      <div className='date'>{ dateString }</div>
       <div className={ `match-names ${owned}` }>
-        <h2>{ team.teamName }</h2>
+        <h2>{ opposingTeam.teamName }</h2>
         <div className={ 'team-faction-and-owner' }>
-          <div>{ team.faction }</div>
+          <div>{ opposingTeam.faction }</div>
           <div className={ 'owner' }>{ opponentName }</div>
+        </div>
+        <div className='match-results-container'>
+          <div className='match-results'>
+            <div>{ results(match.result) }</div>
+            <div>{ pointChange(match.endPoints - match.startPoints, team) }</div>
+            <div>{ pointChange(match.oppEndPoints - match.oppStartPoints, opposingTeam) }</div>
+          </div>
+          { editButton }
         </div>
       </div>
     </div>
   );
+}
+
+const results = (result, faction, opposingFaction) => {
+  switch (result) {
+    case 1:
+      return 'Victory!';
+
+    case -1:
+      return 'Defeat...';
+
+    case 0:
+      return 'Evenly matched'
+
+    default:
+      return 'Error :('
+  };
+}
+
+const pointChange = (pointDiff, team) => {
+  if (pointDiff >= 0) {
+    return `${team.teamName} gained ${pointDiff} points`;
+  } else if (pointDiff < 0) {
+    return `${team.teamName} lost ${Math.abs(pointDiff)} points`;
+  }
 }

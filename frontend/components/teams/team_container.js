@@ -6,14 +6,15 @@ const msp = (state, ownProps) => {
   const teams = state.entities.teams;
   const matches = state.entities.matches;
   const users = state.entities.users;
-  
+
   let currentUser;
   if (state.session.id) currentUser = state.entities.users[state.session.id];
 
+  let currentTeam;
   const currentTeamId = ownProps.match.params.teamId;
-  const currentTeam = state.entities.teams[currentTeamId];
+  currentTeam = state.entities.teams[currentTeamId];
 
-  const ownerViewing = currentUser ?
+  const ownerViewing = currentUser && currentTeam ?
     currentUser.id === currentTeam.userId :
     false;
 

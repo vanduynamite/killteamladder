@@ -80,7 +80,7 @@ class Account extends React.Component {
     );
 
     return (
-      <div id='my-teams'>
+      <div id='main-list'>
         <h2>My teams</h2>
         { teamList }
       </div>
