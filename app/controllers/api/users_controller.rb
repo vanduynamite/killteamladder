@@ -4,7 +4,6 @@ class Api::UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
     @teams = @user.teams
-    @matches = @user.matches
 
     if @user
       render 'api/users/show.json.jbuilder'

@@ -17,10 +17,10 @@
 #
 # m2 = t2.matchups.new(
 #   result: m1.result * -1,
-#   opposite: m1,
+#   opposite_matchup: m1,
 # )
 #
-# m1.opposite = m2
+# m1.opposite_matchup = m2
 #
 # m1.calculate_end_points!
 # m2.calculate_end_points!

@@ -69,16 +69,14 @@ class Account extends React.Component {
   }
 
   teamDetails() {
-    const teamList = Object.values(this.props.teams).map(
-      team => {
-        if (team.user === this.props.currentUser.id) return (
-          <TeamListItem
-            key={ team.id }
-            team={ team }
-            owner={ this.props.currentUser }
-            currentUserId={ this.props.currentUser.id }/>
-        );
-      }
+    if (!this.props.currentUser.teamIds) return;
+
+    const teamList = this.props.currentUser.teamIds.map(
+      teamId => <TeamListItem
+        key={ teamId }
+        team={ this.props.teams[teamId] }
+        owner={ this.props.currentUser }
+        currentUserId={ this.props.currentUser.id }/>
     );
 
     return (

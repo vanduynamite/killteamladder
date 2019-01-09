@@ -8,7 +8,7 @@ const msp = state => {
   const teams = state.entities.teams;
   let currentUser;
   if (loggedIn) currentUser = state.entities.users[state.session.id];
-
+  
   return {
     loggedIn,
     currentUser,

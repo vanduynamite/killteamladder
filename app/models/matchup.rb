@@ -25,12 +25,13 @@ class Matchup < ApplicationRecord
   validates :team_id, :start_points, :end_points, :result, presence: true
   validates :result, :inclusion=> { :in => RESULTS }
 
-  has_one :opposite,
+  belongs_to :opposite_matchup,
     class_name: :Matchup,
-    foreign_key: :matchup_id
+    foreign_key: :matchup_id,
+    dependent: :destroy
 
-  has_one :opponent,
-    through: :opposite,
+  has_one :opposing_team,
+    through: :opposite_matchup,
     source: :team
 
   belongs_to :team,
@@ -40,7 +41,7 @@ class Matchup < ApplicationRecord
   after_initialize :add_start_points, :add_season
 
   def add_start_points
-    self.start_points = self.team.points
+    self.start_points = self.team.points unless self.start_points
   end
 
   def add_season
@@ -60,19 +61,19 @@ class Matchup < ApplicationRecord
   end
 
   def calculate_win
-    point_diff = [(self.opposite.start_points - self.start_points), 0].max
+    point_diff = [(self.opposite_matchup.start_points - self.start_points), 0].max
     point_xfer = (point_diff + 1) / 2
     WIN_POINTS + point_xfer
   end
 
   def calculate_loss
-    point_diff = [(self.start_points - self.opposite.start_points), 0].max
+    point_diff = [(self.start_points - self.opposite_matchup.start_points), 0].max
     point_xfer = (point_diff + 1) / 2
     LOSS_POINTS - point_xfer
   end
 
   def calculate_tie
-    point_diff = (self.opposite.start_points - self.start_points)
+    point_diff = (self.opposite_matchup.start_points - self.start_points)
     point_xfer = ((point_diff) / 4.0).round
     TIE_POINTS + point_xfer
   end

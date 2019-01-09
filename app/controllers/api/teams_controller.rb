@@ -22,8 +22,10 @@ class Api::TeamsController < ApplicationController
   end
 
   def show
-    @team = Team.find_by(id: params[:id])
-    @matchups = @team.matchups
+    @team = Team.includes(:matchups).find_by(id: params[:id])
+    @matchups = @team.matchups.includes(:opposite_matchup)
+    @teams = Team.all
+    @users = User.all
 
     if @team
       render 'api/teams/show.json.jbuilder', status: 200

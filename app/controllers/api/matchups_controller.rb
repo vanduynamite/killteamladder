@@ -17,10 +17,10 @@ class Api::MatchupsController < ApplicationController
 
     matchup2 = @team2.matchups.new(
       result: matchup_params.result * -1,
-      opposite: matchup1,
+      opposite_matchup: matchup1,
     )
 
-    matchup1.opposite = matchup2
+    matchup1.opposite_matchup = matchup2
 
     matchup1.calculate_end_points!
     matchup2.calculate_end_points!
