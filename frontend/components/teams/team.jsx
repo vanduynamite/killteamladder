@@ -3,7 +3,6 @@ import Statistic from '../general/statistic';
 import ImageButton from '../general/image_button';
 import ButtonLink from '../general/button_link';
 import MatchListItem from '../match/match_list_item';
-// import SubmitButton from '../general/submit_button';
 
 class Account extends React.Component {
 
@@ -16,6 +15,14 @@ class Account extends React.Component {
   }
 
   render() {
+
+    let logMatchButton;
+    if (this.props.currentTeam && this.props.currentUser) {
+      if (this.props.currentTeam.userId === this.props.currentUser.id) {
+        logMatchButton = ButtonLink('Log a match', '/match/new', 'submit-active');
+      }
+    }
+
     return (
       <div className='frame'>
         <h1>
@@ -23,7 +30,7 @@ class Account extends React.Component {
         </h1>
         { this.teamDetails() }
         { this.teamStats() }
-        { ButtonLink('Log a match', '/match/new', 'submit-active')}
+        { logMatchButton }
         { this.matches() }
       </div>
     );
@@ -34,17 +41,36 @@ class Account extends React.Component {
   teamDetails() {
     if (!this.props.currentTeam) return;
 
-    const editLink = this.props.ownerViewing ?
-        <ImageButton
-          path={ `/team/${this.props.currentTeamId}/edit` }
-          image={ window.edit } /> : <></>;
+    const team = this.props.currentTeam;
+    const owner = this.props.users[team.userId];
+    const fullName = `${owner.firstName} ${owner.lastName}`;
+
+    let editLink;
+    let owned = '';
+    let bottomLine =
+      <div className={ 'team-header-faction owned' }>
+        <div>{ team.faction }</div>
+      </div>;
+    if (this.props.ownerViewing) {
+      editLink = <ImageButton
+        path={ `/team/${this.props.currentTeamId}/edit` }
+        image={ window.edit_dark } />;
+      owned = ' owned';
+    } else {
+      bottomLine =
+      <div className={ 'team-header-faction owned' }>
+        <div>{ team.faction }</div>
+        <div>{ fullName }</div>
+      </div>;
+    }
 
     return (
-      <div className='info-container' id='account-details'>
-        <div id='account-names'>
-          { this.props.currentTeam.teamName }
-          <br></br>
-          { this.props.currentTeam.faction }
+      <div className={ 'info-container' + owned } id='team-details'>
+        <div className={ 'team-header' + owned }>
+          <div className={ 'team-header-name' + owned }>
+            { team.teamName }
+          </div>
+          { bottomLine }
         </div>
         <div>
           { editLink }
@@ -63,7 +89,7 @@ class Account extends React.Component {
 
     return (
       <div className='info-container' id='account-stats'>
-        <Statistic name='Current standing' stat={ team.id } bold={ true }/>
+        <Statistic name='Current standing' stat={ team.rank } bold={ true }/>
         <Statistic name='Total points' stat={ team.points } grey={ true } bold={ true }/>
         <Statistic name='Games played (this season)' stat={ team.matchesPlayed }/>
         <Statistic name='Wins' stat={ team.matchesWon } grey={ true }/>

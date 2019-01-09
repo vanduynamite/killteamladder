@@ -16,7 +16,7 @@ export default function({ team, owner, currentUserId }) {
           </div>
         </div>
         <div className={ `team-rank ${owned}` }>
-          { team.id }
+          { team.rank }
         </div>
       </div>
     </Link>

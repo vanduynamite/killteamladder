@@ -7,6 +7,8 @@ class AddMatch extends React.Component {
   }
 
   render() {
+
+
     const greeting = this.props.loggedIn ?
       ` ${this.props.currentUser.firstName}` :
       '';

@@ -1,3 +1,55 @@
+// team account names
+
+#team-details {
+  margin-top: 24px;
+  padding: 8px 0px;
+}
+
+#team-details img {
+  margin-right: 8px;
+}
+
+.info-container.owned {
+  color: #FFFFFF;
+  background: #2E3A42;
+}
+
+.team-header {
+  width: 100%;
+  margin: 0px 8px;
+  line-height: 16px;
+}
+
+.team-header-name {
+  color: #A70300;
+  font-family: 'Black Ops One', cursive;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.team-header-name.owned {
+  color: #FFFFFF;
+}
+
+.team-header-faction {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.team-header-faction div {
+  color: #6B7D8C;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.team-header-faction.owned {
+  color: #BDC1C6;
+}
+
+// team list item
 .team-list-item {
  width: 100%;
  max-width: 100%;
