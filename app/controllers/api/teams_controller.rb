@@ -6,6 +6,7 @@ class Api::TeamsController < ApplicationController
 
     @user = current_user
     @team = @user.teams.new(team_params)
+    @rankings = get_rankings
 
     if @team.save
       render 'api/teams/create.json.jbuilder'
@@ -17,6 +18,7 @@ class Api::TeamsController < ApplicationController
 
   def index
     @teams = Team.all.includes!(:user)
+    @rankings = get_rankings
 
     render 'api/teams/index.json.jbuilder'
   end
@@ -26,6 +28,7 @@ class Api::TeamsController < ApplicationController
     @matchups = @team.matchups.includes(:opposite_matchup)
     @teams = Team.all
     @users = User.all
+    @rankings = get_rankings
 
     if @team
       render 'api/teams/show.json.jbuilder', status: 200

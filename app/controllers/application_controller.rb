@@ -42,4 +42,11 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def get_rankings
+    results = {}
+    points = Team.pluck(:points).sort.reverse
+    points.each_with_index { |point, i| results[point] = i+1 unless results[point] }
+    results
+  end
+
 end

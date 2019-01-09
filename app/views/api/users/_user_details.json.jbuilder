@@ -5,7 +5,7 @@ json.users do
     json.lastName user.last_name
     # json.email user.email # commented out for privacy for now
 
-    json.teamIds teams.map { |t| t.id }
+    json.teamIds teams.sort_by { |t| t[:points] }.reverse.map { |t| t.id }
 
     # n+1 going on here
     json.matchesPlayed user.plays
@@ -14,3 +14,6 @@ json.users do
     json.matchesTied user.ties
   end
 end
+
+
+# ary.sort_by{ |a| a[:bar] }.reverse }

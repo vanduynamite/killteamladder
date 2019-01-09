@@ -4,6 +4,7 @@ class Api::UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
     @teams = @user.teams
+    @rankings = get_rankings
 
     if @user
       render 'api/users/show.json.jbuilder'
@@ -35,7 +36,7 @@ class Api::UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
 
     if @user.update(user_params)
-      render 'api/users/show.json.jbuilder'
+      render 'api/users/update.json.jbuilder'
     else
       render json: @user.errors.full_messages, status: 422
     end

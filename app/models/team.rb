@@ -59,8 +59,4 @@ class Team < ApplicationRecord
     self.matchups.where(result: 0, season: Matchup.season).count
   end
 
-  def rank
-    100 - self.id
-  end
-
 end

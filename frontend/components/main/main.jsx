@@ -16,34 +16,41 @@ class Main extends React.Component {
       ` ${this.props.currentUser.firstName}` :
       '';
 
-    greeting += '! Right now all teams are shown with their primary key rather than their ranking.';
-
     return (
       <div className='frame'>
         <h1>
           Rankings
         </h1>
-        { `Hi${greeting}` }
         { this.teamDetails() }
       </div>
     );
   }
 
   teamDetails() {
-    const users = this.props.users;
     const currentUserId = this.props.currentUser ?
       this.props.currentUser.id : 0;
 
-    const teamList = Object.values(this.props.teams).map(
-      team => <TeamListItem
-            key={ team.id }
+    const teams = this.props.teams;
+    const users = this.props.users;
+
+    const teamRecords = Object.values(teams).map(
+      team => [team.id, team.points]).sort(
+      (a, b) => b[1] - a[1]);
+
+    const teamList = teamRecords.map(
+      record => {
+        const id = record[0];
+        const team = teams[id];
+        const user = users[team.userId];
+        return <TeamListItem
+            key={ id }
             team={ team }
-            owner={ users[team.userId] }
-            currentUserId={ currentUserId }/>
-    );
+            owner={ user }
+            currentUserId={ currentUserId }/>;
+        });
 
     return (
-      <div id='main-list'>
+      <div id='ranking-list'>
         { teamList }
       </div>
     );
