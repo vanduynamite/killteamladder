@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function({ team, owner, currentUserId }) {
-  const owned = team.user === currentUserId ? ' owned' : '';
+  const owned = team.userId === currentUserId ? ' owned' : '';
   const ownerName = `${owner.firstName} ${owner.lastName}`;
 
   return (

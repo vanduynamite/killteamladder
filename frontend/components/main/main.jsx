@@ -38,7 +38,7 @@ class Main extends React.Component {
       team => <TeamListItem
             key={ team.id }
             team={ team }
-            owner={ users[team.user] }
+            owner={ users[team.userId] }
             currentUserId={ currentUserId }/>
     );
 

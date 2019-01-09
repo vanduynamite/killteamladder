@@ -76,7 +76,7 @@ class Account extends React.Component {
   matches() {
     // const matchList = Object.values(this.props.teams).map(
     //   team => {
-    //     if (team.user === this.props.currentUser.id) return (
+    //     if (team.userId === this.props.currentUser.id) return (
     //       <TeamListItem
     //         key={ team.id }
     //         team={ team }

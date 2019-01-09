@@ -3,7 +3,7 @@ json.teams do
     json.id team.id
     json.faction team.faction
     json.teamName team.team_name
-    json.user team.user_id
+    json.userId team.user_id
     json.matchupIds team.matchups.map { |m| m.id }
 
     json.matchesPlayed team.plays
