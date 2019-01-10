@@ -32,7 +32,8 @@ export const newTeam = (team, historyPush) => dispatch => {
   return TeamAPI.newTeam(team).then(
     payload => {
       dispatch(receiveTeams(payload));
-      historyPush('/account');
+      const teamId = Object.keys(payload.teams)[0];
+      historyPush(`/team/${teamId}`);
     },
     errors => dispatch(receiveTeamErrors(errors))
   );

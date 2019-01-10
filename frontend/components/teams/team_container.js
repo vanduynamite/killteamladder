@@ -1,5 +1,9 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { getTeam } from '../../actions/team_actions';
+import { setPathHistory,
+  clearPathHistory
+} from '../../actions/ui_actions';
 import Team from './team';
 
 const msp = (state, ownProps) => {
@@ -18,11 +22,16 @@ const msp = (state, ownProps) => {
     currentUser.id === currentTeam.userId :
     false;
 
+
+  let cameFromNewMatch;
+  if (state.ui.history) cameFromNewMatch = state.ui.history.match;
+
   return {
     currentUser,
     currentTeam,
     currentTeamId,
     ownerViewing,
+    cameFromNewMatch,
     teams,
     matches,
     users,
@@ -32,7 +41,9 @@ const msp = (state, ownProps) => {
 const mdp = dispatch => {
   return {
     getTeam: id => dispatch(getTeam(id)),
+    setPathHistory: data => dispatch(setPathHistory(data)),
+    clearPathHistory: () => dispatch(clearPathHistory()),
   };
 };
 
-export default connect(msp, mdp)(Team);
+export default withRouter(connect(msp, mdp)(Team));

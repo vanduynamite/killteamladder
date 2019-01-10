@@ -10,7 +10,9 @@ export default function({ match, team, opposingTeam, opponent, currentUser, owne
     false;
 
   const owned = opponentViewing ? 'owned' : '';
-  const opponentName = `${opponent.firstName} ${opponent.lastName}`;
+  const opponentName = currentUser ?
+    `${opponent.firstName} ${opponent.lastName}` :
+    '';
 
   let editButton = <></>;
   if (opponentViewing || ownerViewing) {
@@ -20,12 +22,15 @@ export default function({ match, team, opposingTeam, opponent, currentUser, owne
   return (
     <div className={ `team-list-item ${owned}` }>
       <div className='date'>{ dateString }</div>
+
       <div className={ `match-names ${owned}` }>
-        <h2>{ opposingTeam.teamName }</h2>
-        <div className={ 'team-faction-and-owner' }>
-          <div>{ opposingTeam.faction }</div>
-          <div className={ 'owner' }>{ opponentName }</div>
-        </div>
+        <Link to={ `/team/${ opposingTeam.id }` }>
+          <h2>{ opposingTeam.teamName }</h2>
+          <div className={ 'team-faction-and-owner' }>
+            <div>{ opposingTeam.faction }</div>
+            <div className={ 'owner' }>{ opponentName }</div>
+          </div>
+        </Link>
         <div className='match-results-container'>
           <div className='match-results'>
             <div>{ results(match.result) }</div>

@@ -11,7 +11,23 @@ class Account extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.cameFromNewMatch) {
+      this.props.setPathHistory({ team: this.props.currentTeamId });
+      this.props.history.push('/match/new');
+    }
     this.props.getTeam(this.props.currentTeamId);
+  }
+
+  componentDidUpdate(oldProps) {
+    if (this.props.currentTeamId !== oldProps.currentTeamId) {
+      this.props.getTeam(this.props.currentTeamId);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.history.location.pathname === '/match/new') {
+      this.props.setPathHistory({ team: this.props.currentTeamId });
+    }
   }
 
   render() {
@@ -43,7 +59,9 @@ class Account extends React.Component {
 
     const team = this.props.currentTeam;
     const owner = this.props.users[team.userId];
-    const fullName = `${owner.firstName} ${owner.lastName}`;
+    const fullName = this.props.currentUser ?
+      `${owner.firstName} ${owner.lastName}` :
+      '';
 
     let editLink;
     let owned = '';

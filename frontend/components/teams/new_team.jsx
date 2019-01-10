@@ -20,7 +20,9 @@ class NewTeam extends React.Component {
   }
 
   updateField(field) {
-    return e => this.setState({ [field]: e.target.value });
+    return e => {
+      if (e.target.value !== 'x') this.setState({ [field]: e.target.value });
+    };
   }
 
   formValid() {
@@ -61,7 +63,7 @@ class NewTeam extends React.Component {
 
   factionList() {
     return [
-      ['Select a faction', 'Select a faction'],
+      ['x', 'Select a faction'],
       ['Adeptus Astartes', 'Adeptus Astartes'],
       ['Adeptus Mechanicus', 'Adeptus Mechanicus'],
       ['Astra Militarum', 'Astra Militarum'],

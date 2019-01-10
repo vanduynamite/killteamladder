@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Field from '../general/field';
 import SelectList from '../general/select_list';
 import ButtonLink from '../general/button_link';
@@ -20,13 +21,37 @@ class NewMatch extends React.Component {
     this.props.getUser(this.props.currentUser.id);
   }
 
+  componentDidUpdate(oldProps) {
+    const myTeams = this.teamList();
+
+    if (this.props.cameFromTeamId && myTeams.length > 2) {
+      this.setState({ teamId: this.props.cameFromTeamId });
+      this.props.clearPathHistory();
+    }
+
+    if (myTeams.length >= 2 && myTeams.length <= 3 &&
+      this.state.teamId !== myTeams[1][0] && !this.props.cameFromTeamId) {
+      this.setState({ teamId: myTeams[1][0]});
+    }
+
+    if (this.state.teamId === 'new team') this.props.history.push('/team/new');
+  }
+
+  componentWillUnmount() {
+    if (this.props.history.location.pathname === '/team/new') {
+      this.props.setPathHistory({ match: true });
+    }
+  }
+
   submit(e) {
     e.preventDefault();
     if (this.formValid()) this.props.newMatch(this.state, this.props.history.push);
   }
 
   updateField(field) {
-    return e => this.setState({ [field]: e.target.value });
+    return e => {
+      if (e.target.value !== 'x') this.setState({ [field]: e.target.value });
+    };
   }
 
   formValid() {
@@ -79,18 +104,19 @@ class NewMatch extends React.Component {
   }
 
   teamList() {
-    const results = [['0', 'Select a team']];
+    const results = [['x', 'Select a team']];
     if (!this.props.currentUser.teamIds) return results;
     const teams = this.props.teams;
 
     this.props.currentUser.teamIds.forEach(
       id => results.push([id, teams[id].teamName]));
 
+    results.push(['new team', 'Create a team...']);
     return results;
   }
 
   opponentTeamList() {
-    const results = [['0', 'Select a team']];
+    const results = [['x', 'Select a team']];
     if (!this.props.teams || !this.props.currentUser.teamIds) return results;
     const myTeamIds = this.props.currentUser.teamIds;
     const teams = Object.values(this.props.teams);
