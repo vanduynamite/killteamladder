@@ -1,13 +1,14 @@
 
 export const newMatch = match => {
 
-  // opponent_team_id
-  // team_id
-  // result
+  match.team_id = match.teamId;
+  match.opponent_team_id = match.opponentTeamId;
+
+  console.log(match);
 
   return $.ajax({
     method: 'POST',
     url: '/api/matchups',
-    data: { match },
+    data: { matchup: match },
   });
 };

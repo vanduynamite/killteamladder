@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
 import NewMatch from './new_match';
 import { withRouter } from 'react-router-dom';
+import { getTeams } from '../../actions/team_actions';
 import { newMatch } from '../../actions/match_actions';
+import { getUser } from '../../actions/user_actions';
 
 const msp = state => {
   const loggedIn = state.session.id !== undefined;
@@ -21,6 +23,8 @@ const msp = state => {
 
 const mdp = dispatch => {
   return {
+    getTeams: () => dispatch(getTeams()),
+    getUser: id => dispatch(getUser(id)),
     newMatch: (match, historyPush) => dispatch(newMatch(match, historyPush)),
   };
 };

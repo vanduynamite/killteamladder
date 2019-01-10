@@ -21,6 +21,7 @@ const navButtons = (path, loggedIn) => {
   switch (path) {
     case '/login':
     case '/signup':
+    case '/match/new':
       return <ImageButton path='/' image={ window.close } />;
 
     case '/team/new':

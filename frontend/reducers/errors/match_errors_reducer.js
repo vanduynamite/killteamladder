@@ -23,10 +23,10 @@ const sessionErrorsReducer = (state = {}, action) => {
 };
 
 const errorFieldMap = {
-  "Your team is not included in the list": "teamName",
-  "You cannot log two matches in a row against the same opposing team": "opponentTeam",
-  "Opponent's team is not included in the list": "opponentTeam",
-  "You cannot match up against one of your own teams": "opponentTeam",
+  "Your team is not included in the list": "teamId",
+  "You cannot log two matches in a row against the same opposing team": "opponentTeamId",
+  "Opponent's team is not included in the list": "opponentTeamId",
+  "You cannot match up against one of your own teams": "opponentTeamId",
   "Matchup results are invalid": "result",
 };
 

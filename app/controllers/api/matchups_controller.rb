@@ -18,7 +18,7 @@ class Api::MatchupsController < ApplicationController
     end
 
     if @team1.user_id == @team2.user_id
-      render json: ['You cannot match up against one of your own teams.'], status: 422
+      render json: ['You cannot match up against one of your own teams'], status: 422
       return
     end
 
@@ -36,7 +36,7 @@ class Api::MatchupsController < ApplicationController
       return
     end
 
-    unless [-1, 0, 1].include?(matchup_params[:result])
+    unless ["-1", "0", "1"].include?(matchup_params[:result])
       render json: ['Matchup results are invalid'], status: 422
       return
     end

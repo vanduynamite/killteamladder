@@ -1,5 +1,6 @@
 import React from 'react';
 import Field from '../general/field';
+import SelectList from '../general/select_list';
 import ButtonLink from '../general/button_link';
 import SubmitButton from '../general/submit_button';
 
@@ -8,7 +9,7 @@ class NewTeam extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      faction: 'Select a faction',
+      faction: this.factionList()[0][0],
       teamName: '',
     };
   }
@@ -23,7 +24,7 @@ class NewTeam extends React.Component {
   }
 
   formValid() {
-    if (this.state.faction === 'Select a faction') return false;
+    if (this.state.faction === this.factionList()[0][0]) return false;
     if (this.state.teamName === '') return false;
     return true;
   }
@@ -42,8 +43,8 @@ class NewTeam extends React.Component {
             type='text' style={{ display:'none' }} />
 
           <div className='inputs'>
-            <Field fieldName='faction' label='Faction' type='select'
-              ctx={ this } optionsList={ this.factionList() } />
+            <SelectList fieldName='faction' label='Faction' ctx={ this }
+              optionsList={ this.factionList() } />
             <Field fieldName='teamName' label='Team name' ctx={ this } />
           </div>
 
@@ -60,25 +61,26 @@ class NewTeam extends React.Component {
 
   factionList() {
     return [
-      'Adeptus Astartes',
-      'Adeptus Mechanicus',
-      'Astra Militarum',
-      'Asuryani',
-      'Death Guard',
-      'Deathwatch',
-      'Drukhari',
-      'Elucidean Starstriders',
-      'Gellerpox Infected',
-      'Genestealer Cults',
-      'Grey Knights',
-      'Harlequins',
-      'Heretic Astartes',
-      'Necrons',
-      'Orks',
-      'Servants of the Abyss',
-      'T\'au Empire',
-      'Thousand Sons',
-      'Tyranids',
+      ['Select a faction', 'Select a faction'],
+      ['Adeptus Astartes', 'Adeptus Astartes'],
+      ['Adeptus Mechanicus', 'Adeptus Mechanicus'],
+      ['Astra Militarum', 'Astra Militarum'],
+      ['Asuryani', 'Asuryani'],
+      ['Death Guard', 'Death Guard'],
+      ['Deathwatch', 'Deathwatch'],
+      ['Drukhari', 'Drukhari'],
+      ['Elucidean Starstriders', 'Elucidean Starstriders'],
+      ['Gellerpox Infected', 'Gellerpox Infected'],
+      ['Genestealer Cults', 'Genestealer Cults'],
+      ['Grey Knights', 'Grey Knights'],
+      ['Harlequins', 'Harlequins'],
+      ['Heretic Astartes', 'Heretic Astartes'],
+      ['Necrons', 'Necrons'],
+      ['Orks', 'Orks'],
+      ['Servants of the Abyss', 'Servants of the Abyss'],
+      ['T\'au Empire', 'T\'au Empire'],
+      ['Thousand Sons', 'Thousand Sons'],
+      ['Tyranids', 'Tyranids'],
     ];
   }
 
