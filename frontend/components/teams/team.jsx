@@ -19,7 +19,7 @@ class Account extends React.Component {
     let logMatchButton;
     if (this.props.currentTeam && this.props.currentUser) {
       if (this.props.currentTeam.userId === this.props.currentUser.id) {
-        logMatchButton = ButtonLink('Log a match', '/match/new', 'submit-active');
+        logMatchButton = <ButtonLink text='Log a match' path='/match/new' type='submit-active'/>;
       }
     }
 

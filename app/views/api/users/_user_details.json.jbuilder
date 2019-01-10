@@ -14,6 +14,3 @@ json.users do
     json.matchesTied user.ties
   end
 end
-
-
-# ary.sort_by{ |a| a[:bar] }.reverse }

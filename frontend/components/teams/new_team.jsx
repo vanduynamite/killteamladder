@@ -11,34 +11,24 @@ class NewTeam extends React.Component {
       faction: 'Select a faction',
       teamName: '',
     };
-    this.formValid = false;
   }
 
   submit(e) {
     e.preventDefault();
-    console.log(this.state);
-    if (this.formValid) {
-      this.props.newTeam(this.state, this.props.history.push);
-      // this.props.history.push('/account');
-    }
+    if (this.formValid()) this.props.newTeam(this.state, this.props.history.push);
   }
 
   updateField(field) {
-    this.updateFormValidity();
     return e => this.setState({ [field]: e.target.value });
   }
 
-  updateFormValidity() {
-    this.formValid = true;
-    if (this.state.faction === 'Select a faction') this.formValid = false;
-    if (this.state.teamName === '') this.formValid = false;
+  formValid() {
+    if (this.state.faction === 'Select a faction') return false;
+    if (this.state.teamName === '') return false;
+    return true;
   }
 
   render() {
-    const greeting = this.props.loggedIn ?
-      ` ${this.props.currentUser.firstName}` :
-      '';
-
     return (
       <div className='frame'>
         <h1>
@@ -52,13 +42,14 @@ class NewTeam extends React.Component {
             type='text' style={{ display:'none' }} />
 
           <div className='inputs'>
-            { Field('faction', 'Faction', 'select', this, this.factionList()) }
-            { Field('teamName', 'Team name', 'text', this) }
+            <Field fieldName='faction' label='Faction' type='select'
+              ctx={ this } optionsList={ this.factionList() } />
+            <Field fieldName='teamName' label='Team name' ctx={ this } />
           </div>
 
           <div className='form-buttons'>
-            { ButtonLink('Cancel', '/account', 'cancel') }
-            { SubmitButton('Submit', this.formValid) }
+            <ButtonLink text='Cancel' path='/account' type='cancel' />
+            <SubmitButton active={ this.formValid() } />
           </div>
         </form>
       </div>

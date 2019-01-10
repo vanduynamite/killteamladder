@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function(text, active, action) {
+export default function({text='Submit', active, action}) {
   let klass = 'button ';
   klass += active ? 'submit-active' : 'submit-deactive';
 

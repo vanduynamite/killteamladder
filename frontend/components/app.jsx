@@ -8,7 +8,7 @@ import Nav from './nav/nav';
 import Background from './general/background';
 import Main from './main/main_container';
 import Account from './account/account_container';
-import AddMatch from './match/add_match_container';
+import NewMatch from './match/new_match_container';
 import NewTeam from './teams/new_team_container';
 import Team from './teams/team_container';
 
@@ -22,7 +22,7 @@ export default () => {
         <AuthRoute exact path='/login' component={ Login } />
         <AuthRoute exact path='/signup' component={ Signup } />
         <ProtectedRoute path='/account' component={ Account } />
-        <ProtectedRoute path='/match/new' component={ AddMatch } />
+        <ProtectedRoute path='/match/new' component={ NewMatch } />
         <ProtectedRoute path='/team/new' component={ NewTeam } />
         <Route path='/team/:teamId' component={ Team } />
         <Route path='/' component={ Main } />

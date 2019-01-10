@@ -24,10 +24,10 @@ class Account extends React.Component {
         </h1>
         { this.accountDetails() }
         { this.accountStats() }
-        { ButtonLink('Create a team', '/team/new', 'submit-active')}
+        <ButtonLink text='Create a team' path='/team/new' type='submit-active' />
         { this.teamDetails() }
         { this.retiredTeams() }
-        { SubmitButton('Log out', true, this.props.logout)}
+        <SubmitButton text='Log out' active={ true } action={ this.props.logout } />
       </div>
     );
   }

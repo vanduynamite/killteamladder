@@ -2,27 +2,21 @@ import React from 'react';
 import Field from '../general/field';
 import ButtonLink from '../general/button_link';
 import SubmitButton from '../general/submit_button';
-import { Link } from 'react-router-dom';
 
-class LoginForm extends React.Component {
+class NewMatch extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
-      email: '',
-      password: '',
+      teamId: 0,
+      opponentTeamId: 0,
+      result: '',
     };
-    this.updateField = this.updateField.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.clearErrors();
   }
 
   submit(e) {
     e.preventDefault();
-    if (this.formValid()) this.props.login(this.state);
+    if (this.formValid()) this.props.newMatch(this.state, this.props.history.push);
   }
 
   updateField(field) {
@@ -30,16 +24,19 @@ class LoginForm extends React.Component {
   }
 
   formValid() {
-    if (this.state.email === '') return false;
-    if (this.state.password === '') return false;
-    if (this.state.password.length < 6) return false;
+    if (this.state.teamId === 0) return false;
+    if (this.state.opponentTeamId === 0) return false;
+    if (this.state.result === '') return false;
     return true;
   }
 
   render() {
+
     return (
       <div className='frame'>
-        <h1>Login</h1>
+        <h1>
+          Log match
+        </h1>
 
         { this.errorSection() }
 
@@ -48,12 +45,16 @@ class LoginForm extends React.Component {
             type='text' style={{ display:'none' }} />
 
           <div className='inputs'>
-            <Field fieldName='email' label='Email address' ctx={ this } />
-            <Field fieldName='password' label='Password' type='password' ctx={ this } />
+            <Field fieldName='teamId' label='Your team' ctx={ this }
+              type='select' optionsList={ this.teamList() } />
+            <Field fieldName='opponentTeamId' label="Opponent's team" ctx={ this }
+              type='select' optionsList={ this.teamList() } />
+            <Field fieldName='result' label='Match result' ctx={ this }
+              type='select' optionsList={ this.resultList() } />
           </div>
 
           <div className='form-buttons'>
-            <ButtonLink text='Cancel' path='/' type='cancel' />
+            <ButtonLink text='Cancel' path='/account' type='cancel' />
             <SubmitButton active={ this.formValid() } />
           </div>
         </form>
@@ -62,6 +63,20 @@ class LoginForm extends React.Component {
   }
 
   // subcomponents
+  resultList() {
+    return [
+      'I won',
+      'I lost',
+      'We tied',
+    ];
+  }
+
+  teamList() {
+    return [
+      'one',
+      'two',
+    ]
+  }
 
   errorSection() {
     const errors = Object.values(this.props.errors);
@@ -70,16 +85,12 @@ class LoginForm extends React.Component {
       return;
     } else {
       return (
-        <>
           <div id='errors'>
             { errors }
           </div>
-          <Link className='link' to='/signup'>Register new account</Link>
-        </>
       );
     }
   }
-
 }
 
-export default LoginForm;
+export default NewMatch;

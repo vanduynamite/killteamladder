@@ -16,7 +16,6 @@ class SignupForm extends React.Component {
       password: '',
       reenterPassword: '',
     };
-    this.formValid = true;
     this.updateField = this.updateField.bind(this);
   }
 
@@ -26,22 +25,21 @@ class SignupForm extends React.Component {
 
   submit(e) {
     e.preventDefault();
-    if (this.formValid) this.props.signup(this.state);
+    if (this.formValid()) this.props.signup(this.state);
   }
 
   updateField(field) {
-    this.updateFormValidity();
     return e => this.setState({ [field]: e.target.value });
   }
 
-  updateFormValidity() {
-    this.formValid = true;
-    if (this.state.firstName === '') this.formValid = false;
-    if (this.state.lastName === '') this.formValid = false;
-    if (this.state.email === '') this.formValid = false;
-    if (this.state.password === '') this.formValid = false;
-    if (this.state.password.length < 6) this.formValid = false;
-    if (this.state.password !== this.state.reenterPassword) this.formValid = false;
+  formValid() {
+    if (this.state.firstName === '') return false;
+    if (this.state.lastName === '') return false;
+    if (this.state.email === '') return false;
+    if (this.state.password === '') return false;
+    if (this.state.password.length < 6) return false;
+    if (this.state.password !== this.state.reenterPassword) return false;
+    return true;
   }
 
   render() {
@@ -57,17 +55,17 @@ class SignupForm extends React.Component {
 
           <div className='inputs'>
             <div className='name-inputs'>
-              { Field('firstName', 'First name', 'text', this) }
-              { Field('lastName', 'Last name', 'text', this) }
+              <Field fieldName='firstName' label='First name' ctx={ this } />
+              <Field fieldName='lastName' label='Last name' ctx={ this } />
             </div>
-            { Field('email', 'Email address', 'text', this) }
-            { Field('password', 'Password', 'password', this) }
-            { Field('reenterPassword', 'Re-enter password', 'password', this) }
+            <Field fieldName='email' label='Email address' ctx={ this } />
+            <Field fieldName='password' label='Password' type='password' ctx={ this } />
+            <Field fieldName='reenterPassword' label='Re-enter password' type='password' ctx={ this } />
           </div>
 
           <div className='form-buttons'>
-            { ButtonLink('Cancel', '/', 'cancel') }
-            { SubmitButton('Submit', this.formValid) }
+            <ButtonLink text='Cancel' path='/' type='cancel' />
+            <SubmitButton active={ this.formValid() } />
           </div>
         </form>
       </div>
