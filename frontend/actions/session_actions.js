@@ -14,7 +14,7 @@ const receiveCurrentUser = ({ users, session }) => {
   };
 };
 
-const receiveSessionErrors = errors => {
+export const receiveSessionErrors = errors => {
   return {
     type: RECEIVE_SESSION_ERRORS,
     errors,
@@ -53,12 +53,4 @@ export const logout = () => dispatch => {
   return SessionAPI.logout().then(
     payload => dispatch(removeCurrentUser(payload))
   );
-};
-
-export const demoLogin = () => dispatch => {
-  const user = {
-    email: 'paul.vanduyn@gmail.com',
-    password: 'emperorprotects',
-  };
-  return dispatch(login(user));
 };

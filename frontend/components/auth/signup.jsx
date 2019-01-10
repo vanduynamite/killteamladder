@@ -16,16 +16,36 @@ class SignupForm extends React.Component {
       password: '',
       reenterPassword: '',
     };
+
     this.updateField = this.updateField.bind(this);
   }
 
   componentDidMount() {
+    if (this.props.currentUserId && !this.props.user) {
+      this.props.getUser(this.props.currentUserId);
+    }
+
+    if (this.props.user) {
+      this.setState({ firstName: this.props.user.firstName });
+      this.setState({ lastName: this.props.user.lastName });
+      this.setState({ email: this.props.user.email });
+      this.setState({ id: this.props.user.id });
+    }
     this.props.clearErrors();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.user && this.props.user) {
+      this.setState({ firstName: this.props.user.firstName });
+      this.setState({ lastName: this.props.user.lastName });
+      this.setState({ email: this.props.user.email });
+      this.setState({ id: this.props.user.id });
+    }
   }
 
   submit(e) {
     e.preventDefault();
-    if (this.formValid()) this.props.signup(this.state);
+    if (this.formValid()) this.props.submitAction(this.state);
   }
 
   updateField(field) {
@@ -45,7 +65,7 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div className='frame'>
-        <h1>Register</h1>
+        <h1>{ this.props.title }</h1>
 
         { this.errorSection() }
 

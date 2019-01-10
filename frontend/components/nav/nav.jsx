@@ -24,8 +24,13 @@ const navButtons = (path, loggedIn) => {
     case '/match/new':
       return <ImageButton path='/' image={ window.close } />;
 
+    case '/account/edit':
     case '/team/new':
       return <ImageButton path='/account' image={ window.close } />;
+
+    case '/team/:teamId/new':
+      // TODO: uh fix this
+      return <ImageButton path={ `/team/${teamId}` } image={ window.close } />;
 
     case '/':
       if (loggedIn) {

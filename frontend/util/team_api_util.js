@@ -17,14 +17,14 @@ export const getTeam = id => {
   });
 };
 
-export const updateTeam = team => {
+export const editTeam = team => {
 
   team.team_name = team.teamName;
 
   return $.ajax({
     method: 'PATCH',
     url: `/api/teams/${team.id}`,
-    data: team,
+    data: { team },
   });
 };
 

@@ -3,7 +3,7 @@ json.users do
     json.id user.id
     json.firstName user.first_name
     json.lastName user.last_name
-    # json.email user.email # commented out for privacy for now
+    json.email user.email
 
     json.teamIds teams.sort_by { |t| t[:points] }.reverse.map { |t| t.id }
 

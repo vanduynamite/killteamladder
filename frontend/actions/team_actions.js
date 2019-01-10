@@ -39,6 +39,13 @@ export const newTeam = (team, historyPush) => dispatch => {
   );
 };
 
+export const editTeam = (team, historyPush) => dispatch => {
+  return TeamAPI.editTeam(team).then(
+    payload => historyPush(`/team/${payload[0]}`),
+    errors => dispatch(receiveTeamErrors(errors))
+  );
+};
+
 export const getTeams = () => dispatch => {
   return TeamAPI.getTeams().then(
     payload => dispatch(receiveTeams(payload))

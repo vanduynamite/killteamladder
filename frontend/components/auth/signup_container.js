@@ -6,15 +6,17 @@ import Signup from './signup';
 
 const msp = state => {
   const errors = state.errors.session;
+  const title = 'Register';
 
   return {
     errors,
+    title,
   };
 };
 
 const mdp = dispatch => {
   return {
-    signup: user => dispatch(signup(user)),
+    submitAction : user => dispatch(signup(user)),
     clearErrors: () => dispatch(clearSessionErrors()),
   };
 };

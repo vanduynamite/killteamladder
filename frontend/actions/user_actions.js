@@ -1,4 +1,5 @@
 import * as UserAPI from '../util/user_api_util';
+import receiveSessionErrors from './session_actions';
 
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const RECEIVE_USER_ERRORS = 'RECEIVE_USER_ERRORS';
@@ -16,3 +17,10 @@ export const getUser = id => dispatch => {
     payload => dispatch(receiveUsers(payload))
   );
 };
+
+export const editUser = user => dispatch => {
+  return UserAPI.editUser(user).then(
+    payload => historyPush('/account'),
+    errors => dispatch(receiveSessionErrors(errors)),
+  )
+}

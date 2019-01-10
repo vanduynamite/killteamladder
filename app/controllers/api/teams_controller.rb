@@ -39,6 +39,18 @@ class Api::TeamsController < ApplicationController
   end
 
   def update
+    @team = Team.find_by(id: params[:id])
+    return false unless authorized_user?(@team.user_id)
+
+    @team.team_name = team_params[:team_name]
+    # @team.active = team_params[:active]
+
+    if @team.save
+      render json: [@team.id], status: 200
+    else
+      render @team.errors.full_messages, status: 422
+    end
+
 
   end
 
