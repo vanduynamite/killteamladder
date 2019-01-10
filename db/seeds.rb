@@ -6,7 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# Team.delete_all
+Matchup.delete_all
+Team.delete_all
+Session.delete_all
+User.delete_all
 
 # t1 = Team.first
 # t2 = Team.fourth
