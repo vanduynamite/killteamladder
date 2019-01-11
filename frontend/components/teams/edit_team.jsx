@@ -23,9 +23,9 @@ class EditTeam extends React.Component {
     if (this.props.currentUserId !== this.props.ownerId) {
       this.props.history.push(`/team/${this.props.team.id}`);
     }
+    
     if (!prevProps.team && this.props.team) {
-      console.log('yo');
-      this.setState({teamName: this.props.team.teamName});
+      this.setState({ teamName: this.props.team.teamName });
     }
   }
 

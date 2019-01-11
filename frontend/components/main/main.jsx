@@ -12,10 +12,6 @@ class Main extends React.Component {
   }
 
   render() {
-    let greeting = this.props.loggedIn ?
-      ` ${this.props.currentUser.firstName}` :
-      '';
-
     return (
       <div className='frame'>
         <h1>
@@ -42,6 +38,7 @@ class Main extends React.Component {
         const id = record[0];
         const team = teams[id];
         const user = users[team.userId];
+        if (!team || !user) return <div key={id}></div>;
         return <TeamListItem
             key={ id }
             team={ team }

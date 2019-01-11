@@ -41,7 +41,8 @@ class Team < ApplicationRecord
 
   belongs_to :user
 
-  has_many :matchups
+  has_many :matchups,
+    dependent: :destroy
 
   def plays
     self.matchups.where(season: Matchup.season).count
