@@ -32,11 +32,11 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    return false unless authorized_user?(params[:id])
+    return false unless authorized_user?(params[:id].to_i)
     @user = User.find_by(id: params[:id])
 
     if @user.update(user_params)
-      render 'api/users/update.json.jbuilder'
+      render json: [@user.id], status: 200
     else
       render json: @user.errors.full_messages, status: 422
     end
@@ -50,7 +50,6 @@ class Api::UsersController < ApplicationController
       :last_name,
       :email,
       :password,
-      :reenter_password,
     )
   end
 

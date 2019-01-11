@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { clearSessionErrors } from '../../actions/session_actions';
 import {
   getUser,
@@ -29,9 +30,9 @@ const msp = state => {
 const mdp = dispatch => {
   return {
     getUser: id => dispatch(getUser(id)),
-    submitAction: user => dispatch(editUser(user)),
+    submitAction: (user, historyPush) => dispatch(editUser(user, historyPush)),
     clearErrors: () => dispatch(clearSessionErrors()),
   };
 };
 
-export default connect(msp, mdp)(EditAccount);
+export default withRouter(connect(msp, mdp)(EditAccount));

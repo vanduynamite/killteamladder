@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import {
   signup,
   clearSessionErrors } from '../../actions/session_actions';
@@ -21,4 +22,4 @@ const mdp = dispatch => {
   };
 };
 
-export default connect(msp, mdp)(Signup);
+export default withRouter(connect(msp, mdp)(Signup));

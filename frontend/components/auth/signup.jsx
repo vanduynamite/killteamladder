@@ -45,7 +45,7 @@ class SignupForm extends React.Component {
 
   submit(e) {
     e.preventDefault();
-    if (this.formValid()) this.props.submitAction(this.state);
+    if (this.formValid()) this.props.submitAction(this.state, this.props.history.push);
   }
 
   updateField(field) {
@@ -56,13 +56,22 @@ class SignupForm extends React.Component {
     if (this.state.firstName === '') return false;
     if (this.state.lastName === '') return false;
     if (this.state.email === '') return false;
-    if (this.state.password === '') return false;
-    if (this.state.password.length < 6) return false;
     if (this.state.password !== this.state.reenterPassword) return false;
+
+    // this is a dual purpose form, so password can be blank
+    // if we are editing the user but don't want to change the password
+    if (this.state.password === '' && !this.props.user) return false;
+    if (this.state.password.length < 6 && this.state.password !== '') return false;
     return true;
   }
 
   render() {
+
+    const path = this.props.user ? '/account' : '/';
+
+    const passwordLabel = this.props.user ? 'New password (optional)' : 'Password';
+    const rePasswordLabel = this.props.user ? 'Re-enter new password' : 'Re-enter password';
+
     return (
       <div className='frame'>
         <h1>{ this.props.title }</h1>
@@ -79,12 +88,14 @@ class SignupForm extends React.Component {
               <Field fieldName='lastName' label='Last name' ctx={ this } />
             </div>
             <Field fieldName='email' label='Email address' ctx={ this } />
-            <Field fieldName='password' label='Password' type='password' ctx={ this } />
-            <Field fieldName='reenterPassword' label='Re-enter password' type='password' ctx={ this } />
+            <Field fieldName='password' label={ passwordLabel }
+              type='password' ctx={ this } />
+            <Field fieldName='reenterPassword' label={ rePasswordLabel }
+              type='password' ctx={ this } />
           </div>
 
           <div className='form-buttons'>
-            <ButtonLink text='Cancel' path='/' type='cancel' />
+            <ButtonLink text='Cancel' path={ path } type='cancel' />
             <SubmitButton active={ this.formValid() } />
           </div>
         </form>
@@ -120,6 +131,9 @@ class SignupForm extends React.Component {
     const errors = Object.values(this.props.errors).map(error =>
       <div key={ error }>{ error }</div>);
 
+    let loginLink;
+    if (!this.props.user) loginLink = <Link className='link' to='/login'>Login</Link>;
+
     if (errors.length === 0) {
       return;
     } else {
@@ -128,7 +142,7 @@ class SignupForm extends React.Component {
           <div id='errors'>
             { errors }
           </div>
-          <Link className='link' to='/login'>Login</Link>
+          { loginLink }
         </>
       );
     }
