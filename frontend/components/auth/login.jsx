@@ -48,7 +48,8 @@ class LoginForm extends React.Component {
             type='text' style={{ display:'none' }} />
 
           <div className='inputs'>
-            <Field fieldName='email' label='Email address' ctx={ this } />
+            <Field fieldName='email' label='Email address'
+              maxLength='100' ctx={ this } />
             <Field fieldName='password' label='Password' type='password' ctx={ this } />
           </div>
 

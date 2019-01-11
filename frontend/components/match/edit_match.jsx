@@ -73,9 +73,9 @@ class NewMatch extends React.Component {
 
           <div className='inputs'>
             <Field fieldName='teamName' label='Your team'
-              ctx={ this } disabled={ true } />
+              maxLength='40' ctx={ this } disabled={ true } />
             <Field fieldName='opponentTeamName' label="Opponent's team"
-              ctx={ this } disabled={ true } />
+              maxLength='40' ctx={ this } disabled={ true } />
             <SelectList fieldName='result' label='Match result' ctx={ this }
               optionsList={ this.resultList() } />
           </div>

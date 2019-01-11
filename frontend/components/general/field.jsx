@@ -1,6 +1,7 @@
 import React from 'react';
 
-export default function({ fieldName, label, type='text', ctx, disabled=false }) {
+export default function({ fieldName, label, type='text',
+  ctx, disabled=false, maxLength=20 }) {
   const inError = Object.keys(ctx.props.errors).includes(fieldName);
 
   let klass = inError ? 'error' : '';
@@ -20,7 +21,7 @@ export default function({ fieldName, label, type='text', ctx, disabled=false }) 
       className={ klass }
       onChange={ ctx.updateField(fieldName) }
       value={ ctx.state[fieldName] }
-      maxLength={ fieldName === 'email' ? 100 : 40 }
+      maxLength={ maxLength }
       disabled={ disabled }/>;
 
   return (

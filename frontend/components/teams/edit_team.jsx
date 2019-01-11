@@ -23,7 +23,7 @@ class EditTeam extends React.Component {
     if (this.props.currentUserId !== this.props.ownerId) {
       this.props.history.push(`/team/${this.props.team.id}`);
     }
-    
+
     if (!prevProps.team && this.props.team) {
       this.setState({ teamName: this.props.team.teamName });
     }
@@ -63,7 +63,8 @@ class EditTeam extends React.Component {
             type='text' style={{ display:'none' }} />
 
           <div className='inputs'>
-            <Field fieldName='teamName' label='Team name' ctx={ this } />
+            <Field fieldName='teamName' label='Team name'
+              maxLength='40' ctx={ this } />
           </div>
 
           <div className='form-buttons'>

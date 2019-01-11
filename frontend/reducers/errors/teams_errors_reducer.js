@@ -30,6 +30,7 @@ const errorFieldMap = {
   "Team name is too long (maximum is 40 characters)": "teamName",
   "Team name has already been taken": "teamName",
   "Faction is not included in the list": "faction",
+  "User already has a team in this faction": "faction",
 };
 
 export default sessionErrorsReducer;

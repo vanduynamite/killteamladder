@@ -45,7 +45,9 @@ class SignupForm extends React.Component {
 
   submit(e) {
     e.preventDefault();
-    if (this.formValid()) this.props.submitAction(this.state, this.props.history.push);
+    if (this.formValid()) {
+      this.props.submitAction(Object.assign({}, this.state), this.props.history.push)
+    };
   }
 
   updateField(field) {
@@ -66,7 +68,6 @@ class SignupForm extends React.Component {
   }
 
   render() {
-
     const path = this.props.user ? '/account' : '/';
 
     const passwordLabel = this.props.user ? 'New password (optional)' : 'Password';
@@ -87,7 +88,8 @@ class SignupForm extends React.Component {
               <Field fieldName='firstName' label='First name' ctx={ this } />
               <Field fieldName='lastName' label='Last name' ctx={ this } />
             </div>
-            <Field fieldName='email' label='Email address' ctx={ this } />
+            <Field fieldName='email' label='Email address'
+              maxLength='100' ctx={ this } />
             <Field fieldName='password' label={ passwordLabel }
               type='password' ctx={ this } />
             <Field fieldName='reenterPassword' label={ rePasswordLabel }

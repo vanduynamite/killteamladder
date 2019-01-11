@@ -47,7 +47,8 @@ class NewTeam extends React.Component {
           <div className='inputs'>
             <SelectList fieldName='faction' label='Faction' ctx={ this }
               optionsList={ this.factionList() } />
-            <Field fieldName='teamName' label='Team name' ctx={ this } />
+            <Field fieldName='teamName' label='Team name'
+              maxLength='40' ctx={ this } />
           </div>
 
           <div className='form-buttons'>
