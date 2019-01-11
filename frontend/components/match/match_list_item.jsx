@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ImageButton from '../general/image_button';
 
-export default function({ match, team, opposingTeam, opponent, currentUser, ownerViewing }) {
+export default function({ match, team, opposingTeam, opponent, currentUser, ownerViewing, editable=false }) {
   const dateString = new Date(match.date).toDateString();
 
   const opponentViewing = currentUser ?
@@ -15,7 +15,7 @@ export default function({ match, team, opposingTeam, opponent, currentUser, owne
     '';
 
   let editButton = <></>;
-  if (opponentViewing || ownerViewing) {
+if (editable && (opponentViewing || ownerViewing)) {
     editButton = <ImageButton path={ `/match/${match.id}/edit` } image={ window.edit } />;
   }
 

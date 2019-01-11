@@ -38,6 +38,13 @@ input, select {
   border: 1px solid #D5D9E0;
 }
 
+input.disabled {
+  background: none;
+  border: none;
+  position: relative;
+  left: -7px;
+}
+
 select {
   border-radius: 0px;
 }

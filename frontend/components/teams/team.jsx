@@ -135,7 +135,8 @@ class Account extends React.Component {
           opposingTeam={ opposingTeam }
           opponent={ opponent }
           ownerViewing= { this.props.ownerViewing }
-          currentUser={ this.props.currentUser } />;
+          currentUser={ this.props.currentUser }
+          editable={ id === this.props.currentTeam.matchIds[0] } />;
       }
     );
 
