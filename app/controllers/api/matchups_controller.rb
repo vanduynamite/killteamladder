@@ -37,11 +37,6 @@ class Api::MatchupsController < ApplicationController
   def update
     get_matchup_info
 
-    if @team2.user_id == current_user.id
-      @matchup1, @matchup2 = @matchup2, @matchup1
-      @team1, @team2 = @team2, @team1
-    end
-
     return false unless authorized_user?(@team1.user_id)
 
     unless @team1.matchups.last == @matchup1 && @team2.matchups.last == @matchup2
@@ -58,6 +53,31 @@ class Api::MatchupsController < ApplicationController
 
   end
 
+  def destroy
+    get_matchup_info
+    return false unless authorized_user?(@team1.user_id)
+
+    unless @team1.matchups.last == @matchup1 && @team2.matchups.last == @matchup2
+      render json: ['You can only delete the match if it is the last match for both teams'], status: 422
+      return
+    end
+
+    @team1.points = @matchup1.start_points
+    @team2.points = @matchup2.start_points
+
+    if @team1.save && @team2.save
+      @matchup1.destroy
+      render json: {
+        teamIds: [@team1.id, @team2.id],
+        matchIds: [@matchup1.id, @matchup2.id],
+      }, status: 200
+    else
+      render json: ['There was an error calculating points'], status: 422
+    end
+  end
+
+  private
+
   def calculate_matchup
     @matchup1.calculate_end_points!
     @matchup2.calculate_end_points!
@@ -72,8 +92,6 @@ class Api::MatchupsController < ApplicationController
     end
   end
 
-  private
-
   def matchup_params
     params.require(:matchup).permit(
       :team_id,
@@ -87,6 +105,11 @@ class Api::MatchupsController < ApplicationController
     @matchup2 = @matchup1.opposite_matchup
     @team1 = @matchup1.team
     @team2 = @matchup2.team
+
+    if @team2.user_id == current_user.id
+      @matchup1, @matchup2 = @matchup2, @matchup1
+      @team1, @team2 = @team2, @team1
+    end
   end
 
   def my_team_valid?

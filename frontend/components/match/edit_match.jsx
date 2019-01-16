@@ -43,7 +43,7 @@ class NewMatch extends React.Component {
 
   submit(e) {
     e.preventDefault();
-    if (this.formValid()) this.props.editMatch(this.state, this.props.history.push);
+    if (this.formValid()) this.props.submitAction(this.state, this.props.history.push);
   }
 
   updateField(field) {
@@ -62,7 +62,7 @@ class NewMatch extends React.Component {
     return (
       <div className='frame'>
         <h1>
-          Edit match
+          { this.title() }
         </h1>
 
         { this.errorSection() }
@@ -76,20 +76,37 @@ class NewMatch extends React.Component {
               maxLength='40' ctx={ this } disabled={ true } />
             <Field fieldName='opponentTeamName' label="Opponent's team"
               maxLength='40' ctx={ this } disabled={ true } />
-            <SelectList fieldName='result' label='Match result' ctx={ this }
-              optionsList={ this.resultList() } />
+            { this.matchResultsDropdown() }
           </div>
 
           <div className='form-buttons'>
-            <ButtonLink text='Cancel' path='/' type='cancel' />
-            <SubmitButton active={ this.formValid() } />
+            <ButtonLink text='Cancel' type='cancel'
+              path={ this.props.deleteForm ? `/match/${this.props.matchId}/edit` : '/' } />
+            <SubmitButton active={ this.formValid() }
+              text={ this.props.deleteForm ? 'Delete' : 'Submit' }/>
           </div>
+
+          { this.deleteLink() }
+
         </form>
       </div>
     );
   }
 
   // subcomponents
+  title() {
+    return this.props.deleteForm ?
+      'Delete match' :
+      'Edit match';
+  }
+
+  deleteLink() {
+    if (!this.props.deleteForm) {
+      return <Link className='retire-link' to={ `/match/${this.props.matchId}/delete` } >
+        Delete match</Link>;
+    }
+  }
+
   resultList() {
     return [
       ['x', 'Select a result'],
@@ -99,8 +116,20 @@ class NewMatch extends React.Component {
     ];
   }
 
+  matchResultsDropdown() {
+    if (!this.props.deleteForm) {
+      return <SelectList fieldName='result' label='Match result' ctx={ this }
+        optionsList={ this.resultList() } />;
+    }
+
+  }
+
   errorSection() {
-    const errors = Object.values(this.props.errors);
+    let errors = Object.values(this.props.errors);
+
+    if (this.props.deleteForm && errors.length === 0) {
+      errors = ['Are you sure you want to delete this match?'];
+    }
 
     if (errors.length === 0) {
       return;

@@ -11,6 +11,7 @@ import Account from './account/account_container';
 import EditAccount from './account/edit_account_container';
 import NewMatch from './match/new_match_container';
 import EditMatch from './match/edit_match_container';
+import DeleteMatch from './match/delete_match_container';
 import NewTeam from './teams/new_team_container';
 import EditTeam from './teams/edit_team_container';
 import Team from './teams/team_container';
@@ -27,6 +28,7 @@ export default () => {
         <ProtectedRoute path='/account/edit' component={ EditAccount } />
         <ProtectedRoute path='/account' component={ Account } />
         <ProtectedRoute path='/match/:matchId/edit' component={ EditMatch } />
+        <ProtectedRoute path='/match/:matchId/delete' component={ DeleteMatch } />
         <ProtectedRoute path='/match/new' component={ NewMatch } />
         <ProtectedRoute path='/team/new' component={ NewTeam } />
         <ProtectedRoute path='/team/:teamId/edit' component={ EditTeam } />

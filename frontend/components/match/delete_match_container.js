@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import EditMatch from './edit_match';
 import { withRouter } from 'react-router-dom';
 import {
-  editMatch,
+  deleteMatch,
   getMatch
 } from '../../actions/match_actions';
 
@@ -16,6 +16,8 @@ const msp = (state, ownProps) => {
 
   const currentMatch = matches[matchId];
 
+  const deleteForm = true;
+
   return {
     matchId,
     currentUserId,
@@ -23,13 +25,14 @@ const msp = (state, ownProps) => {
     teams,
     matches,
     currentMatch,
+    deleteForm,
   };
 };
 
 const mdp = dispatch => {
   return {
     getMatch: id => dispatch(getMatch(id)),
-    submitAction: (match, historyPush) => dispatch(editMatch(match, historyPush)),
+    submitAction: (match, historyPush) => dispatch(deleteMatch(match, historyPush)),
   };
 };
 

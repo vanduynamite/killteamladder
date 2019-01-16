@@ -25,3 +25,10 @@ export const editMatch = match => {
     data: { matchup: match },
   });
 };
+
+export const deleteMatch = match => {
+  return $.ajax({
+    method: 'DELETE',
+    url: `/api/matchups/${match.id}`,
+  });
+};
