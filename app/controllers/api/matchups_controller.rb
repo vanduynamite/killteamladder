@@ -2,7 +2,7 @@
 class Api::MatchupsController < ApplicationController
 
   def show
-    getMatchupInfo
+    get_matchup_info
   end
 
   def create
@@ -35,7 +35,7 @@ class Api::MatchupsController < ApplicationController
   end
 
   def update
-    getMatchupInfo
+    get_matchup_info
 
     if @team2.user_id == current_user.id
       @matchup1, @matchup2 = @matchup2, @matchup1
@@ -82,7 +82,7 @@ class Api::MatchupsController < ApplicationController
     )
   end
 
-  def getMatchupInfo
+  def get_matchup_info
     @matchup1 = Matchup.find_by(id: params[:id])
     @matchup2 = @matchup1.opposite_matchup
     @team1 = @matchup1.team
@@ -91,15 +91,16 @@ class Api::MatchupsController < ApplicationController
 
   def my_team_valid?
     unless @team1 && @team1.valid?
-      render json: ['Your team is not included in the list'], status: 422
+      render json: @team1.errors.full_messages, status: 422
       return false
     end
     true
   end
 
   def opponent_team_valid?
+
     unless @team2 && @team2.valid?
-      render json: ['Opponent\'s team is not included in the list'], status: 422
+      render json: @team2.errors.full_messages, status: 422
       return false
     end
     true
