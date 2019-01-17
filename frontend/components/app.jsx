@@ -14,6 +14,7 @@ import EditMatch from './match/edit_match_container';
 import DeleteMatch from './match/delete_match_container';
 import NewTeam from './teams/new_team_container';
 import EditTeam from './teams/edit_team_container';
+import RetireTeam from './teams/retire_team_container';
 import Team from './teams/team_container';
 
 export default () => {
@@ -32,6 +33,7 @@ export default () => {
         <ProtectedRoute path='/match/new' component={ NewMatch } />
         <ProtectedRoute path='/team/new' component={ NewTeam } />
         <ProtectedRoute path='/team/:teamId/edit' component={ EditTeam } />
+        <ProtectedRoute path='/team/:teamId/retire' component={ RetireTeam } />
         <Route path='/team/:teamId' component={ Team } />
         <Route path='/' component={ Main } />
       </Switch>

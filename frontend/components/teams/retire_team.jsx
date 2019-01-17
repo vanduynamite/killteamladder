@@ -2,6 +2,7 @@ import React from 'react';
 import Statistic from '../general/statistic';
 import ImageButton from '../general/image_button';
 import ButtonLink from '../general/button_link';
+import SubmitButton from '../general/submit_button';
 import MatchListItem from '../match/match_list_item';
 
 class Team extends React.Component {
@@ -11,10 +12,6 @@ class Team extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.cameFromNewMatch) {
-      this.props.setPathHistory({ team: this.props.currentTeamId });
-      this.props.history.push('/match/new');
-    }
     this.props.getTeam(this.props.currentTeamId);
   }
 
@@ -24,30 +21,35 @@ class Team extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    if (this.props.history.location.pathname === '/match/new') {
-      this.props.setPathHistory({ team: this.props.currentTeamId });
-    }
+  submit() {
+    const team = {
+      id: this.props.currentTeamId,
+      teamName: this.props.currentTeam.teamName,
+      active: false,
+    };
+    this.props.editTeam(team, this.props.history.push);
   }
 
   render() {
 
-    let logMatchButton;
-    if (this.props.currentTeam && this.props.currentUser) {
-      if (this.props.currentTeam.userId === this.props.currentUser.id) {
-        logMatchButton = <ButtonLink text='Log a match' path='/match/new' type='submit-active'/>;
-      }
-    }
+    const descText = 'Stats will remain viewable for a retired team, but no match results against a retired team will be able to be logged or edited.';
+    const warningText = 'There is no way to move a team out of retirement.';
 
     return (
       <div className='frame'>
         <h1>
-          Team details
+          Retire team
         </h1>
         { this.teamDetails() }
         { this.teamStats() }
-        { logMatchButton }
-        { this.matches() }
+        <div id='retire-desc-text'>{ descText }</div>
+        <div id='errors' className='retire-text'>{ warningText }</div>
+        <div className='form-buttons'>
+          <ButtonLink text='Cancel' path={ `/team/${this.props.currentTeamId}/` } type='cancel' />
+          <SubmitButton text='Retire forever'
+            active={ this.props.ownerViewing }
+            action={ this.submit.bind(this) }/>
+        </div>
       </div>
     );
   }
@@ -58,10 +60,6 @@ class Team extends React.Component {
     if (!this.props.currentTeam) return;
 
     const team = this.props.currentTeam;
-    const owner = this.props.users[team.userId];
-    const fullName = this.props.currentUser ?
-      `${owner.firstName} ${owner.lastName}` :
-      '';
 
     let editLink;
     let owned = '';
@@ -74,12 +72,6 @@ class Team extends React.Component {
         path={ `/team/${this.props.currentTeamId}/edit` }
         image={ window.edit_dark } />;
       owned = ' owned';
-    } else {
-      bottomLine =
-      <div className={ 'team-header-faction owned' }>
-        <div>{ team.faction }</div>
-        <div>{ fullName }</div>
-      </div>;
     }
 
     return (
@@ -89,9 +81,6 @@ class Team extends React.Component {
             { team.teamName }
           </div>
           { bottomLine }
-        </div>
-        <div>
-          { editLink }
         </div>
       </div>
     );
@@ -114,36 +103,6 @@ class Team extends React.Component {
         <Statistic name='Losses' stat={ team.matchesLost }/>
         <Statistic name='Ties' stat={ team.matchesTied } grey={ true }/>
         <Statistic name='Win percentage' stat={ winPercentage }/>
-      </div>
-    );
-  }
-
-  matches() {
-    if (!this.props.currentTeam || !this.props.currentTeam.matchIds) return;
-
-    const matchList = this.props.currentTeam.matchIds.map(
-      id => {
-        const match = this.props.matches[id];
-        const team = this.props.teams[match.teamId];
-        const opposingTeam = this.props.teams[match.opposingTeamId];
-        const opponent = this.props.users[opposingTeam.userId];
-
-        return <MatchListItem
-          key={ id }
-          match={ match }
-          team={ team }
-          opposingTeam={ opposingTeam }
-          opponent={ opponent }
-          ownerViewing= { this.props.ownerViewing }
-          currentUser={ this.props.currentUser }
-          editable={ id === this.props.currentTeam.matchIds[0] } />;
-      }
-    );
-
-    return (
-      <div id='main-list'>
-        <h2>Matches</h2>
-        { matchList }
       </div>
     );
   }

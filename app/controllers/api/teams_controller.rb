@@ -43,7 +43,7 @@ class Api::TeamsController < ApplicationController
     return false unless authorized_user?(@team.user_id)
 
     @team.team_name = team_params[:team_name]
-    # @team.active = team_params[:active]
+    @team.active = team_params[:active] if team_params[:active]
 
     if @team.save
       render json: [@team.id], status: 200

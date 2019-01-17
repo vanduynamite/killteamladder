@@ -73,7 +73,7 @@ class EditTeam extends React.Component {
             <SubmitButton text='Save changes' active={ this.formValid() } />
           </div>
           <Link className='retire-link' to={ `/team/${this.props.team.id}/retire` } >
-            Retire team (doesn't work yet)</Link>
+            Retire team</Link>
         </form>
       </div>
     );
