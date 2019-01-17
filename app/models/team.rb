@@ -46,6 +46,18 @@ class Team < ApplicationRecord
   has_many :matchups,
     dependent: :destroy
 
+  after_initialize :add_start_points, if: :new_record?
+
+  def add_start_points
+    all_points = Team.where(active: true).pluck(:points).sort
+    if all_points.length == 0 then
+      self.points = 1000
+    else
+      p all_points, all_points[all_points.length / 4]
+      self.points = all_points[all_points.length / 4]
+    end
+  end
+
   def plays
     self.matchups.where(season: Matchup.season).count
   end

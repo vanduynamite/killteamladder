@@ -45,7 +45,6 @@ class ApplicationController < ActionController::Base
   def get_rankings
     results = {}
     points = Team.where(active: true).pluck(:points).sort.reverse
-    puts points.length
     points.each_with_index { |point, i| results[point] = i+1 unless results[point] }
     results
   end
