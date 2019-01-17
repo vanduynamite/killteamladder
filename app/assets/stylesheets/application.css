@@ -20,8 +20,11 @@
  *= require 05retire
  */
 
-html {}
-body {}
+
+html {
+  background: url(texture.png), url(blood-splatter.png) right bottom no-repeat fixed, #ffffff;
+}
+
 main {}
 
 #root {
