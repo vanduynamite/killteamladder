@@ -53,7 +53,6 @@ class Team < ApplicationRecord
     if all_points.length == 0 then
       self.points = 1000
     else
-      p all_points, all_points[all_points.length / 4]
       self.points = all_points[all_points.length / 4]
     end
   end
