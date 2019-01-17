@@ -43,7 +43,7 @@ user_names.each_with_index do |name, i|
     password: "starwars",
   )
   users.last.save
-  ApprovedEmail.create!(email: users.last.email)
+  # ApprovedEmail.create!(email: users.last.email)
 end
 
 FACTION_LIST = [
