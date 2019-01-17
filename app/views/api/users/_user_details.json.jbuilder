@@ -6,6 +6,7 @@ json.users do
     json.email user.email
 
     json.teamIds teams.sort_by { |t| t[:points] }.reverse.map { |t| t.id }
+    json.retiredTeamIds retired_teams.sort_by { |t| t[:points] }.reverse.map { |t| t.id }
 
     # n+1 going on here
     json.matchesPlayed user.plays

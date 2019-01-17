@@ -4,6 +4,7 @@ class Api::UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
     @teams = @user.teams.where(active: true)
+    @retired_teams = @user.teams.where(active: false)
     @rankings = get_rankings
 
     if @user

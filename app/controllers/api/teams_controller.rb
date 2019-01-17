@@ -17,7 +17,7 @@ class Api::TeamsController < ApplicationController
   end
 
   def index
-    @teams = Team.all.includes!(:user)
+    @teams = Team.includes(:user)
     @rankings = get_rankings
 
     render 'api/teams/index.json.jbuilder'

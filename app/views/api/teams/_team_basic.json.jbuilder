@@ -6,5 +6,6 @@ json.teams do
     json.teamName team.team_name
     json.userId team.user_id
     json.points team.points
+    json.active team.active
   end
 end

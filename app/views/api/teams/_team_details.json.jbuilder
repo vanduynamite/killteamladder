@@ -6,6 +6,7 @@ json.teams do
     json.teamName team.team_name
     json.userId team.user_id
     json.points team.points
+    json.active team.active
     json.matchIds team.matchups.map { |m| m.id }.sort.reverse
 
     json.matchesPlayed team.plays
