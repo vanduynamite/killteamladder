@@ -122,7 +122,9 @@ class NewMatch extends React.Component {
     const teams = Object.values(this.props.teams);
 
     teams.forEach(team => {
-      if (!myTeamIds.includes(team.id)) results.push([team.id, team.teamName]);
+      if (!myTeamIds.includes(team.id) && team.active) {
+        results.push([team.id, team.teamName]);
+      }
     });
 
     return results;

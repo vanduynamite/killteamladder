@@ -33,7 +33,7 @@ class Team extends React.Component {
   render() {
 
     let logMatchButton;
-    if (this.props.currentTeam && this.props.currentUser) {
+    if (this.props.currentTeam && this.props.currentUser && this.props.currentTeam.active) {
       if (this.props.currentTeam.userId === this.props.currentUser.id) {
         logMatchButton = <ButtonLink text='Log a match' path='/match/new' type='submit-active'/>;
       }
@@ -44,6 +44,7 @@ class Team extends React.Component {
         <h1>
           Team details
         </h1>
+        { this.retiredSection() }
         { this.teamDetails() }
         { this.teamStats() }
         { logMatchButton }
@@ -53,6 +54,16 @@ class Team extends React.Component {
   }
 
   // subcomponents
+
+  retiredSection() {
+    if (!this.props.currentTeam) return;
+    if (this.props.currentTeam.active) return;
+    return (
+      <div id='retired-section'>
+        { 'RETIRED' }
+      </div>
+    );
+  }
 
   teamDetails() {
     if (!this.props.currentTeam) return;
@@ -65,11 +76,13 @@ class Team extends React.Component {
 
     let editLink;
     let owned = '';
-    let bottomLine =
+    let bottomLine = (
       <div className={ 'team-header-faction owned' }>
         <div>{ team.faction }</div>
-      </div>;
-    if (this.props.ownerViewing) {
+      </div>
+    );
+
+    if (this.props.ownerViewing && team.active) {
       editLink = <ImageButton
         path={ `/team/${this.props.currentTeamId}/edit` }
         image={ window.edit_dark } />;
@@ -105,9 +118,12 @@ class Team extends React.Component {
       winPercentage = winPercentage.toString() + '%';
       if (winPercentage === 'NaN%') winPercentage = 'Play a game!';
 
+    let standing = <Statistic name='Current standing' stat={ team.rank } bold={ true }/>;
+    if (!team.active) standing = '';
+
     return (
       <div className='info-container' id='account-stats'>
-        <Statistic name='Current standing' stat={ team.rank } bold={ true }/>
+        { standing }
         <Statistic name='Total points' stat={ team.points } grey={ true } bold={ true }/>
         <Statistic name='Games played (this season)' stat={ team.matchesPlayed }/>
         <Statistic name='Wins' stat={ team.matchesWon } grey={ true }/>
@@ -127,6 +143,10 @@ class Team extends React.Component {
         const team = this.props.teams[match.teamId];
         const opposingTeam = this.props.teams[match.opposingTeamId];
         const opponent = this.props.users[opposingTeam.userId];
+        let editable = false;
+        if (id === this.props.currentTeam.matchIds[0] && team.active && opposingTeam.active) {
+          editable = true;
+        }
 
         return <MatchListItem
           key={ id }
@@ -136,7 +156,7 @@ class Team extends React.Component {
           opponent={ opponent }
           ownerViewing= { this.props.ownerViewing }
           currentUser={ this.props.currentUser }
-          editable={ id === this.props.currentTeam.matchIds[0] } />;
+          editable={ editable } />;
       }
     );
 

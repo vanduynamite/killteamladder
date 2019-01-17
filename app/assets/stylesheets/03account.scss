@@ -42,3 +42,22 @@
 .stat-container.grey {
   background: #F1F3F4;
 }
+
+#main-list-retired {
+  margin-bottom: 24px;
+}
+
+#retired-section {
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Black Ops One', cursive;
+  color: #A70300;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  line-height: 16px;
+  margin-top: 24px;
+  background-color: #D5D9E0;
+}

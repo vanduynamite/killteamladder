@@ -38,6 +38,8 @@ class Api::MatchupsController < ApplicationController
     get_matchup_info
 
     return false unless authorized_user?(@team1.user_id)
+    return false unless my_team_valid?
+    return false unless opponent_team_valid?
 
     unless @team1.matchups.last == @matchup1 && @team2.matchups.last == @matchup2
       render json: ['You can only edit the match if it is the last match for both teams'], status: 422
@@ -56,6 +58,8 @@ class Api::MatchupsController < ApplicationController
   def destroy
     get_matchup_info
     return false unless authorized_user?(@team1.user_id)
+    return false unless my_team_valid?
+    return false unless opponent_team_valid?
 
     unless @team1.matchups.last == @matchup1 && @team2.matchups.last == @matchup2
       render json: ['You can only delete the match if it is the last match for both teams'], status: 422
@@ -117,6 +121,12 @@ class Api::MatchupsController < ApplicationController
       render json: @team1.errors.full_messages, status: 422
       return false
     end
+
+    unless @team1.active
+      render json: ["Your team is retired"], status: 422
+      return false
+    end
+
     true
   end
 
@@ -126,6 +136,12 @@ class Api::MatchupsController < ApplicationController
       render json: @team2.errors.full_messages, status: 422
       return false
     end
+
+    unless @team2.active
+      render json: ["Opponent's team is retired"], status: 422
+      return false
+    end
+
     true
   end
 

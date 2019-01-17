@@ -132,6 +132,15 @@
   color: #2E3A42;
 }
 
+.team-names.retired {
+  left: 0px;
+  padding-left: 8px;
+  width: calc(100% - 18px);
+}
+.team-names.retired h2 {
+  color: #6B7D8C;
+}
+
 
 // matches
 

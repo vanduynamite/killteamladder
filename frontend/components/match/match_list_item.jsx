@@ -15,7 +15,7 @@ export default function({ match, team, opposingTeam, opponent, currentUser, owne
     '';
 
   let editButton = <></>;
-if (editable && (opponentViewing || ownerViewing)) {
+  if (editable && (opponentViewing || ownerViewing)) {
     editButton = <ImageButton path={ `/match/${match.id}/edit` } image={ window.edit } />;
   }
 

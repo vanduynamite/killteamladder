@@ -37,6 +37,7 @@ class Main extends React.Component {
       record => {
         const id = record[0];
         const team = teams[id];
+        if (!team.active) return;
         const user = users[team.userId];
         if (!team || !user) return <div key={id}></div>;
         return <TeamListItem

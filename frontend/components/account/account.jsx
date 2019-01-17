@@ -88,7 +88,23 @@ class Account extends React.Component {
   }
 
   retiredTeams() {
-    return <h2>Retired teams</h2>;
+    if (!this.props.currentUser.retiredTeamIds) return;
+
+    const teamList = this.props.currentUser.retiredTeamIds.map(
+      teamId => <TeamListItem
+        key={ teamId }
+        team={ this.props.teams[teamId] }
+        owner={ this.props.currentUser }
+        currentUserId={ this.props.currentUser.id }
+        active={ false }/>
+    );
+
+    return (
+      <div id='main-list-retired'>
+        <h2>Retired teams</h2>
+        { teamList }
+      </div>
+    );
   }
 
 }
