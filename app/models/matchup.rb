@@ -16,9 +16,17 @@
 class Matchup < ApplicationRecord
   SEASON = 1
 
-  WIN_POINTS = 6
-  TIE_POINTS = 3
-  LOSS_POINTS = 2
+  K_FACTOR = 56.0
+  S_FACTOR = {
+    -1 => 0.0,
+    0 => 0.5,
+    1 => 1.0,
+  }
+  PLAY_POINTS = {
+    -1 => 0,
+    0 => 0,
+    1 => 0,
+  }
 
   RESULTS = [-1, 0, 1]
 
@@ -49,33 +57,13 @@ class Matchup < ApplicationRecord
   end
 
   def calculate_end_points!
-    if self.result == 1
-      point_change = calculate_win
-    elsif self.result == -1
-      point_change = calculate_loss
-    else
-      point_change = calculate_tie
-    end
 
-    self.end_points = self.start_points + point_change
-  end
+    r1 = 10 ** (self.start_points/400.0)
+    r2 = 10 ** (self.opposite_matchup.start_points/400.0)
+    point_adjustment = K_FACTOR * (S_FACTOR[self.result] - r1/(r1 + r2))
 
-  def calculate_win
-    point_diff = [(self.opposite_matchup.start_points - self.start_points), 0].max
-    point_xfer = (point_diff + 1) / 2
-    WIN_POINTS + point_xfer
-  end
+    self.end_points = self.start_points + point_adjustment + PLAY_POINTS[self.result]
 
-  def calculate_loss
-    point_diff = [(self.start_points - self.opposite_matchup.start_points), 0].max
-    point_xfer = (point_diff + 1) / 2
-    LOSS_POINTS - point_xfer
-  end
-
-  def calculate_tie
-    point_diff = (self.opposite_matchup.start_points - self.start_points)
-    point_xfer = ((point_diff) / 4.0).round
-    TIE_POINTS + point_xfer
   end
 
   def self.season
