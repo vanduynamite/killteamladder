@@ -5,7 +5,7 @@ class Api::SessionsController < ApplicationController
     logout! if logged_in?
 
     @user = User.find_by_credentials(
-      params[:user][:email],
+      params[:user][:email].downcase,
       params[:user][:password]
     )
 

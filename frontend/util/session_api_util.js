@@ -12,6 +12,7 @@ export const signup = user => {
 };
 
 export const login = user => {
+  user.email = user.email.toLowerCase();
   return $.ajax({
     method: 'POST',
     url: '/api/session',
