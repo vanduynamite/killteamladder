@@ -78,6 +78,7 @@ class NewTeam extends React.Component {
       ['Grey Knights', 'Grey Knights'],
       ['Harlequins', 'Harlequins'],
       ['Heretic Astartes', 'Heretic Astartes'],
+      ['Kroot', 'Kroot'],
       ['Necrons', 'Necrons'],
       ['Orks', 'Orks'],
       ['Servants of the Abyss', 'Servants of the Abyss'],

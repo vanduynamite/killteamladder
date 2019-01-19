@@ -13,7 +13,7 @@ class Team extends React.Component {
   componentDidMount() {
     if (this.props.cameFromNewMatch) {
       this.props.setPathHistory({ team: this.props.currentTeamId });
-      this.props.history.push('/match/new');
+      setTimeout(this.props.history.push('/match/new'), 400);
     }
     this.props.getTeam(this.props.currentTeamId);
   }

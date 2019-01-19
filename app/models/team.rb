@@ -27,6 +27,7 @@ class Team < ApplicationRecord
     'Grey Knights',
     'Harlequins',
     'Heretic Astartes',
+    'Kroot',
     'Necrons',
     'Orks',
     'Servants of the Abyss',
@@ -49,11 +50,13 @@ class Team < ApplicationRecord
   after_initialize :add_start_points, if: :new_record?
 
   def add_start_points
+    # self.points = 1000
+
     all_points = Team.where(active: true).pluck(:points).sort
     if all_points.length == 0 then
       self.points = 1000
     else
-      self.points = all_points[all_points.length / 4]
+      self.points = all_points[all_points.length / 4] - 1
     end
   end
 

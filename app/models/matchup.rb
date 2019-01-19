@@ -17,15 +17,17 @@ class Matchup < ApplicationRecord
   SEASON = 1
 
   K_FACTOR = 56.0
+
+  WIN_POINTS = {
+    -1 => 14,
+    0 => 18,
+    1 => 28,
+  }
+
   S_FACTOR = {
     -1 => 0.0,
     0 => 0.5,
     1 => 1.0,
-  }
-  PLAY_POINTS = {
-    -1 => 0,
-    0 => 0,
-    1 => 0,
   }
 
   RESULTS = [-1, 0, 1]
@@ -62,8 +64,13 @@ class Matchup < ApplicationRecord
     r2 = 10 ** (self.opposite_matchup.start_points/400.0)
     point_adjustment = K_FACTOR * (S_FACTOR[self.result] - r1/(r1 + r2))
 
-    self.end_points = self.start_points + point_adjustment + PLAY_POINTS[self.result]
+    self.end_points = self.start_points + point_adjustment + play_points + WIN_POINTS[self.result]
 
+  end
+
+  def play_points
+    0
+    # K_FACTOR.to_i / (2 ** (self.team.matchups.count + 2))
   end
 
   def self.season

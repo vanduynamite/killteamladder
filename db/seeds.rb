@@ -60,6 +60,7 @@ FACTION_LIST = [
   'Grey Knights',
   'Harlequins',
   'Heretic Astartes',
+  'Kroot',
   'Necrons',
   'Orks',
   'Servants of the Abyss',
@@ -70,32 +71,32 @@ FACTION_LIST = [
 
 teams = []
 team_details = [
-  ["Andrew's First Team", 0, "Adeptus Astartes"],
-  ["Arash's First Team", 1, "Adeptus Astartes"],
-  ["Daniel's First Team", 2, "Adeptus Astartes"],
-  ["Dave's First Team", 3, "Adeptus Astartes"],
-  ["David's First Team", 4, "Adeptus Astartes"],
-  ["George's First Team", 5, "Adeptus Astartes"],
-  ["Isaac's First Team", 6, "Adeptus Mechanicus"],
-  ["James's First Team", 7, "Adeptus Astartes"],
-  ["Joshua's First Team", 8, "Tyranids"],
-  ["Kevin's First Team", 9, "Adeptus Astartes"],
-  ["Mike's First Team", 10, "Adeptus Astartes"],
-  ["Nicholas's First Team", 11, "Adeptus Astartes"],
-  ["Paul's First Team", 12, "Genestealer Cults"],
-  ["Ricky's First Team", 13, "Adeptus Astartes"],
-  ["Rob's First Team", 14, "Adeptus Astartes"],
-  ["Tom's First Team", 15, "Adeptus Astartes"],
-  ["Ronny's First Team", 16, "Adeptus Astartes"],
-  ["McLeod's First Team", 17, "Adeptus Astartes"],
-  ["Milan's First Team", 18, "Adeptus Astartes"],
-  ["Joey's First Team", 19, "Adeptus Astartes"],
-  ["Daniel's Second Team", 2, "Asuryani"],
-  ["David's Second Team", 4, "Elucidean Starstriders"],
-  ["George's Second Team", 5, "Grey Knights"],
-  ["Isaac's Second Team", 6, "Grey Knights"],
-  ["James's Second Team", 7, "Drukhari"],
-  ["Joshua's Second Team", 8, "Genestealer Cults"],
+  ["Andrew's Appsnake", 0, "Adeptus Astartes"],
+  ["Arash's Turkeys", 1, "Adeptus Astartes"],
+  ["Daniel's Donuts", 2, "Adeptus Astartes"],
+  ["Dave's Uruguayan Fire", 3, "Adeptus Astartes"],
+  ["David's Purple Nubz", 4, "Adeptus Astartes"],
+  ["George's Nice Team", 5, "Adeptus Astartes"],
+  ["Isaac's Fury", 6, "Adeptus Mechanicus"],
+  ["James's Farts", 7, "Adeptus Astartes"],
+  ["Joshua's Hip", 8, "Tyranids"],
+  ["Kevin's Klippers", 9, "Adeptus Astartes"],
+  ["Mike's Citadel", 10, "Adeptus Astartes"],
+  ["Nicholas's Vigil", 11, "Adeptus Astartes"],
+  ["Paul's Call", 12, "Genestealer Cults"],
+  ["Ricky's Tricky Dickies", 13, "Adeptus Astartes"],
+  ["Rob's Big Boiz", 14, "Adeptus Astartes"],
+  ["Tom's Telemetric Totems", 15, "Adeptus Astartes"],
+  ["Ronny's Grey Plastic", 16, "Adeptus Astartes"],
+  ["McLeod's Bimsicle", 17, "Adeptus Astartes"],
+  ["Milan's Camerasnappers", 18, "Adeptus Astartes"],
+  ["Joey's Gametasters", 19, "Adeptus Astartes"],
+  ["Daniel's Sunset", 2, "Asuryani"],
+  ["David's Green Nubz", 4, "Elucidean Starstriders"],
+  ["George's Mural", 5, "Grey Knights"],
+  ["Isaac's Good Knights", 6, "Grey Knights"],
+  ["James's Pain Team", 7, "Drukhari"],
+  ["Joshua's Other Hip", 8, "Genestealer Cults"],
   ["Nicholas's Second Team", 11, "Death Guard"],
   ["Ricky's Second Team", 13, "Death Guard"],
   ["Rob's Second Team", 14, "Death Guard"],
@@ -111,7 +112,6 @@ team_details.each_with_index do |team, i|
     faction: team[2],
     team_name: team[0],
   )
-  teams.last.points = 1000
   teams.last.save
 end
 
@@ -146,4 +146,11 @@ result_team1 = [1,1,1,-1,-1,1,1,1,1,1,-1,1,1,-1,-1,1,-1,-1,1,1,-1,1,-1,-1,1,1,1,
   team1.save
   team2.save
 
+end
+
+teams = Team.all.order(points: :desc)
+
+teams.each do |team|
+  puts "#{team.team_name}: #{team.wins} / #{team.ties} / #{team.losses} (#{(team.wins*10000/team.plays).round/100.0}%)"
+  puts "   #{team.points} points\n"
 end
