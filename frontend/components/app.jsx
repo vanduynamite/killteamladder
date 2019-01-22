@@ -19,9 +19,9 @@ import Team from './teams/team_container';
 
 export default () => {
 
-  // <Background />
   return (
     <>
+      <Background />
       <Nav />
       <Switch>
         <AuthRoute exact path='/login' component={ Login } />
