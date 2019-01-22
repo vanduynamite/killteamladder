@@ -5,7 +5,7 @@ export default function() {
   return (
     <div id='background'>
       <img src={ window.blood } />
-      <img src={ window.texture } />
+      <img id='texture' src={ window.texture } />
     </div>
   );
 }
