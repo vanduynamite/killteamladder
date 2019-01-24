@@ -18,10 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const store = configureStore(prevUserState);
   const root = document.getElementById('root');
-  // window.merge = merge
-  window.getState = store.getState;
+
+  // window.getState = store.getState;
   // window.dispatch = store.dispatch;
-  // window.actions = Actions;
 
   ReactDOM.render(<Root store={ store } />, root);
 });
