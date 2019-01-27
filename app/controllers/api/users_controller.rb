@@ -43,6 +43,17 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def password_reset
+    return false unless admin_user?
+    user = User.find_by(email: user_params[:email])
+    if user
+      new_password = user.reset_password!
+      render json: [new_password], status: 200
+    else
+      render json: ["Email address #{user_params[:email]} not found"], status: 422
+    end
+  end
+
   private
 
   def user_params

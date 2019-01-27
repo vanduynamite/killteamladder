@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
 
   private
 
+  ADMINS = [
+    'paul.vanduyn@gmail.com',
+    'isaac.vanduyn@gmail.com',
+  ]
+
   def current_user
     current_session = Session.find_by(token: session[:session_token])
     current_session ? current_session.user : nil
@@ -47,6 +52,14 @@ class ApplicationController < ActionController::Base
     points = Team.where(active: true).pluck(:points).sort.reverse
     points.each_with_index { |point, i| results[point] = i+1 unless results[point] }
     results
+  end
+
+  def admin_user?
+    unless logged_in? && ADMINS.include?(current_user.email)
+      render json: ['What are you trying to pull?'], status: 401
+      return false
+    end
+    true
   end
 
 end

@@ -1,11 +1,6 @@
 
 class Api::ApprovedEmailController < ApplicationController
 
-  ADMINS = [
-    'paul.vanduyn@gmail.com',
-    'isaac.vanduyn@gmail.com',
-  ]
-
   def create
     return false unless admin_user?
 
@@ -21,7 +16,6 @@ class Api::ApprovedEmailController < ApplicationController
   def destroy
     return false unless admin_user?
 
-    # approved_email = ApprovedEmail.find_by(email: params[:id])
     approved_email = ApprovedEmail.find_by(email: user_params[:email])
 
     if approved_email
@@ -41,14 +35,6 @@ class Api::ApprovedEmailController < ApplicationController
     params.require(:user).permit(
       :email,
     )
-  end
-
-  def admin_user?
-    unless logged_in? && ADMINS.include?(current_user.email)
-      render json: ['What are you trying to pull?'], status: 401
-      return false
-    end
-    true
   end
 
 end

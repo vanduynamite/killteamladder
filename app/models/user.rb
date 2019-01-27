@@ -39,6 +39,13 @@ class User < ApplicationRecord
     self.pw_digest = BCrypt::Password.create(pw)
   end
 
+  def reset_password!
+    new_password = SecureRandom::urlsafe_base64(6)
+    self.password = new_password
+    self.save
+    new_password
+  end
+
   def is_password?(pw)
     BCrypt::Password.new(self.pw_digest).is_password?(pw)
   end
