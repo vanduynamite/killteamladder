@@ -29,7 +29,8 @@ class User < ApplicationRecord
   attr_reader :password
 
   def self.find_by_credentials(email, pw)
-    user = User.find_by(email: email)
+    # user = User.find_by(email: email)
+    user = User.where('lower(email) = ?', email.downcase).first
     return nil unless user
     user.is_password?(pw) ? user : nil
   end
