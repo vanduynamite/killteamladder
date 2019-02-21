@@ -60,6 +60,7 @@ class Api::MatchupsController < ApplicationController
     return false unless authorized_user?(@team1.user_id)
     return false unless my_team_valid?
     return false unless opponent_team_valid?
+    return false unless in_current_season?
 
     unless @team1.matchups.last == @matchup1 && @team2.matchups.last == @matchup2
       render json: ['You can only delete the match if it is the last match for both teams'], status: 422
@@ -164,6 +165,14 @@ class Api::MatchupsController < ApplicationController
   def not_matched_last?(team1, team2)
     if team1.matchups.last && team1.matchups.last.opposite_matchup.team_id == team2.id
       render json: ['You cannot log two matches in a row against the same opposing team'], status: 422
+      return false
+    end
+    true
+  end
+
+  def in_current_season?
+    unless @matchup1.season == Season.last.season
+      render json: ['You cannot delete a match from last season'], status: 422
       return false
     end
     true

@@ -14,8 +14,6 @@
 #
 
 class Matchup < ApplicationRecord
-  SEASON = 1
-
   K_FACTOR = 56.0
 
   WIN_POINTS = {
@@ -48,14 +46,15 @@ class Matchup < ApplicationRecord
     class_name: :Team,
     foreign_key: :team_id
 
-  after_initialize :add_start_points, :add_season
+  after_initialize :add_start_points
+  after_initialize :add_season, if: :new_record?
 
   def add_start_points
     self.start_points = self.team.points unless self.start_points
   end
 
   def add_season
-    self.season = SEASON
+    self.season = Season.last.season
   end
 
   def calculate_end_points!
@@ -71,10 +70,6 @@ class Matchup < ApplicationRecord
   def play_points
     0
     # K_FACTOR.to_i / (2 ** (self.team.matchups.count + 2))
-  end
-
-  def self.season
-    SEASON
   end
 
 end

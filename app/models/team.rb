@@ -61,19 +61,19 @@ class Team < ApplicationRecord
   end
 
   def plays
-    self.matchups.where(season: Matchup.season).count
+    self.matchups.where(season: Season.last.season).count
   end
 
   def wins
-    self.matchups.where(result: 1, season: Matchup.season).count
+    self.matchups.where(result: 1, season: Season.last.season).count
   end
 
   def losses
-    self.matchups.where(result: -1, season: Matchup.season).count
+    self.matchups.where(result: -1, season: Season.last.season).count
   end
 
   def ties
-    self.matchups.where(result: 0, season: Matchup.season).count
+    self.matchups.where(result: 0, season: Season.last.season).count
   end
 
 end
