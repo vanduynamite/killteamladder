@@ -68,7 +68,7 @@ class SignupForm extends React.Component {
   }
 
   render() {
-    const path = this.props.user ? '/account' : '/';
+    const path = this.props.user ? '/killteam/account' : '/killteam/';
 
     const passwordLabel = this.props.user ? 'New password (optional)' : 'Password';
     const rePasswordLabel = this.props.user ? 'Re-enter new password' : 'Re-enter password';
@@ -134,7 +134,7 @@ class SignupForm extends React.Component {
       <div key={ error }>{ error }</div>);
 
     let loginLink;
-    if (!this.props.user) loginLink = <Link className='link' to='/login'>Login</Link>;
+    if (!this.props.user) loginLink = <Link className='link' to='/killteam/login'>Login</Link>;
 
     if (errors.length === 0) {
       return;

@@ -31,7 +31,7 @@ class Main extends React.Component {
 
     const teamRecords = Object.values(teams).map(
       team => [team.id, team.points]).sort(
-      (a, b) => b[1] - a[1]);
+        (a, b) => b[1] - a[1]);
 
     const teamList = teamRecords.map(
       record => {

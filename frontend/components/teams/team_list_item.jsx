@@ -15,7 +15,7 @@ export default function({ team, owner, currentUserId, active=true }) {
 
 
   return (
-    <Link to={ `/team/${ team.id }` }>
+    <Link to={ `/killteam/team/${ team.id }` }>
       <div className={ `team-list-item ${klass}` }>
         <div className={ `team-names ${klass}` }>
           <h2>{ team.teamName }</h2>

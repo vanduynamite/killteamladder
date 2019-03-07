@@ -20,7 +20,7 @@ export const getUser = id => dispatch => {
 
 export const editUser = (user, historyPush) => dispatch => {
   return UserAPI.editUser(user).then(
-    payload => historyPush('/account'),
+    payload => historyPush('/killteam/account'),
     errors => dispatch(receiveSessionErrors(errors)),
   )
 }

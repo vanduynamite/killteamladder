@@ -54,7 +54,7 @@ class LoginForm extends React.Component {
           </div>
 
           <div className='form-buttons'>
-            <ButtonLink text='Cancel' path='/' type='cancel' />
+            <ButtonLink text='Cancel' path='/killteam/' type='cancel' />
             <SubmitButton active={ this.formValid() } />
           </div>
         </form>
@@ -75,7 +75,7 @@ class LoginForm extends React.Component {
           <div id='errors'>
             { errors }
           </div>
-          <Link className='link' to='/signup'>Register new account</Link>
+          <Link className='link' to='/killteam/signup'>Register new account</Link>
         </>
       );
     }

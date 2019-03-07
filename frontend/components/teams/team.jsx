@@ -13,7 +13,7 @@ class Team extends React.Component {
   componentDidMount() {
     if (this.props.cameFromNewMatch) {
       this.props.setPathHistory({ team: this.props.currentTeamId });
-      setTimeout(this.props.history.push('/match/new'), 400);
+      setTimeout(this.props.history.push('/killteam/match/new'), 400);
     }
     this.props.getTeam(this.props.currentTeamId);
   }
@@ -25,7 +25,7 @@ class Team extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.props.history.location.pathname === '/match/new') {
+    if (this.props.history.location.pathname === '/killteam/match/new') {
       this.props.setPathHistory({ team: this.props.currentTeamId });
     }
   }
@@ -35,7 +35,7 @@ class Team extends React.Component {
     let logMatchButton;
     if (this.props.currentTeam && this.props.currentUser && this.props.currentTeam.active) {
       if (this.props.currentTeam.userId === this.props.currentUser.id) {
-        logMatchButton = <ButtonLink text='Log a match' path='/match/new' type='submit-active'/>;
+        logMatchButton = <ButtonLink text='Log a match' path='/killteam/match/new' type='submit-active'/>;
       }
     }
 
@@ -84,7 +84,7 @@ class Team extends React.Component {
 
     if (this.props.ownerViewing && team.active) {
       editLink = <ImageButton
-        path={ `/team/${this.props.currentTeamId}/edit` }
+        path={ `/killteam/team/${this.props.currentTeamId}/edit` }
         image={ window.edit_dark } />;
       owned = ' owned';
     } else {

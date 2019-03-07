@@ -24,7 +24,7 @@ class Account extends React.Component {
         </h1>
         { this.accountDetails() }
         { this.accountStats() }
-        <ButtonLink text='Create a team' path='/team/new' type='submit-active' />
+        <ButtonLink text='Create a team' path='/killteam/team/new' type='submit-active' />
         { this.teamDetails() }
         { this.retiredTeams() }
         <SubmitButton text='Log out' active={ true } action={ this.props.logout } />
@@ -45,7 +45,7 @@ class Account extends React.Component {
           { this.props.currentUser.email }
         </div>
         <div>
-          <ImageButton path='/account/edit' image={ window.edit } />
+          <ImageButton path='/killteam/account/edit' image={ window.edit } />
         </div>
       </div>
     );

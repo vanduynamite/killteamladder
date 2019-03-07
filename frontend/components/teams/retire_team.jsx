@@ -45,7 +45,7 @@ class Team extends React.Component {
         <div id='retire-desc-text'>{ descText }</div>
         <div id='errors' className='retire-text'>{ warningText }</div>
         <div className='form-buttons'>
-          <ButtonLink text='Cancel' path={ `/team/${this.props.currentTeamId}/` } type='cancel' />
+          <ButtonLink text='Cancel' path={ `/killteam/team/${this.props.currentTeamId}/` } type='cancel' />
           <SubmitButton text='Retire forever'
             active={ this.props.ownerViewing }
             action={ this.submit.bind(this) }/>
@@ -69,7 +69,7 @@ class Team extends React.Component {
       </div>;
     if (this.props.ownerViewing) {
       editLink = <ImageButton
-        path={ `/team/${this.props.currentTeamId}/edit` }
+        path={ `/killteam/team/${this.props.currentTeamId}/edit` }
         image={ window.edit_dark } />;
       owned = ' owned';
     }

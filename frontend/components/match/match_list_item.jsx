@@ -16,7 +16,7 @@ export default function({ match, team, opposingTeam, opponent, currentUser, owne
 
   let editButton = <></>;
   if (editable && (opponentViewing || ownerViewing)) {
-    editButton = <ImageButton path={ `/match/${match.id}/edit` } image={ window.edit } />;
+    editButton = <ImageButton path={ `/killteam/match/${match.id}/edit` } image={ window.edit } />;
   }
 
   return (
@@ -24,7 +24,7 @@ export default function({ match, team, opposingTeam, opponent, currentUser, owne
       <div className='date'>{ dateString }</div>
 
       <div className={ `match-names ${owned}` }>
-        <Link to={ `/team/${ opposingTeam.id }` }>
+        <Link to={ `/killteam/team/${ opposingTeam.id }` }>
           <h2>{ opposingTeam.teamName }</h2>
           <div className={ 'team-faction-and-owner' }>
             <div>{ opposingTeam.faction }</div>

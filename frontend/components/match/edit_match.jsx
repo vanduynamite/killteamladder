@@ -28,7 +28,7 @@ class NewMatch extends React.Component {
       match = this.props.currentMatch;
       const team = this.props.teams[match.teamId];
       if (this.props.currentUserId !== team.userId) {
-        this.props.history.push(`/match/${match.opposingMatchId}/edit`);
+        this.props.history.push(`/killteam/match/${match.opposingMatchId}/edit`);
       }
     }
 
@@ -81,7 +81,7 @@ class NewMatch extends React.Component {
 
           <div className='form-buttons'>
             <ButtonLink text='Cancel' type='cancel'
-              path={ this.props.deleteForm ? `/match/${this.props.matchId}/edit` : '/' } />
+              path={ this.props.deleteForm ? `/killteam/match/${this.props.matchId}/edit` : '/killteam/' } />
             <SubmitButton active={ this.formValid() }
               text={ this.props.deleteForm ? 'Delete' : 'Submit' }/>
           </div>
@@ -102,7 +102,7 @@ class NewMatch extends React.Component {
 
   deleteLink() {
     if (!this.props.deleteForm) {
-      return <Link className='retire-link' to={ `/match/${this.props.matchId}/delete` } >
+      return <Link className='retire-link' to={ `/killteam/match/${this.props.matchId}/delete` } >
         Delete match</Link>;
     }
   }
