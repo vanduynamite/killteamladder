@@ -33,3 +33,4 @@ bundle.js.map
 /db/emails.rb
 
 /killzone_db_export_21_02_2019
+/frontend/components/general/field.rb
