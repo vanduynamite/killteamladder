@@ -4,7 +4,7 @@ import { AuthRoute,
  ProtectedRoute } from '../util/route_util';
 import Background from './general/background';
 import Nav from './nav/killteam_nav';
-import Killteam from './killteam';
+import Ladder from './ladder';
 import Portal from './portal/portal_container';
 
 export default () => {
@@ -14,7 +14,8 @@ export default () => {
       <Background />
       <Nav />
       <Switch>
-        <Route path='/killteam' component={ Killteam } />
+        <Route path='/killteam' component={ Ladder } />
+        <Route path='/underworlds' component={ Ladder } />
         <Route path='/' component={ Portal } />
       </Switch>
     </>

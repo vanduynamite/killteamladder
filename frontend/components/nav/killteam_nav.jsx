@@ -9,7 +9,7 @@ const Login = (props) => {
     <div id='bottom-nav'>
       <div id='internal-nav'>
         <Link to='/killteam/'>
-          <img src={ window.logo } id='logo' />
+          <img src={ window.killteam_logo } id='logo' />
         </Link>
         { navButtons(props.history.location.pathname, props.loggedIn) }
       </div>

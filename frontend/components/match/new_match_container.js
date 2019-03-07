@@ -8,7 +8,8 @@ import { setPathHistory,
   clearPathHistory
 } from '../../actions/ui_actions';
 
-const msp = state => {
+const msp = (state, ownProps) => {
+  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); console.log(ladder);
   const loggedIn = state.session.id !== undefined;
   let currentUser;
   if (loggedIn) currentUser = state.entities.users[state.session.id];
@@ -20,6 +21,7 @@ const msp = state => {
   if (state.ui.history) cameFromTeamId = state.ui.history.team;
 
   return {
+    ladder,
     loggedIn,
     currentUser,
     errors,

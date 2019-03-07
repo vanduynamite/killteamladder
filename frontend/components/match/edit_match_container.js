@@ -7,6 +7,7 @@ import {
 } from '../../actions/match_actions';
 
 const msp = (state, ownProps) => {
+  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); console.log(ladder);
   const matchId = ownProps.match.params.matchId;
   const currentUserId = state.session.id;
 
@@ -17,6 +18,7 @@ const msp = (state, ownProps) => {
   const currentMatch = matches[matchId];
 
   return {
+    ladder,
     matchId,
     currentUserId,
     errors,

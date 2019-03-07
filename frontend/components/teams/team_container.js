@@ -7,6 +7,7 @@ import { setPathHistory,
 import Team from './team';
 
 const msp = (state, ownProps) => {
+  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); console.log(ladder);
   const teams = state.entities.teams;
   const matches = state.entities.matches;
   const users = state.entities.users;
@@ -27,6 +28,7 @@ const msp = (state, ownProps) => {
   if (state.ui.history) cameFromNewMatch = state.ui.history.match;
 
   return {
+    ladder,
     currentUser,
     currentTeam,
     currentTeamId,

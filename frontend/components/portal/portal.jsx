@@ -14,15 +14,17 @@ class Portal extends React.Component {
           Carcosa Club Portal
         </h1>
         <div id='ranking-list'>
-          <h3>
-            Welcome to the Carcosa Club member's portal!
-            Click below on the area you want to navigate to.
-          </h3>
           <h2>
             Killteam Ladder
           </h2>
           <Link to='/killteam/'>
-            <img src={ window.logo } id='logo' />
+            <img src={ window.killteam_logo } id='logo' />
+          </Link>
+          <h2>
+            Warhammer Underworlds Ladder
+          </h2>
+          <Link to='/underworlds/'>
+            <img src={ window.underworlds_logo } id='logo' />
           </Link>
         </div>
       </div>
