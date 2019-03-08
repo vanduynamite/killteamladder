@@ -9,6 +9,7 @@ class NewTeam extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      ladderName: this.props.ladder.slice(1),
       faction: this.factionList()[0][0],
       teamName: '',
     };

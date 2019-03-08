@@ -61,6 +61,7 @@ class Api::TeamsController < ApplicationController
       :faction,
       :team_name,
       :active,
+      :ladder_name,
     )
   end
 

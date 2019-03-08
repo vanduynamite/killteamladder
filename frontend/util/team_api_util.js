@@ -2,6 +2,7 @@
 export const newTeam = team => {
 
   team.team_name = team.teamName;
+  team.ladder_name = team.ladderName;
 
   return $.ajax({
     method: 'POST',

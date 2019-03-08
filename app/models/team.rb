@@ -2,14 +2,15 @@
 #
 # Table name: teams
 #
-#  id         :bigint(8)        not null, primary key
-#  user_id    :integer          not null
-#  faction    :string           not null
-#  team_name  :string           not null
-#  active     :boolean          default(TRUE), not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  points     :integer          default(0), not null
+#  id          :bigint(8)        not null, primary key
+#  user_id     :integer          not null
+#  faction     :string           not null
+#  team_name   :string           not null
+#  active      :boolean          default(TRUE), not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  points      :integer          default(0), not null
+#  ladder_name :string           not null
 #
 
 class Team < ApplicationRecord
@@ -43,6 +44,11 @@ class Team < ApplicationRecord
    message: 'already has a team in this faction' }
 
   belongs_to :user
+
+  belongs_to :ladder,
+    class_name: :Ladder,
+    foreign_key: :ladder_name,
+    primary_key: :name
 
   has_many :matchups,
     dependent: :destroy
