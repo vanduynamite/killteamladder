@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ImageButton from '../general/image_button';
 
-export default function({ match, team, opposingTeam, opponent, currentUser, ownerViewing, editable=false }) {
+export default function({ match, team, opposingTeam, opponent,
+  currentUser, ownerViewing, editable=false, ladder }) {
+
   const dateString = new Date(match.date).toDateString();
 
   const opponentViewing = currentUser ?
@@ -16,7 +18,7 @@ export default function({ match, team, opposingTeam, opponent, currentUser, owne
 
   let editButton = <></>;
   if (editable && (opponentViewing || ownerViewing)) {
-    editButton = <ImageButton path={ `/killteam/match/${match.id}/edit` } image={ window.edit } />;
+    editButton = <ImageButton path={ `${ladder}/match/${match.id}/edit` } image={ window.edit } />;
   }
 
   return (
@@ -24,7 +26,7 @@ export default function({ match, team, opposingTeam, opponent, currentUser, owne
       <div className='date'>{ dateString }</div>
 
       <div className={ `match-names ${owned}` }>
-        <Link to={ `/killteam/team/${ opposingTeam.id }` }>
+        <Link to={ `${ladder}/team/${ opposingTeam.id }` }>
           <h2>{ opposingTeam.teamName }</h2>
           <div className={ 'team-faction-and-owner' }>
             <div>{ opposingTeam.faction }</div>

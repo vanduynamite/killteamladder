@@ -8,9 +8,7 @@ const Login = (props) => {
   return (
     <div id='bottom-nav'>
       <div id='internal-nav'>
-        <Link to='/killteam/'>
-          <img src={ window.killteam_logo } id='logo' />
-        </Link>
+        { ladderPic(props.history.location.pathname) }
         { navButtons(props.history.location.pathname, props.loggedIn) }
       </div>
     </div>
@@ -18,37 +16,63 @@ const Login = (props) => {
 
 };
 
-const navButtons = (path, loggedIn) => {
+const ladderPic = (fullPath) => {
+  const ladder = fullPath.slice(0, fullPath.indexOf('/', 1));
+  switch (ladder) {
+    case '/killteam':
+      return (
+        <Link to='/killteam/'>
+          <img src={ window.killteam_logo } id='logo' />
+        </Link>
+      );
+    case '/underworlds':
+      return (
+        <Link to='/underworlds/'>
+          <img src={ window.underworlds_logo } id='logo' />
+        </Link>
+      );
+    case '':
+      return (
+        <Link to='/'>
+          <img src={ window.killteam_logo } id='logo' />
+        </Link>
+      );
+  }
+};
+
+const navButtons = (fullPath, loggedIn) => {
+  console.log(fullPath);
+  const ladder = fullPath.slice(0, fullPath.indexOf('/', 1));
+  const path = fullPath.slice(fullPath.indexOf('/',1));
+  console.log('Ladder: ' + ladder);
+  console.log('Subpath: ' + path);
+
+  if (ladder === '') {
+    if (loggedIn) return <ImageButton path='/account/edit' image={ window.account } />;
+    else return authButtons();
+  }
 
   switch (path) {
-    case '/killteam/login':
-    case '/killteam/signup':
-    case '/killteam/match/new':
+    case '/login':
+    case '/signup':
+    case '/match/new':
       return <ImageButton path='/killteam/' image={ window.close } />;
 
-    case '/killteam/account/edit':
-    case '/killteam/team/new':
+    case '/account/edit':
+    case '/team/new':
       return <ImageButton path='/killteam/account' image={ window.close } />;
 
-    case '/killteam/team/:teamId/new':
-      // TODO: uh fix this
+    case '/team/:teamId/new':
       return <ImageButton path={ `/killteam/team/${teamId}` } image={ window.close } />;
 
-    case '/killteam/':
+    case '/':
       if (loggedIn) return accountAndMatchButtons();
       else return authButtons();
 
       break;
 
-    case '/':
-      if (loggedIn) return <ImageButton path='/killteam/account' image={ window.account } />;
-      else return authButtons();
-
-      break;
-
-
     default:
-      return <ImageButton path='/killteam/' image={ window.close } />;
+      return <ImageButton path='/' image={ window.close } />;
 
   }
 };

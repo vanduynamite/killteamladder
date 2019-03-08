@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function({ team, owner, currentUserId, active=true }) {
+export default function({ team, owner, currentUserId, active=true, ladder }) {
   let klass = team.userId === currentUserId ? ' owned' : '';
   const ownerName = currentUserId ?
     `${owner.firstName} ${owner.lastName}` :
@@ -15,7 +15,7 @@ export default function({ team, owner, currentUserId, active=true }) {
 
 
   return (
-    <Link to={ `/killteam/team/${ team.id }` }>
+    <Link to={ `${ladder}/team/${ team.id }` }>
       <div className={ `team-list-item ${klass}` }>
         <div className={ `team-names ${klass}` }>
           <h2>{ team.teamName }</h2>

@@ -41,6 +41,7 @@ class Main extends React.Component {
         const user = users[team.userId];
         if (!team || !user) return <div key={id}></div>;
         return <TeamListItem
+            ladder={ this.props.ladder }
             key={ id }
             team={ team }
             owner={ user }

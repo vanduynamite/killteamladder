@@ -4,7 +4,7 @@ import { getUser } from '../../actions/user_actions';
 import Account from './account';
 
 const msp = (state, ownProps) => {
-  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); console.log(ladder);
+  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); //console.log(ladder);
   const loggedIn = state.session.id !== undefined;
   const teams = state.entities.teams;
   let currentUser;

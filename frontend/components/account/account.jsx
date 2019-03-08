@@ -24,7 +24,7 @@ class Account extends React.Component {
         </h1>
         { this.accountDetails() }
         { this.accountStats() }
-        <ButtonLink text='Create a team' path='/killteam/team/new' type='submit-active' />
+        <ButtonLink text='Create a team' path={ `${this.props.ladder}/team/new` } type='submit-active' />
         { this.teamDetails() }
         { this.retiredTeams() }
         <SubmitButton text='Log out' active={ true } action={ this.props.logout } />
@@ -45,7 +45,7 @@ class Account extends React.Component {
           { this.props.currentUser.email }
         </div>
         <div>
-          <ImageButton path='/killteam/account/edit' image={ window.edit } />
+          <ImageButton path={`${this.props.ladder}/account/edit`} image={ window.edit } />
         </div>
       </div>
     );
@@ -73,6 +73,7 @@ class Account extends React.Component {
 
     const teamList = this.props.currentUser.teamIds.map(
       teamId => <TeamListItem
+        ladder={ this.props.ladder }
         key={ teamId }
         team={ this.props.teams[teamId] }
         owner={ this.props.currentUser }
@@ -92,6 +93,7 @@ class Account extends React.Component {
 
     const teamList = this.props.currentUser.retiredTeamIds.map(
       teamId => <TeamListItem
+        ladder={ this.props.ladder }
         key={ teamId }
         team={ this.props.teams[teamId] }
         owner={ this.props.currentUser }

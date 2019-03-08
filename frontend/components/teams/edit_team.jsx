@@ -21,7 +21,7 @@ class EditTeam extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.currentUserId !== this.props.ownerId) {
-      this.props.history.push(`/killteam/team/${this.props.team.id}`);
+      this.props.history.push(`${this.props.ladder}/team/${this.props.team.id}`);
     }
 
     if (!prevProps.team && this.props.team) {
@@ -69,10 +69,10 @@ class EditTeam extends React.Component {
 
           <div className='form-buttons'>
             <ButtonLink text='Cancel' type='cancel'
-              path={ `/killteam/team/${this.props.team.id}` } />
+              path={ `${this.props.ladder}/team/${this.props.team.id}` } />
             <SubmitButton text='Save changes' active={ this.formValid() } />
           </div>
-          <Link className='retire-link' to={ `/killteam/team/${this.props.team.id}/retire` } >
+          <Link className='retire-link' to={ `${this.props.ladder}/team/${this.props.team.id}/retire` } >
             Retire team</Link>
         </form>
       </div>

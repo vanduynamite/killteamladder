@@ -34,11 +34,11 @@ class NewMatch extends React.Component {
       this.setState({ teamId: myTeams[1][0]});
     }
 
-    if (this.state.teamId === 'new team') this.props.history.push('/killteam/team/new');
+    if (this.state.teamId === 'new team') this.props.history.push(`${this.props.ladder}/team/new`);
   }
 
   componentWillUnmount() {
-    if (this.props.history.location.pathname === '/killteam/team/new') {
+    if (this.props.history.location.pathname === `${this.props.ladder}/team/new`) {
       this.props.setPathHistory({ match: true });
     }
   }
@@ -85,7 +85,7 @@ class NewMatch extends React.Component {
           </div>
 
           <div className='form-buttons'>
-            <ButtonLink text='Cancel' path='/killteam/' type='cancel' />
+            <ButtonLink text='Cancel' path={ `${this.props.ladder}/` } type='cancel' />
             <SubmitButton active={ this.formValid() } />
           </div>
         </form>

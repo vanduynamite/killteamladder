@@ -3,7 +3,6 @@ import Statistic from '../general/statistic';
 import ImageButton from '../general/image_button';
 import ButtonLink from '../general/button_link';
 import SubmitButton from '../general/submit_button';
-import MatchListItem from '../match/match_list_item';
 
 class Team extends React.Component {
 
@@ -45,7 +44,7 @@ class Team extends React.Component {
         <div id='retire-desc-text'>{ descText }</div>
         <div id='errors' className='retire-text'>{ warningText }</div>
         <div className='form-buttons'>
-          <ButtonLink text='Cancel' path={ `/killteam/team/${this.props.currentTeamId}/` } type='cancel' />
+          <ButtonLink text='Cancel' path={ `${this.props.ladder}/team/${this.props.currentTeamId}/` } type='cancel' />
           <SubmitButton text='Retire forever'
             active={ this.props.ownerViewing }
             action={ this.submit.bind(this) }/>
@@ -69,7 +68,7 @@ class Team extends React.Component {
       </div>;
     if (this.props.ownerViewing) {
       editLink = <ImageButton
-        path={ `/killteam/team/${this.props.currentTeamId}/edit` }
+        path={ `${this.props.ladder}/team/${this.props.currentTeamId}/edit` }
         image={ window.edit_dark } />;
       owned = ' owned';
     }

@@ -52,7 +52,7 @@ class NewTeam extends React.Component {
           </div>
 
           <div className='form-buttons'>
-            <ButtonLink text='Cancel' path='/killteam/account' type='cancel' />
+            <ButtonLink text='Cancel' path={ `${this.props.ladder}/account` } type='cancel' />
             <SubmitButton active={ this.formValid() } />
           </div>
         </form>

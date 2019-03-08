@@ -7,7 +7,7 @@ import { setPathHistory,
 import RetireTeam from './retire_team';
 
 const msp = (state, ownProps) => {
-  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); console.log(ladder);
+  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); //console.log(ladder);
   const users = state.entities.users;
 
   let currentUser;

@@ -13,7 +13,7 @@ class Team extends React.Component {
   componentDidMount() {
     if (this.props.cameFromNewMatch) {
       this.props.setPathHistory({ team: this.props.currentTeamId });
-      setTimeout(this.props.history.push('/killteam/match/new'), 400);
+      setTimeout(this.props.history.push(`${this.props.ladder}/match/new`), 400);
     }
     this.props.getTeam(this.props.currentTeamId);
   }
@@ -25,7 +25,7 @@ class Team extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.props.history.location.pathname === '/killteam/match/new') {
+    if (this.props.history.location.pathname === `${this.props.ladder}/match/new`) {
       this.props.setPathHistory({ team: this.props.currentTeamId });
     }
   }
@@ -35,7 +35,7 @@ class Team extends React.Component {
     let logMatchButton;
     if (this.props.currentTeam && this.props.currentUser && this.props.currentTeam.active) {
       if (this.props.currentTeam.userId === this.props.currentUser.id) {
-        logMatchButton = <ButtonLink text='Log a match' path='/killteam/match/new' type='submit-active'/>;
+        logMatchButton = <ButtonLink text='Log a match' path={ `${this.props.ladder}/match/new` } type='submit-active'/>;
       }
     }
 
@@ -84,7 +84,7 @@ class Team extends React.Component {
 
     if (this.props.ownerViewing && team.active) {
       editLink = <ImageButton
-        path={ `/killteam/team/${this.props.currentTeamId}/edit` }
+        path={ `${this.props.ladder}/team/${this.props.currentTeamId}/edit` }
         image={ window.edit_dark } />;
       owned = ' owned';
     } else {
@@ -149,6 +149,7 @@ class Team extends React.Component {
         }
 
         return <MatchListItem
+          ladder={ this.props.ladder }
           key={ id }
           match={ match }
           team={ team }
