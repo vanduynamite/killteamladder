@@ -22,7 +22,7 @@ class SignupForm extends React.Component {
 
   componentDidMount() {
     if (this.props.currentUserId && !this.props.user) {
-      this.props.getUser(this.props.currentUserId);
+      this.props.getUser(this.props.currentUserId, this.props.ladder);
     }
 
     if (this.props.user) {

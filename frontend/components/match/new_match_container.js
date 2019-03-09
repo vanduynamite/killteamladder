@@ -32,8 +32,8 @@ const msp = (state, ownProps) => {
 
 const mdp = dispatch => {
   return {
-    getTeams: () => dispatch(getTeams()),
-    getUser: id => dispatch(getUser(id)),
+    getTeams: (ladder) => dispatch(getTeams(ladder)),
+    getUser: (id, ladder) => dispatch(getUser(id, ladder)),
     newMatch: (match, historyPush) => dispatch(newMatch(match, historyPush)),
     setPathHistory: data => dispatch(setPathHistory(data)),
     clearPathHistory: () => dispatch(clearPathHistory()),

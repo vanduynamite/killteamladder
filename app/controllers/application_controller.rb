@@ -47,9 +47,9 @@ class ApplicationController < ActionController::Base
 
   end
 
-  def get_rankings
+  def get_rankings(ladder)
     results = {}
-    points = Team.where(active: true).pluck(:points).sort.reverse
+    points = Team.where(active: true, ladder_name: ladder).pluck(:points).sort.reverse
     points.each_with_index { |point, i| results[point] = i+1 unless results[point] }
     results
   end

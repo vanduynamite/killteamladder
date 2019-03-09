@@ -29,9 +29,10 @@ export const editTeam = team => {
   });
 };
 
-export const getTeams = () => {
+export const getTeams = (ladder) => {
   return $.ajax({
     method: 'GET',
     url: '/api/teams',
+    data: { ladder },
   });
 };

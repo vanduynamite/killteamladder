@@ -33,7 +33,8 @@ export const newTeam = (team, historyPush) => dispatch => {
     payload => {
       dispatch(receiveTeams(payload));
       const teamId = Object.keys(payload.teams)[0];
-      historyPush(`/killteam/team/${teamId}`);
+      const ladder = Object.values(payload.teams)[0].ladder;
+      historyPush(`${ladder}/team/${teamId}`);
     },
     errors => dispatch(receiveTeamErrors(errors))
   );
@@ -41,13 +42,15 @@ export const newTeam = (team, historyPush) => dispatch => {
 
 export const editTeam = (team, historyPush) => dispatch => {
   return TeamAPI.editTeam(team).then(
-    payload => historyPush(`/killteam/team/${payload[0]}`),
+    payload => {
+      historyPush(`${payload[1]}/team/${payload[0]}`)
+    },
     errors => dispatch(receiveTeamErrors(errors))
   );
 };
 
-export const getTeams = () => dispatch => {
-  return TeamAPI.getTeams().then(
+export const getTeams = (ladder) => dispatch => {
+  return TeamAPI.getTeams(ladder).then(
     payload => dispatch(receiveTeams(payload))
   );
 };

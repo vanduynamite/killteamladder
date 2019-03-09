@@ -6,7 +6,7 @@ class Api::TeamsController < ApplicationController
 
     @user = current_user
     @team = @user.teams.new(team_params)
-    @rankings = get_rankings
+    @rankings = get_rankings(@team.ladder_name)
 
     if @team.save
       render 'api/teams/create.json.jbuilder'
@@ -17,8 +17,8 @@ class Api::TeamsController < ApplicationController
   end
 
   def index
-    @teams = Team.includes(:user)
-    @rankings = get_rankings
+    @teams = Team.where(ladder_name: params[:ladder]).includes(:user)
+    @rankings = get_rankings(params[:ladder])
 
     render 'api/teams/index.json.jbuilder'
   end
@@ -26,9 +26,9 @@ class Api::TeamsController < ApplicationController
   def show
     @team = Team.includes(:matchups).find_by(id: params[:id])
     @matchups = @team.matchups.includes(:opposite_matchup)
-    @teams = Team.all
+    @teams = Team.where(ladder_name: @team.ladder_name)
     @users = User.all
-    @rankings = get_rankings
+    @rankings = get_rankings(@team.ladder_name)
 
     if @team
       render 'api/teams/show.json.jbuilder', status: 200
@@ -46,7 +46,7 @@ class Api::TeamsController < ApplicationController
     @team.active = team_params[:active] if team_params[:active]
 
     if @team.save
-      render json: [@team.id], status: 200
+      render json: [@team.id, @team.ladder_name], status: 200
     else
       render @team.errors.full_messages, status: 422
     end

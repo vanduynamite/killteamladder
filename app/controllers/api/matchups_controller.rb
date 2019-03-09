@@ -73,7 +73,7 @@ class Api::MatchupsController < ApplicationController
     if @team1.save && @team2.save
       @matchup1.destroy
       render json: {
-        teamIds: [@team1.id, @team2.id],
+        teamIds: [@team1.id, @team2.id, @team1.ladder_name],
         matchIds: [@matchup1.id, @matchup2.id],
       }, status: 200
     else
@@ -91,7 +91,7 @@ class Api::MatchupsController < ApplicationController
     @team2.points = @matchup2.end_points
 
     if @matchup1.save && @matchup2.save && @team1.save && @team2.save
-      render json: [@team1.id], status: 200
+      render json: [@team1.id, @team1.ladder_name], status: 200
     else
       render json: ['There was an error calculating points'], status: 422
     end

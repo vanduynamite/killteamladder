@@ -12,7 +12,7 @@ class Account extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getUser(this.props.currentUser.id);
+    this.props.getUser(this.props.currentUser.id, this.props.ladder);
   }
 
   render() {

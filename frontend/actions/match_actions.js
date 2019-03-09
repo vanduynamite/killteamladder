@@ -21,7 +21,7 @@ const receiveDeletedMatch = ({teamIds, matchIds}) => {
 
 export const newMatch = (match, historyPush) => dispatch => {
   return MatchAPI.newMatch(match).then(
-    payload => historyPush('/killteam/'),
+    payload => historyPush(`${payload[1]}`),
     errors => dispatch(receiveMatchErrors(errors))
   );
 };
@@ -34,7 +34,7 @@ export const getMatch = id => dispatch => {
 
 export const editMatch = (match, historyPush) => dispatch => {
   return MatchAPI.editMatch(match).then(
-    payload => historyPush(`/killteam/team/${payload[0]}`),
+    payload => historyPush(`${payload[1]}/team/${payload[0]}`),
     errors => dispatch(receiveMatchErrors(errors))
   );
 };
@@ -42,7 +42,7 @@ export const editMatch = (match, historyPush) => dispatch => {
 export const deleteMatch = (match, historyPush) => dispatch => {
   return MatchAPI.deleteMatch(match).then(
     payload => {
-      historyPush(`/killteam/team/${payload.teamIds[0]}`);
+      historyPush(`${payload.teamIds[2]}/team/${payload.teamIds[0]}`);
       dispatch(receiveDeletedMatch(payload));
     },
     errors => dispatch(receiveMatchErrors(errors))

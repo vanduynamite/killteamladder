@@ -12,15 +12,15 @@ const receiveUsers = ({ users, teams }) => {
   }
 };
 
-export const getUser = id => dispatch => {
-  return UserAPI.getUser(id).then(
+export const getUser = (id, ladder) => dispatch => {
+  return UserAPI.getUser(id, ladder).then(
     payload => dispatch(receiveUsers(payload))
   );
 };
 
 export const editUser = (user, historyPush) => dispatch => {
   return UserAPI.editUser(user).then(
-    payload => historyPush('/killteam/account'),
+    payload => historyPush('/'),
     errors => dispatch(receiveSessionErrors(errors)),
   )
 }

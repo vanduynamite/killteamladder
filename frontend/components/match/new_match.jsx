@@ -17,8 +17,8 @@ class NewMatch extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getTeams();
-    this.props.getUser(this.props.currentUser.id);
+    this.props.getTeams(this.props.ladder);
+    this.props.getUser(this.props.currentUser.id, this.props.ladder);
   }
 
   componentDidUpdate(oldProps) {

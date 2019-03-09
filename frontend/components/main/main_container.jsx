@@ -23,7 +23,7 @@ const msp = (state, ownProps) => {
 
 const mdp = dispatch => {
   return {
-    getTeams: () => dispatch(getTeams()),
+    getTeams: (ladder) => dispatch(getTeams(ladder)),
   };
 };
 

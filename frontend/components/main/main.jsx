@@ -8,7 +8,7 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getTeams();
+    this.props.getTeams(this.props.ladder);
   }
 
   render() {
@@ -37,6 +37,7 @@ class Main extends React.Component {
       record => {
         const id = record[0];
         const team = teams[id];
+        if (team.ladder !== this.props.ladder) return;
         if (!team.active) return;
         const user = users[team.userId];
         if (!team || !user) return <div key={id}></div>;

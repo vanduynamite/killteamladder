@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import ImageButton from '../general/image_button';
 
-const Login = (props) => {
+const Nav = (props) => {
 
   return (
     <div id='bottom-nav'>
@@ -34,7 +34,7 @@ const ladderPic = (fullPath) => {
     case '':
       return (
         <Link to='/'>
-          <img src={ window.killteam_logo } id='logo' />
+          <div> </div>
         </Link>
       );
   }
@@ -56,34 +56,33 @@ const navButtons = (fullPath, loggedIn) => {
     case '/login':
     case '/signup':
     case '/match/new':
-      return <ImageButton path='/killteam/' image={ window.close } />;
+    case '/account':
+    case '/team/:teamId':
+      return <ImageButton path={ `${ladder}/` } image={ window.close } />;
 
     case '/account/edit':
     case '/team/new':
-      return <ImageButton path='/killteam/account' image={ window.close } />;
-
-    case '/team/:teamId/new':
-      return <ImageButton path={ `/killteam/team/${teamId}` } image={ window.close } />;
+      return <ImageButton path={ `${ladder}/account` } image={ window.close } />;
 
     case '/':
-      if (loggedIn) return accountAndMatchButtons();
+      if (loggedIn) return accountAndMatchButtons(ladder);
       else return authButtons();
 
       break;
 
     default:
-      return <ImageButton path='/' image={ window.close } />;
+      return <ImageButton path={ `${ladder}/` } image={ window.close } />;
 
   }
 };
 
-const accountAndMatchButtons = () => {
+const accountAndMatchButtons = (ladder) => {
   return (
     <div id='nav-button-group'>
-      <Link to='/killteam/account'>
+      <Link to={`${ladder}/account`}>
         <img src={ window.account } className='img-button' />
       </Link>
-      <Link to='/killteam/match/new'>
+      <Link to={`${ladder}/match/new`}>
         <img src={ window.add } className='img-button' />
       </Link>
       <Link to='/'>
@@ -112,4 +111,4 @@ const msp = state => {
   };
 };
 
-export default withRouter(connect(msp)(Login));
+export default withRouter(connect(msp)(Nav));

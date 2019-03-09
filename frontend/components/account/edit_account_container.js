@@ -29,7 +29,7 @@ const msp = state => {
 
 const mdp = dispatch => {
   return {
-    getUser: id => dispatch(getUser(id)),
+    getUser: (id, ladder) => dispatch(getUser(id, ladder)),
     submitAction: (user, historyPush) => dispatch(editUser(user, historyPush)),
     clearErrors: () => dispatch(clearSessionErrors()),
   };
