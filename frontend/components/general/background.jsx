@@ -1,11 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-export default function() {
+const Background = props => {
+  const fullPath = props.history.location.pathname;
+  const ladder = fullPath.slice(0, fullPath.indexOf('/', 1));
+
+  let backgroundPath = window.killteam_background;
+  if (ladder === '/underworlds') backgroundPath = window.underworlds_background;
+
   return (
     <div id='background'>
-      <img src={ window.blood } />
+      <img src={ backgroundPath } />
       <img id='texture' src={ window.texture } />
     </div>
   );
-}
+};
+
+export default withRouter(connect()(Background));

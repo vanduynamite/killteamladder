@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { getTeams } from '../../actions/team_actions';
+import { clearPathHistory } from '../../actions/ui_actions';
 import Main from './main';
 
 const msp = (state, ownProps) => {
@@ -24,6 +25,7 @@ const msp = (state, ownProps) => {
 const mdp = dispatch => {
   return {
     getTeams: (ladder) => dispatch(getTeams(ladder)),
+    clearPathHistory: () => dispatch(clearPathHistory()),
   };
 };
 

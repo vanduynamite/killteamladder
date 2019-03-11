@@ -8,6 +8,7 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
+    this.props.clearPathHistory();
     this.props.getTeams(this.props.ladder);
   }
 

@@ -41,11 +41,11 @@ const ladderPic = (fullPath) => {
 };
 
 const navButtons = (fullPath, loggedIn) => {
-  console.log(fullPath);
   const ladder = fullPath.slice(0, fullPath.indexOf('/', 1));
   const path = fullPath.slice(fullPath.indexOf('/',1));
-  console.log('Ladder: ' + ladder);
-  console.log('Subpath: ' + path);
+  // console.log(fullPath);
+  // console.log('Ladder: ' + ladder);
+  // console.log('Subpath: ' + path);
 
   if (ladder === '') {
     if (loggedIn) return <ImageButton path='/account/edit' image={ window.account } />;

@@ -21,7 +21,7 @@ const receiveDeletedMatch = ({teamIds, matchIds}) => {
 
 export const newMatch = (match, historyPush) => dispatch => {
   return MatchAPI.newMatch(match).then(
-    payload => historyPush(`${payload[1]}`),
+    payload => historyPush(`${payload[1]}/`),
     errors => dispatch(receiveMatchErrors(errors))
   );
 };
