@@ -34,7 +34,7 @@ const ladderPic = (fullPath) => {
     case '':
       return (
         <Link to='/'>
-          <div> </div>
+          <img src={ window.carcosa_logo } id='logo' />
         </Link>
       );
   }
