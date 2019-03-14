@@ -72,12 +72,18 @@ class Account extends React.Component {
     if (!this.props.currentUser.teamIds) return;
 
     const teamList = this.props.currentUser.teamIds.map(
-      teamId => <TeamListItem
-        ladder={ this.props.ladder }
-        key={ teamId }
-        team={ this.props.teams[teamId] }
-        owner={ this.props.currentUser }
-        currentUserId={ this.props.currentUser.id }/>
+      teamId => {
+        const team = this.props.teams[teamId];
+        if (team.ladder !== this.props.ladder || !team.active) return;
+        return (
+          <TeamListItem
+          ladder={ this.props.ladder }
+          key={ teamId }
+          team={ team }
+          owner={ this.props.currentUser }
+          currentUserId={ this.props.currentUser.id }/>
+        );
+      }
     );
 
     return (
@@ -92,13 +98,19 @@ class Account extends React.Component {
     if (!this.props.currentUser.retiredTeamIds) return;
 
     const teamList = this.props.currentUser.retiredTeamIds.map(
-      teamId => <TeamListItem
-        ladder={ this.props.ladder }
-        key={ teamId }
-        team={ this.props.teams[teamId] }
-        owner={ this.props.currentUser }
-        currentUserId={ this.props.currentUser.id }
-        active={ false }/>
+      teamId => {
+        const team = this.props.teams[teamId];
+        if (team.ladder !== this.props.ladder || team.active) return;
+        return (
+          <TeamListItem
+            ladder={ this.props.ladder }
+            key={ teamId }
+            team={ team }
+            owner={ this.props.currentUser }
+            currentUserId={ this.props.currentUser.id }
+            active={ false }/>
+        );
+      }
     );
 
     return (

@@ -64,29 +64,51 @@ class NewTeam extends React.Component {
   // subcomponents
 
   factionList() {
-    return [
-      ['x', 'Select a faction'],
-      ['Adeptus Astartes', 'Adeptus Astartes'],
-      ['Adeptus Mechanicus', 'Adeptus Mechanicus'],
-      ['Astra Militarum', 'Astra Militarum'],
-      ['Asuryani', 'Asuryani'],
-      ['Death Guard', 'Death Guard'],
-      ['Deathwatch', 'Deathwatch'],
-      ['Drukhari', 'Drukhari'],
-      ['Elucidean Starstriders', 'Elucidean Starstriders'],
-      ['Gellerpox Infected', 'Gellerpox Infected'],
-      ['Genestealer Cults', 'Genestealer Cults'],
-      ['Grey Knights', 'Grey Knights'],
-      ['Harlequins', 'Harlequins'],
-      ['Heretic Astartes', 'Heretic Astartes'],
-      ['Kroot', 'Kroot'],
-      ['Necrons', 'Necrons'],
-      ['Orks', 'Orks'],
-      ['Servants of the Abyss', 'Servants of the Abyss'],
-      ['T\'au Empire', 'T\'au Empire'],
-      ['Thousand Sons', 'Thousand Sons'],
-      ['Tyranids', 'Tyranids'],
-    ];
+    const result = [['x', 'Select a faction']]
+    switch (this.props.ladder) {
+      case '/killteam':
+        return result.concat([
+          ['Adeptus Astartes', 'Adeptus Astartes'],
+          ['Adeptus Mechanicus', 'Adeptus Mechanicus'],
+          ['Astra Militarum', 'Astra Militarum'],
+          ['Asuryani', 'Asuryani'],
+          ['Death Guard', 'Death Guard'],
+          ['Deathwatch', 'Deathwatch'],
+          ['Drukhari', 'Drukhari'],
+          ['Elucidean Starstriders', 'Elucidean Starstriders'],
+          ['Gellerpox Infected', 'Gellerpox Infected'],
+          ['Genestealer Cults', 'Genestealer Cults'],
+          ['Grey Knights', 'Grey Knights'],
+          ['Harlequins', 'Harlequins'],
+          ['Heretic Astartes', 'Heretic Astartes'],
+          ['Kroot', 'Kroot'],
+          ['Necrons', 'Necrons'],
+          ['Orks', 'Orks'],
+          ['Servants of the Abyss', 'Servants of the Abyss'],
+          ['T\'au Empire', 'T\'au Empire'],
+          ['Thousand Sons', 'Thousand Sons'],
+          ['Tyranids', 'Tyranids'],
+        ]);
+
+      case '/underworlds':
+        return result.concat([
+          ["Garrek's Reavers","Garrek's Reavers"],
+          ["Steelheart's Champions","Steelheart's Champions"],
+          ["Sepulchral Guard","Sepulchral Guard"],
+          ["Ironskull's Boyz","Ironskull's Boyz"],
+          ["The Chosen Axes","The Chosen Axes"],
+          ["Spiteclaw's Swarm","Spiteclaw's Swarm"],
+          ["The Farstriders","The Farstriders"],
+          ["Magore's Fiends","Magore's Fiends"],
+          ["Stormsire's Cursebreakers","Stormsire's Cursebreakers"],
+          ["Thorns of the Brian Queen","Thorns of the Brian Queen"],
+          ["Eyes of the Nine","Eyes of the Nine"],
+          ["Zarbag's Gitz","Zarbag's Gitz"],
+          ["Mollog's Mob","Mollog's Mob"],
+          ["Godsworn Hunt","Godsworn Hunt"],
+        ]);
+    }
+
   }
 
   errorSection() {

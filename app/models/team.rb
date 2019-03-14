@@ -35,6 +35,20 @@ class Team < ApplicationRecord
     'T\'au Empire',
     'Thousand Sons',
     'Tyranids',
+    "Garrek's Reavers",
+    "Steelheart's Champions",
+    "Sepulchral Guard",
+    "Ironskull's Boyz",
+    "The Chosen Axes",
+    "SpiteClaw's Swarm",
+    "The Farstriders",
+    "Magore's Fiends",
+    "Stormsire's Cursebreakers",
+    "Thorns of the Brian Queen",
+    "Eyes of the Nine",
+    "Zarbag's Gitz",
+    "Mollog's Mob",
+    "Godsworn Hunt",
   ]
 
   validates :faction, :team_name, presence: true
