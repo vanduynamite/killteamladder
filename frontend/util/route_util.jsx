@@ -10,7 +10,7 @@ const Auth = ({component: Component, path, loggedIn, exact, history}) => {
   return (
     <Route path={path} exact={exact} render={(props) => {
         if (loggedIn) {
-          return <Redirect to='/killteam/' />
+          return <Redirect to='/' />
         } else {
           return <Component {...props} />
         }
@@ -24,7 +24,7 @@ const Protected = ({ component: Component, path, loggedIn, exact }) => {
     <Route path={path} exact={exact} render={(props) => {
       return loggedIn
         ? <Component {...props} />
-      : <Redirect to='/killteam/login' />
+      : <Redirect to='/carcosa/login' />
       }
     }/>
   );

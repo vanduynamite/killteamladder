@@ -46,7 +46,7 @@ class SignupForm extends React.Component {
   submit(e) {
     e.preventDefault();
     if (this.formValid()) {
-      this.props.submitAction(Object.assign({}, this.state), this.props.history.push)
+      this.props.submitAction(Object.assign({}, this.state), this.props.history.push, this.props.ladder)
     };
   }
 
@@ -68,7 +68,8 @@ class SignupForm extends React.Component {
   }
 
   render() {
-    const path = this.props.user ? '/killteam/account' : '/killteam/';
+    const ladder = this.props.ladder;
+    const cancelPath = this.props.user ? `${ladder}/account` : '/';
 
     const passwordLabel = this.props.user ? 'New password (optional)' : 'Password';
     const rePasswordLabel = this.props.user ? 'Re-enter new password' : 'Re-enter password';
@@ -97,7 +98,7 @@ class SignupForm extends React.Component {
           </div>
 
           <div className='form-buttons'>
-            <ButtonLink text='Cancel' path={ path } type='cancel' />
+            <ButtonLink text='Cancel' path={ cancelPath } type='cancel' />
             <SubmitButton active={ this.formValid() } />
           </div>
         </form>

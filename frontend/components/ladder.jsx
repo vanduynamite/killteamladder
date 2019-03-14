@@ -2,8 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { AuthRoute,
  ProtectedRoute } from '../util/route_util';
-import Login from './auth/login_container';
-import Signup from './auth/signup_container';
 import Main from './main/main_container';
 import Account from './account/account_container';
 import EditAccount from './account/edit_account_container';
@@ -19,8 +17,6 @@ export default (props) => {
   const ladder = props.match.path;
   return (
     <Switch>
-      <AuthRoute exact path={ `${ladder}/login` } component={ Login } />
-      <AuthRoute exact path={ `${ladder}/signup` } component={ Signup } />
       <ProtectedRoute path={ `${ladder}/account/edit` } component={ EditAccount } />
       <ProtectedRoute path={ `${ladder}/account` } component={ Account } />
       <ProtectedRoute path={ `${ladder}/match/:matchId/edit` } component={ EditMatch } />

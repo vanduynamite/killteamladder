@@ -32,6 +32,7 @@ const ladderPic = (fullPath) => {
         </Link>
       );
     case '':
+    case '/carcosa':
       return (
         <Link to='/'>
           <img src={ window.carcosa_logo } id='logo' />
@@ -43,13 +44,10 @@ const ladderPic = (fullPath) => {
 const navButtons = (fullPath, loggedIn) => {
   const ladder = fullPath.slice(0, fullPath.indexOf('/', 1));
   const path = fullPath.slice(fullPath.indexOf('/',1));
-  // console.log(fullPath);
-  // console.log('Ladder: ' + ladder);
-  // console.log('Subpath: ' + path);
 
   if (ladder === '') {
-    if (loggedIn) return <ImageButton path='/account/edit' image={ window.account } />;
-    else return authButtons();
+    if (!loggedIn) return authButtons(ladder);
+    return;
   }
 
   switch (path) {
@@ -66,7 +64,7 @@ const navButtons = (fullPath, loggedIn) => {
 
     case '/':
       if (loggedIn) return accountAndMatchButtons(ladder);
-      else return authButtons();
+      else return authButtons(ladder);
 
       break;
 
@@ -92,11 +90,14 @@ const accountAndMatchButtons = (ladder) => {
   );
 };
 
-const authButtons = () => {
+const authButtons = ladder => {
+  let backLink;
+  if (ladder !== '') backLink = <Link to='/'><img src={ window.close } className='img-button' /></Link>;
   return (
     <div id='nav-button-group'>
-      <Link className='button nav-button' to='/killteam/signup'>Register</Link>
-      <Link className='button nav-button' to='/killteam/login'>Login</Link>
+      <Link className='button nav-button' to='/carcosa/signup'>Register</Link>
+      <Link className='button nav-button' to='/carcosa/login'>Login</Link>
+      { backLink }
     </div>
   );
 };

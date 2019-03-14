@@ -7,7 +7,8 @@ import {
  } from '../../actions/user_actions';
 import EditAccount from '../auth/signup';
 
-const msp = state => {
+const msp = (state, ownProps) => {
+  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); //console.log(ladder);
   const errors = state.errors.session;
 
   let currentUserId;
@@ -20,6 +21,7 @@ const msp = state => {
   const title = 'Edit account details';
 
   return {
+    ladder,
     errors,
     currentUserId,
     title,
@@ -30,7 +32,7 @@ const msp = state => {
 const mdp = dispatch => {
   return {
     getUser: (id, ladder) => dispatch(getUser(id, ladder)),
-    submitAction: (user, historyPush) => dispatch(editUser(user, historyPush)),
+    submitAction: (user, historyPush, ladder) => dispatch(editUser(user, historyPush, ladder)),
     clearErrors: () => dispatch(clearSessionErrors()),
   };
 };

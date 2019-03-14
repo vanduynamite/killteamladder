@@ -6,6 +6,8 @@ import Background from './general/background';
 import Nav from './nav/nav';
 import Ladder from './ladder';
 import Portal from './portal/portal_container';
+import Login from './auth/login_container';
+import Signup from './auth/signup_container';
 
 export default () => {
 
@@ -14,6 +16,8 @@ export default () => {
       <Background />
       <Nav />
       <Switch>
+        <AuthRoute exact path={ '/carcosa/login' } component={ Login } />
+        <AuthRoute exact path={ '/carcosa/signup' } component={ Signup } />
         <Route path='/killteam' component={ Ladder } />
         <Route path='/underworlds' component={ Ladder } />
         <Route path='/' component={ Portal } />

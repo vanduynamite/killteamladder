@@ -50,11 +50,12 @@ class LoginForm extends React.Component {
           <div className='inputs'>
             <Field fieldName='email' label='Email address'
               maxLength='100' ctx={ this } />
-            <Field fieldName='password' label='Password' type='password' ctx={ this } />
+            <Field fieldName='password' label='Password'
+              type='password' ctx={ this } />
           </div>
 
           <div className='form-buttons'>
-            <ButtonLink text='Cancel' path='/killteam/' type='cancel' />
+            <ButtonLink text='Cancel' path='/' type='cancel' />
             <SubmitButton active={ this.formValid() } />
           </div>
         </form>

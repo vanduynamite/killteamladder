@@ -9,7 +9,7 @@ class NewMatch extends React.Component {
 
   constructor(props) {
     super(props);
-    debugger
+    // debugger
     this.state = {
       teamId: this.teamList()[0][0],
       opponentTeamId: this.opponentTeamList()[0][0],
@@ -35,7 +35,7 @@ class NewMatch extends React.Component {
       this.setState({ teamId: myTeams[1][0]});
     }
     if (this.state.teamId === 'new team') {
-      debugger
+      // debugger
       this.props.history.push(`${this.props.ladder}/team/new`);
     }
   }

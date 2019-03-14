@@ -18,9 +18,9 @@ export const getUser = (id, ladder) => dispatch => {
   );
 };
 
-export const editUser = (user, historyPush) => dispatch => {
+export const editUser = (user, historyPush, ladder) => dispatch => {
   return UserAPI.editUser(user).then(
-    payload => historyPush('/'),
+    payload => historyPush(`${ladder}/account`),
     errors => dispatch(receiveSessionErrors(errors)),
   )
 }
