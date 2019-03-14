@@ -13,6 +13,7 @@ class Api::MatchupsController < ApplicationController
     @team2 = Team.find_by(id: matchup_params[:opponent_team_id])
     return false unless opponent_team_valid?
 
+    return false unless on_same_ladder?
     return false unless not_matched_against_self?
     return false unless not_matched_last?(@team1, @team2)
     return false unless not_matched_last?(@team2, @team1)
@@ -173,6 +174,14 @@ class Api::MatchupsController < ApplicationController
   def in_current_season?
     unless @matchup1.season == Season.last.season
       render json: ['You cannot delete a match from last season'], status: 422
+      return false
+    end
+    true
+  end
+
+  def on_same_ladder?
+    unless @team1.ladder == @team2.ladder
+      render json: ['Teams must be on the same ladder, come on now'], status: 422
       return false
     end
     true
