@@ -80,20 +80,23 @@ class Team < ApplicationRecord
     end
   end
 
-  def plays
-    self.matchups.where(season: Season.last.season).count
-  end
+  def stats
+    all_matches = self.matchups.where(season: Season.last.season)
+    results = {
+      matchesPlayed: 0,
+      matchesWon: 0,
+      matchesTied: 0,
+      matchesLost: 0,
+    }
 
-  def wins
-    self.matchups.where(result: 1, season: Season.last.season).count
-  end
+    all_matches.each do |match|
+      results[:matchesPlayed] += 1
+      results[:matchesWon] += 1 if match.result == 1
+      results[:matchesTied] += 1 if match.result == 0
+      results[:matchesLost] += 1 if match.result == -1
+    end
 
-  def losses
-    self.matchups.where(result: -1, season: Season.last.season).count
-  end
-
-  def ties
-    self.matchups.where(result: 0, season: Season.last.season).count
+    results
   end
 
 end

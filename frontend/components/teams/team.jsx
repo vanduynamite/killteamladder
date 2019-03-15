@@ -112,24 +112,33 @@ class Team extends React.Component {
 
   teamStats() {
     if (!this.props.currentTeam) return;
+    if (!this.props.currentTeam.stats) return;
     const team = this.props.currentTeam;
 
-    let winPercentage = Math.round((team.matchesWon / team.matchesPlayed) * 10000) / 100;
+
+    let winPercentage = Math.round((team.stats.matchesWon / team.stats.matchesPlayed) * 10000) / 100;
       winPercentage = winPercentage.toString() + '%';
       if (winPercentage === 'NaN%') winPercentage = 'Play a game!';
 
-    let standing = <Statistic name='Current standing' stat={ team.rank } bold={ true }/>;
+    let standing = <Statistic name='Current standing'
+      stat={ team.rank } bold={ true }/>;
     if (!team.active) standing = '';
 
     return (
       <div className='info-container' id='account-stats'>
         { standing }
-        <Statistic name='Total points' stat={ team.points } grey={ true } bold={ true }/>
-        <Statistic name='Games played (this season)' stat={ team.matchesPlayed }/>
-        <Statistic name='Wins' stat={ team.matchesWon } grey={ true }/>
-        <Statistic name='Losses' stat={ team.matchesLost }/>
-        <Statistic name='Ties' stat={ team.matchesTied } grey={ true }/>
-        <Statistic name='Win percentage' stat={ winPercentage }/>
+        <Statistic name='Total points' grey={ true } bold={ true }
+          stat={ team.points } />
+        <Statistic name='Games played (this season)'
+          stat={ team.stats.matchesPlayed }/>
+        <Statistic name='Wins' grey={ true }
+          stat={ team.stats.matchesWon } />
+        <Statistic name='Losses'
+          stat={ team.stats.matchesLost }/>
+        <Statistic name='Ties' grey={ true }
+          stat={ team.stats.matchesTied } />
+        <Statistic name='Win percentage'
+          stat={ winPercentage }/>
       </div>
     );
   }

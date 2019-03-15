@@ -10,9 +10,6 @@ json.teams do
     json.ladder team.ladder_name
     json.matchIds team.matchups.map { |m| m.id }.sort.reverse
 
-    json.matchesPlayed team.plays
-    json.matchesWon team.wins
-    json.matchesLost team.losses
-    json.matchesTied team.ties
+    json.stats team.stats
   end
 end
