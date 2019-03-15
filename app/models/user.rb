@@ -60,20 +60,25 @@ class User < ApplicationRecord
     self.sessions.find_by(token: old_session_token).destroy
   end
 
-  def plays
-    self.matches.where(season: Season.last.season).count
-  end
+  def stats(ladder)
+    all_matches = self.matches.where(season: Season.last.season).includes(:ladder)
+    results = {
+      matchesPlayed: 0,
+      matchesWon: 0,
+      matchesTied: 0,
+      matchesLost: 0,
+    }
 
-  def wins
-    self.matches.where(result: 1, season: Season.last.season).count
-  end
+    all_matches.each do |match|
+      if match.ladder.name == ladder
+        results[:matchesPlayed] += 1
+        results[:matchesWon] += 1 if match.result == 1
+        results[:matchesTied] += 1 if match.result == 0
+        results[:matchesLost] += 1 if match.result == -1
+      end
+    end
 
-  def losses
-    self.matches.where(result: -1, season: Season.last.season).count
-  end
-
-  def ties
-    self.matches.where(result: 0, season: Season.last.season).count
+    results
   end
 
   private

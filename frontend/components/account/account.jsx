@@ -52,17 +52,19 @@ class Account extends React.Component {
   }
 
   accountStats() {
-    const user = this.props.currentUser;
-    let winPercentage = Math.round((user.matchesWon / user.matchesPlayed) * 10000) / 100;
+    const stats = this.props.currentUser.stats;
+    if (!stats) return;
+
+    let winPercentage = Math.round((stats.matchesWon / stats.matchesPlayed) * 10000) / 100;
     winPercentage = winPercentage.toString() + '%';
     if (winPercentage === 'NaN%') winPercentage = 'Play a game!';
 
     return (
       <div className='info-container' id='account-stats'>
-        <Statistic name='Total games played (this season)' stat={ user.matchesPlayed }/>
-        <Statistic name='Wins' stat={ user.matchesWon } grey={ true }/>
-        <Statistic name='Losses' stat={ user.matchesLost } />
-        <Statistic name='Ties' stat={ user.matchesTied } grey={ true }/>
+        <Statistic name='Total games played (this season)' stat={ stats.matchesPlayed }/>
+        <Statistic name='Wins' stat={ stats.matchesWon } grey={ true }/>
+        <Statistic name='Losses' stat={ stats.matchesLost } />
+        <Statistic name='Ties' stat={ stats.matchesTied } grey={ true }/>
         <Statistic name='Win percentage' stat={ winPercentage }/>
       </div>
     );

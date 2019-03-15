@@ -46,6 +46,10 @@ class Matchup < ApplicationRecord
     class_name: :Team,
     foreign_key: :team_id
 
+  has_one :ladder,
+    through: :team,
+    source: :ladder
+
   after_initialize :add_start_points
   after_initialize :add_season, if: :new_record?
 

@@ -1,5 +1,5 @@
 
-export const getUser = (id, ladder='/underworlds') => {
+export const getUser = (id, ladder) => {
   return $.ajax({
     method: 'GET',
     url: `/api/users/${id}`,
