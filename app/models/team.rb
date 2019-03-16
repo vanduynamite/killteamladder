@@ -40,7 +40,7 @@ class Team < ApplicationRecord
     "Sepulchral Guard",
     "Ironskull's Boyz",
     "The Chosen Axes",
-    "SpiteClaw's Swarm",
+    "Spiteclaw's Swarm",
     "The Farstriders",
     "Magore's Fiends",
     "Stormsire's Cursebreakers",
