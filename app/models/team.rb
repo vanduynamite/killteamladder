@@ -49,6 +49,8 @@ class Team < ApplicationRecord
     "Zarbag's Gitz",
     "Mollog's Mob",
     "Godsworn Hunt",
+    "Thundrik's Profiteers",
+    "Ylthari's Guardians",
   ]
 
   validates :faction, :team_name, presence: true

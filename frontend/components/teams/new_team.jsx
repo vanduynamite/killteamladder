@@ -106,6 +106,8 @@ class NewTeam extends React.Component {
           ["Zarbag's Gitz","Zarbag's Gitz"],
           ["Mollog's Mob","Mollog's Mob"],
           ["Godsworn Hunt","Godsworn Hunt"],
+          ["Thundrik's Profiteers","Thundrik's Profiteers"],
+          ["Ylthari's Guardians","Ylthari's Guardians"],
         ]);
     }
 
