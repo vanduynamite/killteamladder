@@ -70,6 +70,7 @@ class NewTeam extends React.Component {
         return result.concat([
           ['Adeptus Astartes', 'Adeptus Astartes'],
           ['Adeptus Mechanicus', 'Adeptus Mechanicus'],
+          ['Adeptus Custodes', 'Adeptus Custodes'],
           ['Astra Militarum', 'Astra Militarum'],
           ['Asuryani', 'Asuryani'],
           ['Death Guard', 'Death Guard'],
