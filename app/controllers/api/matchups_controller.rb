@@ -164,7 +164,14 @@ class Api::MatchupsController < ApplicationController
   end
 
   def not_matched_last?(team1, team2)
-    if team1.matchups.last && team1.matchups.last.opposite_matchup.team_id == team2.id
+
+    # allow any matchup if this is team1's first matchup
+    return true unless team1.matchups.last
+
+    # in case the last matchup for this team was last season
+    return true if Season.last.season != team1.matchups.last.season
+
+    if team1.matchups.last.opposite_matchup.team_id == team2.id
       render json: ['You cannot log two matches in a row against the same opposing team'], status: 422
       return false
     end
