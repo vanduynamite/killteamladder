@@ -64,7 +64,7 @@ class NewTeam extends React.Component {
   // subcomponents
 
   factionList() {
-    const result = [['x', 'Select a faction']]
+    const result = [['x', 'Select a faction']];
     switch (this.props.ladder) {
       case '/killteam':
         return result.concat([

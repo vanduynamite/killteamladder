@@ -16,6 +16,7 @@
 class Team < ApplicationRecord
   FACTION_LIST = [
     'Adeptus Astartes',
+    'Adeptus Custodes',
     'Adeptus Mechanicus',
     'Astra Militarum',
     'Asuryani',
