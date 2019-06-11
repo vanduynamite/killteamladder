@@ -69,8 +69,8 @@ class NewTeam extends React.Component {
       case '/killteam':
         return result.concat([
           ['Adeptus Astartes', 'Adeptus Astartes'],
-          ['Adeptus Mechanicus', 'Adeptus Mechanicus'],
           ['Adeptus Custodes', 'Adeptus Custodes'],
+          ['Adeptus Mechanicus', 'Adeptus Mechanicus'],
           ['Astra Militarum', 'Astra Militarum'],
           ['Asuryani', 'Asuryani'],
           ['Death Guard', 'Death Guard'],
