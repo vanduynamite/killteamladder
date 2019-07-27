@@ -38,6 +38,8 @@ class ApplicationController < ActionController::Base
       return false
     end
 
+    return true if admin_user?
+
     if current_user.id != id && id != nil
       render json: ['You are logged in as the wrong user.'], status: 401
       return false
