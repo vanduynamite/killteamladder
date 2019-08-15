@@ -31,6 +31,12 @@ const ladderPic = (fullPath) => {
           <img src={ window.underworlds_logo } id='logo' />
         </Link>
       );
+    case '/40k':
+      return (
+        <Link to='/40k/'>
+          <img src={ window.warhammer40k_logo } id='logo' />
+        </Link>
+      );
     case '':
     case '/carcosa':
       return (

@@ -20,6 +20,7 @@ export default () => {
         <AuthRoute exact path={ '/carcosa/signup' } component={ Signup } />
         <Route path='/killteam' component={ Ladder } />
         <Route path='/underworlds' component={ Ladder } />
+        <Route path='/40k' component={ Ladder } />
         <Route path='/' component={ Portal } />
       </Switch>
     </>

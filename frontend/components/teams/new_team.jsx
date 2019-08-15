@@ -91,6 +91,35 @@ class NewTeam extends React.Component {
           ['Tyranids', 'Tyranids'],
         ]);
 
+      case '/40k':
+        return result.concat([
+          ['Adeptus Astartes', 'Adeptus Astartes'],
+          ['Adeptus Custodes', 'Adeptus Custodes'],
+          ['Adeptus Mechanicus', 'Adeptus Mechanicus'],
+          ['Aeldari', 'Aeldari'],
+          ['Astra Militarum', 'Astra Militarum'],
+          ['Asuryani', 'Asuryani'],
+          ['Chaos', 'Chaos'],
+          ['Death Guard', 'Death Guard'],
+          ['Deathwatch', 'Deathwatch'],
+          ['Drukhari', 'Drukhari'],
+          ['Elucidean Starstriders', 'Elucidean Starstriders'],
+          ['Gellerpox Infected', 'Gellerpox Infected'],
+          ['Genestealer Cults', 'Genestealer Cults'],
+          ['Grey Knights', 'Grey Knights'],
+          ['Harlequins', 'Harlequins'],
+          ['Heretic Astartes', 'Heretic Astartes'],
+          ['Imperium', 'Imperium'],
+          ['Kroot', 'Kroot'],
+          ['Necrons', 'Necrons'],
+          ['Orks', 'Orks'],
+          ['Servants of the Abyss', 'Servants of the Abyss'],
+          ['T\'au Empire', 'T\'au Empire'],
+          ['Thousand Sons', 'Thousand Sons'],
+          ['Tyranids', 'Tyranids'],
+          ['Buttlords', 'Buttlords'],
+        ]);
+
       case '/underworlds':
         return result.concat([
           ["Garrek's Reavers","Garrek's Reavers"],

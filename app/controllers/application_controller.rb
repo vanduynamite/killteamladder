@@ -57,10 +57,7 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_user?
-    unless logged_in? && ADMINS.include?(current_user.email)
-      render json: ['What are you trying to pull?'], status: 401
-      return false
-    end
+    return false unless logged_in? && ADMINS.include?(current_user.email)
     true
   end
 
