@@ -27,8 +27,11 @@ class Portal extends React.Component {
             <img src={ window.underworlds_logo } id='logo' />
           </Link>
           <h2>
-            40k Ladder
+            40k ITC Ladder
           </h2>
+          <h4>
+            ITC Champions missions at 2000 pts, or 1500 if both parties agree
+          </h4>
           <Link to='/40k/'>
             <img src={ window.warhammer40k_logo } id='logo' />
           </Link>

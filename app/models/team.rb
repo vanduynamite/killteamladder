@@ -55,6 +55,15 @@ class Team < ApplicationRecord
     "Godsworn Hunt",
     "Thundrik's Profiteers",
     "Ylthari's Guardians",
+    'Imperial Knights',
+    'Chaos Knights',
+    'Demons',
+    'Dark Mechanicus',
+    'Fallen',
+    'Space Wolves',
+    'Dark Angels',
+    'Adepta Sororitas',
+    'Blood Angels',
   ]
 
   validates :faction, :team_name, presence: true
