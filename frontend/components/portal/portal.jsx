@@ -30,7 +30,7 @@ class Portal extends React.Component {
             40k ITC Ladder
           </h2>
           <h4>
-            ITC Champions missions at 2000 pts, or 1500 if both parties agree
+            ITC Champions missions at 2000 pts, or at least 1500 if both parties agree
           </h4>
           <Link to='/40k/'>
             <img src={ window.warhammer40k_logo } id='logo' />
