@@ -2,13 +2,14 @@
 #
 # Table name: users
 #
-#  id         :bigint(8)        not null, primary key
-#  email      :string           not null
-#  pw_digest  :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  first_name :string           not null
-#  last_name  :string           not null
+#  id         :bigint(8)              not null, primary key
+#  email      :string                 not null
+#  pw_digest  :string                 not null
+#  created_at :datetime               not null
+#  updated_at :datetime               not null
+#  first_name :string                 not null
+#  last_name  :string                 not null
+#  authorized_2020_league :boolean    not null
 #
 
 class User < ApplicationRecord
