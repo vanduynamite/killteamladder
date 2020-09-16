@@ -5,6 +5,7 @@ ruby '2.5.3'
 
 # Bundle edge Rails instead: gem 'Rails', github: 'Rails/rails'
 gem 'rails', '~> 5.2.2'
+gem "rubyzip", ">= 1.3.0"
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -25,6 +26,9 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'jquery-rails'
+gem "activesupport", ">= 5.2.4.3"
+gem "rack", ">= 2.1.4"
+gem "nokogiri", ">= 1.10.8"
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
