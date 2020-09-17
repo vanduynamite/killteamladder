@@ -60,6 +60,7 @@ class Api::UsersController < ApplicationController
 
     user = User.find_by(email: user_params[:email])
     authorized = user_params[:authorized] ? false : true
+    # authorized = user_params[:authorized] ? user_params[:authorized] : true
 
     if user
       user.update(authorized_2020_league: authorized)
