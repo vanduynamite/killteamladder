@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
   ADMINS = [
     'paul.vanduyn@gmail.com',
     'isaac.vanduyn@gmail.com',
+  ]
+
+  LEAGUE_ADMINS = [
+    'paul.vanduyn@gmail.com',
     'nrdeveaux@gmail.com',
   ]
 
@@ -59,6 +63,11 @@ class ApplicationController < ActionController::Base
 
   def admin_user?
     return false unless logged_in? && ADMINS.include?(current_user.email)
+    true
+  end
+
+  def league_admin?
+    return false unless logged_in? && LEAGUE_ADMINS.include?(current_user.email)
     true
   end
 

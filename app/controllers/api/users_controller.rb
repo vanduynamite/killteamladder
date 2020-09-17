@@ -55,6 +55,20 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def authorize_2020_league
+    return false unless league_admin?
+
+    user = User.find_by(email: user_params[:email])
+    authorized = user_params[:authorized] ? false : true
+
+    if user
+      user.update(authorized_2020_league: authorized)
+      render json: ["#{user_params[:email]} authorized - #{authorized}"], status: 200
+    else
+      render json: ["Email address #{user_params[:email]} not found. Capitalization?"], status: 422
+    end
+  end
+
   private
 
   def user_params
@@ -63,7 +77,7 @@ class Api::UsersController < ApplicationController
       :last_name,
       :email,
       :password,
-      :authorized_2020_league,
+      :authorized,
     )
   end
 
