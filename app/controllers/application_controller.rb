@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   ADMINS = [
     'paul.vanduyn@gmail.com',
     'isaac.vanduyn@gmail.com',
+    'nrdeveaux@gmail.com',
   ]
 
   def current_user

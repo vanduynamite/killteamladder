@@ -8,6 +8,11 @@ class Api::TeamsController < ApplicationController
     @team = @user.teams.new(team_params)
     @rankings = get_rankings(@team.ladder_name)
 
+    if @team.ladder_name == '/40k' && !@user.authorized_2020_league
+      render json: ['You are not signed up for the 2020 40K league. Please contact Nick De Veaux.'], status: 401
+      return
+    end
+
     if @team.save
       render 'api/teams/create.json.jbuilder'
     else

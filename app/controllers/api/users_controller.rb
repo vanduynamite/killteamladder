@@ -63,6 +63,7 @@ class Api::UsersController < ApplicationController
       :last_name,
       :email,
       :password,
+      :authorized_2020_league,
     )
   end
 
