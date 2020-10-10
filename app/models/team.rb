@@ -64,6 +64,10 @@ class Team < ApplicationRecord
     'Dark Angels',
     'Adepta Sororitas',
     'Blood Angels',
+    'Khorne',
+    'Tzeentch',
+    'Slaanesh',
+    'Nurgle',
   ]
 
   validates :faction, :team_name, presence: true

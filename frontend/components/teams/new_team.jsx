@@ -118,13 +118,17 @@ class NewTeam extends React.Component {
           ['Heretic Astartes', 'Heretic Astartes'],
           ['Imperial Knights', 'Imperial Knights'],
           ['Imperium', 'Imperium'],
+          ['Khorne', 'Khorne'],
           ['Necrons', 'Necrons'],
+          ['Nurgle', 'Nurgle'],
           ['Orks', 'Orks'],
           ['Servants of the Abyss', 'Servants of the Abyss'],
+          ['Slaanesh', 'Slaanesh'],
           ['Space Wolves', 'Space Wolves'],
           ['T\'au Empire', 'T\'au Empire'],
           ['Thousand Sons', 'Thousand Sons'],
           ['Tyranids', 'Tyranids'],
+          ['Tzeentch', 'Tzeentch'],
         ]);
 
 
