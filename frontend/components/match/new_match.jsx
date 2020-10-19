@@ -9,7 +9,7 @@ class NewMatch extends React.Component {
 
   constructor(props) {
     super(props);
-    // debugger
+
     this.state = {
       teamId: this.teamList()[0][0],
       opponentTeamId: this.opponentTeamList()[0][0],
@@ -35,7 +35,6 @@ class NewMatch extends React.Component {
       this.setState({ teamId: myTeams[1][0]});
     }
     if (this.state.teamId === 'new team') {
-      // debugger
       this.props.history.push(`${this.props.ladder}/team/new`);
     }
   }
@@ -125,10 +124,14 @@ class NewMatch extends React.Component {
     if (!this.props.teams || !this.props.currentUser.teamIds) return results;
     const myTeamIds = this.props.currentUser.teamIds;
     const teams = Object.values(this.props.teams);
+    const users = this.props.users;
 
     teams.forEach(team => {
       if (!myTeamIds.includes(team.id) && team.active && team.ladder === this.props.ladder) {
-        results.push([team.id, team.teamName]);
+        const user = users[team.userId];
+        const userName = user.firstName + " " + user.lastName[0] + ".";
+        const listName = team.teamName + " - " + userName;
+        results.push([team.id, listName]);
       }
     });
 

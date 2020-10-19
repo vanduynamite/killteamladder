@@ -16,6 +16,7 @@ const msp = (state, ownProps) => {
 
   const errors = state.errors.match || {};
   const teams = state.entities.teams;
+  const users = state.entities.users;
 
   let cameFromTeamId;
   if (state.ui.history) cameFromTeamId = state.ui.history.team;
@@ -26,6 +27,7 @@ const msp = (state, ownProps) => {
     currentUser,
     errors,
     teams,
+    users,
     cameFromTeamId,
   };
 };
