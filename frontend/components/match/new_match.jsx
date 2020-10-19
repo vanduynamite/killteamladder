@@ -130,7 +130,7 @@ class NewMatch extends React.Component {
     teams.forEach(team => {
       if (!myTeamIds.includes(team.id) && team.active && team.ladder === this.props.ladder) {
         const user = users[team.userId];
-        const userName = user.firstName + " " + user.lastName[0] + ".";
+        const userName = user.firstName + " " + user.lastName[0];
         const teamName = team.teamName;
         presortedResults.push([userName, teamName, team.id]);
       }
