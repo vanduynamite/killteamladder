@@ -121,6 +121,7 @@ class NewMatch extends React.Component {
 
   opponentTeamList() {
     const results = [['x', 'Select a team']];
+    const presortedResults = [];
     if (!this.props.teams || !this.props.currentUser.teamIds) return results;
     const myTeamIds = this.props.currentUser.teamIds;
     const teams = Object.values(this.props.teams);
@@ -130,9 +131,13 @@ class NewMatch extends React.Component {
       if (!myTeamIds.includes(team.id) && team.active && team.ladder === this.props.ladder) {
         const user = users[team.userId];
         const userName = user.firstName + " " + user.lastName[0] + ".";
-        const listName = team.teamName + " - " + userName;
-        results.push([team.id, listName]);
+        const teamName = team.teamName;
+        presortedResults.push([userName, teamName, team.id]);
       }
+    });
+
+    presortedResults.sort().forEach(team => {
+      results.push([team[2], team[0] + " - " + team[1]]);
     });
 
     return results;
