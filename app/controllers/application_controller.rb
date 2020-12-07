@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_user?
-    return false unless logged_in? && ADMINS.include?(current_user.email)
+    return false unless logged_in? && current_user.admin
     true
   end
 

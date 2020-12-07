@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_16_233133) do
+ActiveRecord::Schema.define(version: 2020_12_07_230729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 2020_09_16_233133) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "factions", force: :cascade do |t|
+    t.string "faction_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "ladder_name", null: false
   end
 
   create_table "ladders", force: :cascade do |t|
@@ -63,6 +70,7 @@ ActiveRecord::Schema.define(version: 2020_09_16_233133) do
     t.datetime "updated_at", null: false
     t.integer "points", default: 0, null: false
     t.string "ladder_name", null: false
+    t.integer "faction_id", default: 239, null: false
     t.index ["ladder_name"], name: "index_teams_on_ladder_name"
     t.index ["team_name"], name: "index_teams_on_team_name", unique: true
     t.index ["user_id"], name: "index_teams_on_user_id"
@@ -76,6 +84,7 @@ ActiveRecord::Schema.define(version: 2020_09_16_233133) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.boolean "authorized_2020_league", default: false, null: false
+    t.boolean "admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
