@@ -34,6 +34,7 @@ class Api::TeamsController < ApplicationController
     @teams = Team.where(ladder_name: @team.ladder_name)
     @users = User.all
     @rankings = get_rankings(@team.ladder_name)
+    @faction = @team.faction_record
 
     if @team
       render 'api/teams/show.json.jbuilder', status: 200

@@ -4,12 +4,13 @@ export const RECEIVE_TEAMS = 'RECEIVE_TEAMS';
 export const RECEIVE_TEAM_ERRORS = 'RECEIVE_TEAM_ERRORS';
 export const CLEAR_TEAM_ERRORS = 'CLEAR_TEAM_ERRORS';
 
-export const receiveTeams = ({ teams, users, matches }) => {
+export const receiveTeams = ({ teams, users, matches, factions }) => {
   return {
     type: RECEIVE_TEAMS,
     teams,
     users,
     matches,
+    factions,
   }
 }
 

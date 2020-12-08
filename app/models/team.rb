@@ -78,6 +78,10 @@ class Team < ApplicationRecord
 
   belongs_to :user
 
+  belongs_to :faction_record,
+    class_name: :Faction,
+    foreign_key: :faction_id
+
   belongs_to :ladder,
     class_name: :Ladder,
     foreign_key: :ladder_name,

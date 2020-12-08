@@ -4,11 +4,12 @@ import { receiveSessionErrors } from './session_actions';
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const RECEIVE_USER_ERRORS = 'RECEIVE_USER_ERRORS';
 
-const receiveUsers = ({ users, teams }) => {
+const receiveUsers = ({ users, teams, factions }) => {
   return {
     type: RECEIVE_USERS,
     users,
     teams,
+    factions,
   }
 };
 
