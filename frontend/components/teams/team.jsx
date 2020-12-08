@@ -74,7 +74,7 @@ class Team extends React.Component {
       `${owner.firstName} ${owner.lastName}` :
       '';
     const faction = this.props.factions[team.factionId];
-
+    
     let editLink;
     let owned = '';
     let bottomLine = (
@@ -91,7 +91,7 @@ class Team extends React.Component {
     } else {
       bottomLine =
       <div className={ 'team-header-faction owned' }>
-        <div>{ team.faction }</div>
+        <div>{ faction.faction_name }</div>
         <div>{ fullName }</div>
       </div>;
     }

@@ -7,6 +7,7 @@ class Api::UsersController < ApplicationController
     @retired_teams = @user.teams.where(active: false, ladder_name: params[:ladder])
     @rankings = get_rankings(params[:ladder])
     @stats = @user.stats(params[:ladder])
+    @factions = Faction.where(ladder_name: params[:ladder])
 
     if @user
       render 'api/users/show.json.jbuilder'

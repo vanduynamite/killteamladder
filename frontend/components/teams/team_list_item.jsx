@@ -13,7 +13,6 @@ export default function({ team, owner, currentUserId, active=true, ladder, facti
     rankSection = '';
   }
 
-  debugger;
   return (
     <Link to={ `${ladder}/team/${ team.id }` }>
       <div className={ `team-list-item ${klass}` }>
