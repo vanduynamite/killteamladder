@@ -73,12 +73,13 @@ class Team extends React.Component {
     const fullName = this.props.currentUser ?
       `${owner.firstName} ${owner.lastName}` :
       '';
+    const faction = this.props.factions[team.factionId];
 
     let editLink;
     let owned = '';
     let bottomLine = (
       <div className={ 'team-header-faction owned' }>
-        <div>{ team.faction }</div>
+        <div>{ faction.faction_name }</div>
       </div>
     );
 
@@ -164,6 +165,7 @@ class Team extends React.Component {
           team={ team }
           opposingTeam={ opposingTeam }
           opponent={ opponent }
+          factions={ this.props.factions }
           ownerViewing= { this.props.ownerViewing }
           currentUser={ this.props.currentUser }
           editable={ editable } />;

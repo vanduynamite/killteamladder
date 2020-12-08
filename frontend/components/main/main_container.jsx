@@ -12,6 +12,7 @@ const msp = (state, ownProps) => {
 
   const teams = state.entities.teams;
   const users = state.entities.users;
+  const factions = state.entities.factions;
 
   return {
     ladder,
@@ -19,6 +20,7 @@ const msp = (state, ownProps) => {
     currentUser,
     teams,
     users,
+    factions,
   };
 };
 

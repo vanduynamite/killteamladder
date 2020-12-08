@@ -77,12 +77,14 @@ class Account extends React.Component {
       teamId => {
         const team = this.props.teams[teamId];
         if (team.ladder !== this.props.ladder || !team.active) return;
+        const faction = this.props.factions[team.factionId];
         return (
           <TeamListItem
           ladder={ this.props.ladder }
           key={ teamId }
           team={ team }
           owner={ this.props.currentUser }
+          faction={ faction }
           currentUserId={ this.props.currentUser.id }/>
         );
       }
@@ -103,6 +105,7 @@ class Account extends React.Component {
       teamId => {
         const team = this.props.teams[teamId];
         if (team.ladder !== this.props.ladder || team.active) return;
+        const faction = this.props.factions[team.factionId];
         return (
           <TeamListItem
             ladder={ this.props.ladder }
@@ -110,6 +113,7 @@ class Account extends React.Component {
             team={ team }
             owner={ this.props.currentUser }
             currentUserId={ this.props.currentUser.id }
+            faction={ faction }
             active={ false }/>
         );
       }

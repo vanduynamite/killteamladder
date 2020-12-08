@@ -9,6 +9,7 @@ import RetireTeam from './retire_team';
 const msp = (state, ownProps) => {
   const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); //console.log(ladder);
   const users = state.entities.users;
+  const factions = state.entities.factions;
 
   let currentUser;
   if (state.session.id) currentUser = state.entities.users[state.session.id];
@@ -27,6 +28,7 @@ const msp = (state, ownProps) => {
     currentTeam,
     currentTeamId,
     ownerViewing,
+    factions,
   };
 };
 

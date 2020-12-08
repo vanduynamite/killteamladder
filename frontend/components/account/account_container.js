@@ -7,6 +7,7 @@ const msp = (state, ownProps) => {
   const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); //console.log(ladder);
   const loggedIn = state.session.id !== undefined;
   const teams = state.entities.teams;
+  const factions = state.entities.factions;
   let currentUser;
   if (loggedIn) currentUser = state.entities.users[state.session.id];
 
@@ -15,6 +16,7 @@ const msp = (state, ownProps) => {
     loggedIn,
     currentUser,
     teams,
+    factions,
   };
 };
 

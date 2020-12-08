@@ -59,12 +59,13 @@ class Team extends React.Component {
     if (!this.props.currentTeam) return;
 
     const team = this.props.currentTeam;
+    const faction = this.props.factions[team.factionId];
 
     let editLink;
     let owned = '';
     let bottomLine =
       <div className={ 'team-header-faction owned' }>
-        <div>{ team.faction }</div>
+        <div>{ faction.faction_name }</div>
       </div>;
     if (this.props.ownerViewing) {
       editLink = <ImageButton

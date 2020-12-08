@@ -38,6 +38,7 @@ class Main extends React.Component {
       record => {
         const id = record[0];
         const team = teams[id];
+        const faction = this.props.factions[team.factionId];
         if (team.ladder !== this.props.ladder || !team.active) return;
         const user = users[team.userId];
         if (!team || !user) return <div key={id}></div>;
@@ -46,6 +47,7 @@ class Main extends React.Component {
             key={ id }
             team={ team }
             owner={ user }
+            faction={ faction }
             currentUserId={ currentUserId }/>;
         });
 

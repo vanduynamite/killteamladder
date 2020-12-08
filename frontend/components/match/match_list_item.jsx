@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ImageButton from '../general/image_button';
 
 export default function({ match, team, opposingTeam, opponent,
-  currentUser, ownerViewing, editable=false, ladder }) {
+  currentUser, ownerViewing, editable=false, ladder, factions }) {
 
   const dateString = new Date(match.date).toDateString();
 
@@ -16,11 +16,13 @@ export default function({ match, team, opposingTeam, opponent,
     `${opponent.firstName} ${opponent.lastName}` :
     '';
 
+  const opposingFaction = factions[opposingTeam.factionId];
+
   let editButton = <></>;
   if (editable && (opponentViewing || ownerViewing)) {
     editButton = <ImageButton path={ `${ladder}/match/${match.id}/edit` } image={ window.edit } />;
   }
-
+  
   return (
     <div className={ `team-list-item ${owned}` }>
       <div className='date'>{ dateString }</div>
@@ -29,7 +31,7 @@ export default function({ match, team, opposingTeam, opponent,
         <Link to={ `${ladder}/team/${ opposingTeam.id }` }>
           <h2>{ opposingTeam.teamName }</h2>
           <div className={ 'team-faction-and-owner' }>
-            <div>{ opposingTeam.faction }</div>
+            <div>{ opposingFaction.faction_name }</div>
             <div className={ 'owner' }>{ opponentName }</div>
           </div>
         </Link>
@@ -46,7 +48,7 @@ export default function({ match, team, opposingTeam, opponent,
   );
 }
 
-const results = (result, faction, opposingFaction) => {
+const results = (result) => {
   switch (result) {
     case 1:
       return 'Victory!';

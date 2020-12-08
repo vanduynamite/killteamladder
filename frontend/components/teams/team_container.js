@@ -11,6 +11,7 @@ const msp = (state, ownProps) => {
   const teams = state.entities.teams;
   const matches = state.entities.matches;
   const users = state.entities.users;
+  const factions = state.entities.factions;
 
   let currentUser;
   if (state.session.id) currentUser = state.entities.users[state.session.id];
@@ -37,6 +38,7 @@ const msp = (state, ownProps) => {
     teams,
     matches,
     users,
+    factions,
   };
 };
 
