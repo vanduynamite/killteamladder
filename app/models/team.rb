@@ -48,7 +48,8 @@ class Team < ApplicationRecord
   end
 
   def stats
-    all_matches = self.matchups.where(season: Season.last.season)
+    current_season_num = Season.where(ladder_name: self.ladder_name).last.season
+    all_matches = self.matchups.where(season: current_season_num)
     results = {
       matchesPlayed: 0,
       matchesWon: 0,

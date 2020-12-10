@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :approved_email, only: [:create, :destroy]
     resource :session, only: [:create, :destroy]
     resources :factions, only: [:index]
+    resources :seasons, only: [:create]
   end
 
 end

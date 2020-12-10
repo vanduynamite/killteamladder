@@ -58,7 +58,7 @@ class Matchup < ApplicationRecord
   end
 
   def add_season
-    self.season = Season.last.season
+    self.season = Season.where(ladder_name: self.ladder.name).last.season
   end
 
   def calculate_end_points!

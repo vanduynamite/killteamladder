@@ -63,7 +63,8 @@ class User < ApplicationRecord
   end
 
   def stats(ladder)
-    all_matches = self.matches.where(season: Season.last.season).includes(:ladder)
+    current_season_num = Season.where(ladder_name: ladder).last.season
+    all_matches = self.matches.where(season: current_season_num).includes(:ladder)
     results = {
       matchesPlayed: 0,
       matchesWon: 0,

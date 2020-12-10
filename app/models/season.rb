@@ -13,10 +13,10 @@ class Season < ApplicationRecord
   validates :season, uniqueness: { scope: [:ladder_name] , message: 'already exists in this ladder'}
   validates :ladder_name, presence: true
 
-  # after_save :reset_teams
+  after_save :reset_teams
 
   def reset_teams
-    Team.where(active: true).update_all("points = 1000")
+    Team.where(active: true, ladder_name: self.ladder_name).update_all("points = 1000")
   end
 
 end
