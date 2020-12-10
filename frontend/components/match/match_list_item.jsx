@@ -17,12 +17,13 @@ export default function({ match, team, opposingTeam, opponent,
     '';
 
   const opposingFaction = factions[opposingTeam.factionId];
+  if (!opposingFaction) return <></>; // don't know why this is happening still
 
   let editButton = <></>;
   if (editable && (opponentViewing || ownerViewing)) {
     editButton = <ImageButton path={ `${ladder}/match/${match.id}/edit` } image={ window.edit } />;
   }
-  
+
   return (
     <div className={ `team-list-item ${owned}` }>
       <div className='date'>{ dateString }</div>

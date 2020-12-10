@@ -74,7 +74,8 @@ class Team extends React.Component {
       `${owner.firstName} ${owner.lastName}` :
       '';
     const faction = this.props.factions[team.factionId];
-    
+    if (!faction) return <></>; // don't know why this is happening still
+
     let editLink;
     let owned = '';
     let bottomLine = (
