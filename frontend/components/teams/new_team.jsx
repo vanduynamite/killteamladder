@@ -65,12 +65,14 @@ class NewTeam extends React.Component {
 
   factionList() {
     const factions = Object.values(this.props.factions);
-    const result = [['x', 'Select a faction']];
+    const result = [];
     factions.forEach(faction => {
       if (faction.ladder === this.props.ladder) {
         result.push([faction.id, faction.faction_name]);
       }
     });
+    result.sort((a, b) => a[1] <= b[1] ? -1 : 1);
+    result.unshift(['x', 'Select a faction']);
     return result;
   }
 
