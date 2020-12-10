@@ -3,14 +3,14 @@ import * as TeamAPI from '../util/team_api_util';
 export const RECEIVE_TEAMS = 'RECEIVE_TEAMS';
 export const RECEIVE_TEAM_ERRORS = 'RECEIVE_TEAM_ERRORS';
 export const CLEAR_TEAM_ERRORS = 'CLEAR_TEAM_ERRORS';
+export const RECEIVE_FACTIONS = 'RECEIVE_FACTIONS';
 
-export const receiveTeams = ({ teams, users, matches, factions }) => {
+export const receiveTeams = ({ teams, users, matches }) => {
   return {
     type: RECEIVE_TEAMS,
     teams,
     users,
     matches,
-    factions,
   }
 }
 
@@ -24,6 +24,13 @@ const receiveTeamErrors = errors => {
 export const clearTeamErrors = () => {
   return {
     type: CLEAR_TEAM_ERRORS,
+  }
+}
+
+const receiveFactions = ({ factions }) => {
+  return {
+    type: RECEIVE_FACTIONS,
+    factions,
   }
 }
 
@@ -59,5 +66,11 @@ export const getTeams = (ladder) => dispatch => {
 export const getTeam = id => dispatch => {
   return TeamAPI.getTeam(id).then(
     payload => dispatch(receiveTeams(payload))
+  );
+};
+
+export const getFactions = ladder => dispatch => {
+  return TeamAPI.getFactions(ladder).then(
+    payload => dispatch(receiveFactions(payload))
   );
 };

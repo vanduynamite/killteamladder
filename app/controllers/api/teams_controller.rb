@@ -22,16 +22,16 @@ class Api::TeamsController < ApplicationController
   end
 
   def index
-    @teams = Team.where(ladder_name: params[:ladder]).includes(:user, :faction_record)
+    @teams = Team.where(ladder_name: params[:ladder]).includes(:user)
     @rankings = get_rankings(params[:ladder])
 
     render 'api/teams/index.json.jbuilder'
   end
 
   def show
-    @team = Team.includes(:matchups, :faction_record).find_by(id: params[:id])
+    @team = Team.includes(:matchups).find_by(id: params[:id])
     @matchups = @team.matchups.includes(:opposite_matchup)
-    @teams = Team.includes(:faction_record).where(ladder_name: @team.ladder_name)
+    @teams = Team.where(ladder_name: @team.ladder_name)
     @users = User.all
     @rankings = get_rankings(@team.ladder_name)
 

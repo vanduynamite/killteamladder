@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :matchups, only: [:show, :create, :update, :destroy]
     resources :approved_email, only: [:create, :destroy]
     resource :session, only: [:create, :destroy]
+    resources :factions, only: [:index]
   end
 
 end

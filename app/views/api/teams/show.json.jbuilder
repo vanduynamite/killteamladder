@@ -1,6 +1,5 @@
 @teams.each do |team|
   json.partial! 'api/teams/team_basic.json.jbuilder', team: team
-  json.partial! 'api/factions/faction_basic.json.jbuilder', faction: team.faction_record
 end
 
 @users.each do |user|
@@ -12,5 +11,3 @@ json.partial! 'api/teams/team_details.json.jbuilder', team: @team
 @matchups.each do |matchup|
   json.partial! 'api/matchups/matchup_basic.json.jbuilder', matchup: matchup
 end
-
-json.partial! 'api/factions/faction_basic.json.jbuilder', faction: @team.faction_record

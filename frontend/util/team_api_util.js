@@ -36,3 +36,11 @@ export const getTeams = (ladder) => {
     data: { ladder },
   });
 };
+
+export const getFactions = (ladder) => {
+  return $.ajax({
+    method: 'GET',
+    url: '/api/factions',
+    data: { ladder },
+  });
+};
