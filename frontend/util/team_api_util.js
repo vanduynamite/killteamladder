@@ -3,6 +3,7 @@ export const newTeam = team => {
 
   team.team_name = team.teamName;
   team.ladder_name = team.ladderName;
+  team.faction_id = team.faction;
 
   return $.ajax({
     method: 'POST',

@@ -6,6 +6,8 @@ class Api::TeamsController < ApplicationController
 
     @user = current_user
     @team = @user.teams.new(team_params)
+    # This is no longer necessary, still here because the database still wants the field
+    @team.faction = Faction.find(@team.faction_id).faction_name
     @rankings = get_rankings(@team.ladder_name)
 
     if @team.ladder_name == '/40k' && !@user.authorized_2020_league
@@ -63,7 +65,7 @@ class Api::TeamsController < ApplicationController
 
   def team_params
     params.require(:team).permit(
-      :faction,
+      :faction_id,
       :team_name,
       :active,
       :ladder_name,

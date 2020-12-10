@@ -64,95 +64,14 @@ class NewTeam extends React.Component {
   // subcomponents
 
   factionList() {
+    const factions = Object.values(this.props.factions);
     const result = [['x', 'Select a faction']];
-    switch (this.props.ladder) {
-      case '/killteam':
-        return result.concat([
-          ['Adeptus Astartes', 'Adeptus Astartes'],
-          ['Adeptus Custodes', 'Adeptus Custodes'],
-          ['Adeptus Mechanicus', 'Adeptus Mechanicus'],
-          ['Astra Militarum', 'Astra Militarum'],
-          ['Asuryani', 'Asuryani'],
-          ['Death Guard', 'Death Guard'],
-          ['Deathwatch', 'Deathwatch'],
-          ['Drukhari', 'Drukhari'],
-          ['Elucidean Starstriders', 'Elucidean Starstriders'],
-          ['Gellerpox Infected', 'Gellerpox Infected'],
-          ['Genestealer Cults', 'Genestealer Cults'],
-          ['Grey Knights', 'Grey Knights'],
-          ['Harlequins', 'Harlequins'],
-          ['Heretic Astartes', 'Heretic Astartes'],
-          ['Kroot', 'Kroot'],
-          ['Necrons', 'Necrons'],
-          ['Orks', 'Orks'],
-          ['Servants of the Abyss', 'Servants of the Abyss'],
-          ['T\'au Empire', 'T\'au Empire'],
-          ['Thousand Sons', 'Thousand Sons'],
-          ['Tyranids', 'Tyranids'],
-        ]);
-
-      case '/40k':
-        return result.concat([
-          ['Adeptus Astartes', 'Adeptus Astartes'],
-          ['Adeptus Custodes', 'Adeptus Custodes'],
-          ['Adeptus Mechanicus', 'Adeptus Mechanicus'],
-          ['Adepta Sororitas', 'Adepta Sororitas'],
-          ['Aeldari', 'Aeldari'],
-          ['Astra Militarum', 'Astra Militarum'],
-          ['Asuryani', 'Asuryani'],
-          ['Blood Angels', 'Blood Angels'],
-          ['Chaos', 'Chaos'],
-          ['Chaos Knights', 'Chaos Knights'],
-          ['Dark Angels', 'Dark Angels'],
-          ['Dark Mechanicus', 'Dark Mechanicus'],
-          ['Death Guard', 'Death Guard'],
-          ['Deathwatch', 'Deathwatch'],
-          ['Demons', 'Demons'],
-          ['Drukhari', 'Drukhari'],
-          ['Elucidean Starstriders', 'Elucidean Starstriders'],
-          ['Fallen', 'Fallen'],
-          ['Gellerpox Infected', 'Gellerpox Infected'],
-          ['Genestealer Cults', 'Genestealer Cults'],
-          ['Grey Knights', 'Grey Knights'],
-          ['Harlequins', 'Harlequins'],
-          ['Heretic Astartes', 'Heretic Astartes'],
-          ['Imperial Knights', 'Imperial Knights'],
-          ['Imperium', 'Imperium'],
-          ['Khorne', 'Khorne'],
-          ['Necrons', 'Necrons'],
-          ['Nurgle', 'Nurgle'],
-          ['Orks', 'Orks'],
-          ['Servants of the Abyss', 'Servants of the Abyss'],
-          ['Slaanesh', 'Slaanesh'],
-          ['Space Wolves', 'Space Wolves'],
-          ['T\'au Empire', 'T\'au Empire'],
-          ['Thousand Sons', 'Thousand Sons'],
-          ['Tyranids', 'Tyranids'],
-          ['Tzeentch', 'Tzeentch'],
-        ]);
-
-
-      case '/underworlds':
-        return result.concat([
-          ["Garrek's Reavers","Garrek's Reavers"],
-          ["Steelheart's Champions","Steelheart's Champions"],
-          ["Sepulchral Guard","Sepulchral Guard"],
-          ["Ironskull's Boyz","Ironskull's Boyz"],
-          ["The Chosen Axes","The Chosen Axes"],
-          ["Spiteclaw's Swarm","Spiteclaw's Swarm"],
-          ["The Farstriders","The Farstriders"],
-          ["Magore's Fiends","Magore's Fiends"],
-          ["Stormsire's Cursebreakers","Stormsire's Cursebreakers"],
-          ["Thorns of the Brian Queen","Thorns of the Brian Queen"],
-          ["Eyes of the Nine","Eyes of the Nine"],
-          ["Zarbag's Gitz","Zarbag's Gitz"],
-          ["Mollog's Mob","Mollog's Mob"],
-          ["Godsworn Hunt","Godsworn Hunt"],
-          ["Thundrik's Profiteers","Thundrik's Profiteers"],
-          ["Ylthari's Guardians","Ylthari's Guardians"],
-        ]);
-    }
-
+    factions.forEach(faction => {
+      if (faction.ladder === this.props.ladder) {
+        result.push([faction.id, faction.faction_name]);
+      }
+    });
+    return result;
   }
 
   errorSection() {
