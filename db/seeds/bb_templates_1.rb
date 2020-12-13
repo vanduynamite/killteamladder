@@ -215,6 +215,30 @@ BbTeamSpecialRule.create(bb_special_rule_id: srBriberyandCorruption.id, bb_team_
 BbTeamSpecialRule.create(bb_special_rule_id: srUnderworldsChallenge.id, bb_team_template_id: teamtemplateUnderworldDenizens.id)
 BbTeamSpecialRule.create(bb_special_rule_id: srElvenKingdomLeague.id, bb_team_template_id: teamtemplateWoodElf.id)
 
+
+
+
+
+
+
+
+
+
+
+################################################################################
+#                                                                              #
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
+#                              All done up here!                               #
+#                                                                              #
+#                                                                              #
+#                          Need more work down here!                           #
+# \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ #
+################################################################################
+
+
+
+
+
 ################################################################################
 ################################################################################
 ################################################################################
@@ -365,3 +389,22 @@ BbPlayerSkillGroup.create(bb_player_template_id: teamDwarfplayerTrollSlayer.id, 
 BbPlayerSkillGroup.create(bb_player_template_id: teamDwarfplayerDeathRoller.id, bb_skill_group_id: sgAgility.id, primary: false)
 BbPlayerSkillGroup.create(bb_player_template_id: teamDwarfplayerDeathRoller.id, bb_skill_group_id: sgGeneral.id, primary: false)
 BbPlayerSkillGroup.create(bb_player_template_id: teamDwarfplayerDeathRoller.id, bb_skill_group_id: sgStrength.id, primary: true)
+
+################################################################################
+################################################################################
+################################################################################
+BbPlayerTemplateSkill.delete_all
+
+BbPlayerTemplateSkill.create(bb_player_template_id: teamBlackOrcplayerGoblinBruiserLineman.id, bb_skill_id: sDodge.id)
+BbPlayerTemplateSkill.create(bb_player_template_id: teamBlackOrcplayerGoblinBruiserLineman.id, bb_skill_id: sRightStuff.id)
+BbPlayerTemplateSkill.create(bb_player_template_id: teamBlackOrcplayerGoblinBruiserLineman.id, bb_skill_id: sStunty.id)
+BbPlayerTemplateSkill.create(bb_player_template_id: teamBlackOrcplayerGoblinBruiserLineman.id, bb_skill_id: sThickSkull.id)
+BbPlayerTemplateSkill.create(bb_player_template_id: teamBlackOrcplayerBlackOrc.id, bb_skill_id: sBrawler.id)
+BbPlayerTemplateSkill.create(bb_player_template_id: teamBlackOrcplayerBlackOrc.id, bb_skill_id: sGrab.id)
+BbPlayerTemplateSkill.create(bb_player_template_id: teamBlackOrcplayerTrainedTroll.id, bb_skill_id: sAlwaysHungry.id)
+BbPlayerTemplateSkill.create(bb_player_template_id: teamBlackOrcplayerTrainedTroll.id, bb_skill_id: sLoner.id, modifier: '3+')
+BbPlayerTemplateSkill.create(bb_player_template_id: teamBlackOrcplayerTrainedTroll.id, bb_skill_id: sMightyBlow.id, modifier: '+1')
+BbPlayerTemplateSkill.create(bb_player_template_id: teamBlackOrcplayerTrainedTroll.id, bb_skill_id: sProjectileVomit.id)
+BbPlayerTemplateSkill.create(bb_player_template_id: teamBlackOrcplayerTrainedTroll.id, bb_skill_id: sReallyStupid.id)
+BbPlayerTemplateSkill.create(bb_player_template_id: teamBlackOrcplayerTrainedTroll.id, bb_skill_id: sRegeneration.id)
+BbPlayerTemplateSkill.create(bb_player_template_id: teamBlackOrcplayerTrainedTroll.id, bb_skill_id: sThrowTeammate.id)

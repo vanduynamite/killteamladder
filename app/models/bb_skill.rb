@@ -13,10 +13,12 @@
 
 
 class BbSkill < ApplicationRecord
-  validates :name, presence: true
 
   belongs_to :group,
     class_name: :BbSkillGroup,
     foreign_key: :bb_skill_group_id
+
+  has_many :player_links, class_name: :BbPlayerTemplateSkill
+  has_many :player_templates, through: :player_links, source: :player_template
 
 end
