@@ -19,4 +19,6 @@ class Faction < ApplicationRecord
     foreign_key: :ladder_name,
     primary_key: :name
 
+  has_one :bb_team_template
+
 end

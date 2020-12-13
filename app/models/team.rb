@@ -41,6 +41,7 @@ class Team < ApplicationRecord
     dependent: :destroy
 
   after_initialize :add_start_points, if: :new_record?
+  after_create :maybe_create_bb_team
 
   def add_start_points
     # self.points = 1000
@@ -71,6 +72,12 @@ class Team < ApplicationRecord
     end
 
     results
+  end
+
+  def maybe_create_bb_team
+    if self.ladder_name = '/bloodbowl'
+      BbTeam.create(team_id: self.id)
+    end
   end
 
 end
