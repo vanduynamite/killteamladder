@@ -12,4 +12,12 @@
 
 class BbTeamSpecialRule < ApplicationRecord
 
+  belongs_to :team,
+    class_name: :BbTeamTemplate,
+    foreign_key: :bb_team_template_id
+
+  belongs_to :special_rule,
+    class_name: :BbSpecialRule,
+    foreign_key: :bb_special_rule_id
+
 end

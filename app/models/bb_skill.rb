@@ -13,5 +13,10 @@
 
 
 class BbSkill < ApplicationRecord
+  validates :name, presence: true
+
+  belongs_to :group,
+    class_name: :BbSkillGroup,
+    foreign_key: :bb_skill_group_id
 
 end

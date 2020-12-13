@@ -12,4 +12,7 @@
 
 class BbSpecialRule < ApplicationRecord
 
+  has_many :team_links, class_name: :BbTeamSpecialRule
+  has_many :teams, through: :team_links, source: :team
+
 end

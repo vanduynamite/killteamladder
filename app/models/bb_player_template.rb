@@ -18,5 +18,27 @@
 
 
 class BbPlayerTemplate < ApplicationRecord
+  validates :ag, :av, :cost, :ma, :max_allowed, :position_name, :st,
+    :bb_team_template_id, presence: true
+
+  has_many :primary_skill_group_links, -> {where primary: true},
+    class_name: :BbPlayerSkillGroup,
+    foreign_key: :bb_player_template_id
+
+  has_many :primary_skill_groups,
+    through: :primary_skill_group_links,
+    source: :skill_group
+
+  has_many :secondary_skill_group_links, -> {where primary: false},
+    class_name: :BbPlayerSkillGroup,
+    foreign_key: :bb_player_template_id
+
+  has_many :secondary_skill_groups,
+    through: :secondary_skill_group_links,
+    source: :skill_group
+
+  belongs_to :team_template,
+    class_name: :BbTeamTemplate,
+    foreign_key: :bb_team_template_id
 
 end

@@ -13,4 +13,8 @@
 
 class BbPlayerSkillGroup < ApplicationRecord
 
+  belongs_to :skill_group,
+    class_name: :BbSkillGroup,
+    foreign_key: :bb_skill_group_id
+
 end

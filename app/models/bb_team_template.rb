@@ -14,4 +14,15 @@
 
 class BbTeamTemplate < ApplicationRecord
 
+  has_many :special_rule_links, class_name: :BbTeamSpecialRule
+  has_many :special_rules, through: :special_rule_links, source: :special_rule
+
+  has_many :player_templates, class_name: :BbPlayerTemplate
+
+  belongs_to :faction
+
+  def name
+    return self.faction.faction_name
+  end
+
 end
