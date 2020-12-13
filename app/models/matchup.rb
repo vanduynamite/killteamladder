@@ -2,15 +2,20 @@
 #
 # Table name: matchups
 #
-#  id           :bigint(8)        not null, primary key
-#  team_id      :integer          not null
-#  start_points :integer          not null
+#  id           :bigint           not null, primary key
 #  end_points   :integer          not null
 #  result       :integer          not null
+#  season       :integer          default(1), not null
+#  start_points :integer          not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  matchup_id   :integer
-#  season       :integer          default(1), not null
+#  team_id      :integer          not null
+#
+# Indexes
+#
+#  index_matchups_on_season   (season)
+#  index_matchups_on_team_id  (team_id)
 #
 
 class Matchup < ApplicationRecord

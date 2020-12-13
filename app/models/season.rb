@@ -2,11 +2,11 @@
 #
 # Table name: seasons
 #
-#  id           :bigint(8)        not null, primary key
-#  season       :integer          not null
-#  ladder_name  :string           nullable
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id          :bigint           not null, primary key
+#  ladder_name :string
+#  season      :integer          not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 class Season < ApplicationRecord

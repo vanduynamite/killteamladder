@@ -14,9 +14,9 @@
 # ApprovedEmail.delete_all
 
 # go-live reset
-Matchup.delete_all
-t = Team.all.where(active: true)
-t.update_all(points: 1000)
+# Matchup.delete_all
+# t = Team.all.where(active: true)
+# t.update_all(points: 1000)
 
 # testing seed
 # users = []
@@ -162,3 +162,10 @@ t.update_all(points: 1000)
 #   puts "#{team.team_name}: #{team.wins} / #{team.ties} / #{team.losses} (#{(team.wins*10000/team.plays).round/100.0}%)"
 #   puts "   #{team.points} points\n"
 # end
+
+
+
+# 
+Dir[File.join(Rails.root, 'db', 'seeds', '*.rb')].sort.each do |seed|
+  load seed
+end

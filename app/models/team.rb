@@ -2,16 +2,22 @@
 #
 # Table name: teams
 #
-#  id          :bigint(8)        not null, primary key
-#  user_id     :integer          not null
-#  faction     :string           not null
-#  team_name   :string           not null
+#  id          :bigint           not null, primary key
 #  active      :boolean          default(TRUE), not null
+#  faction     :string           not null
+#  ladder_name :string           not null
+#  points      :integer          default(0), not null
+#  team_name   :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  points      :integer          default(0), not null
-#  ladder_name :string           not null
 #  faction_id  :integer          not null
+#  user_id     :integer          not null
+#
+# Indexes
+#
+#  index_teams_on_ladder_name  (ladder_name)
+#  index_teams_on_team_name    (team_name) UNIQUE
+#  index_teams_on_user_id      (user_id)
 #
 
 class Team < ApplicationRecord

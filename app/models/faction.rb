@@ -1,12 +1,12 @@
 # == Schema Information
 #
-# Table name: ladders
+# Table name: factions
 #
-#  id             :bigint(8)        not null, primary key
-#  faction_name   :string           not null
-#  ladder_name    :string           not null
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
+#  id           :bigint           not null, primary key
+#  faction_name :string           not null
+#  ladder_name  :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 

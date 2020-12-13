@@ -2,11 +2,15 @@
 #
 # Table name: sessions
 #
-#  id         :bigint(8)        not null, primary key
-#  user_id    :integer          not null
+#  id         :bigint           not null, primary key
 #  token      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  user_id    :integer          not null
+#
+# Indexes
+#
+#  index_sessions_on_token  (token)
 #
 
 class Session < ApplicationRecord

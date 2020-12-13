@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: ladders
+# Table name: bb_skill_groups
 #
 #  id         :bigint           not null, primary key
 #  name       :string           not null
@@ -9,6 +9,6 @@
 #
 
 
-class Ladder < ApplicationRecord
+class BbSkillGroup < ApplicationRecord
 
 end

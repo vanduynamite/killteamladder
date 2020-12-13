@@ -10,13 +10,73 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_10_071637) do
+ActiveRecord::Schema.define(version: 2020_12_13_011016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "approved_emails", force: :cascade do |t|
     t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_player_skill_groups", force: :cascade do |t|
+    t.integer "bb_player_template_id", null: false
+    t.integer "bb_skill_group_id", null: false
+    t.boolean "primary", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_player_templates", force: :cascade do |t|
+    t.integer "bb_team_template_id", null: false
+    t.string "position_name", null: false
+    t.integer "max_allowed", null: false
+    t.integer "cost", null: false
+    t.integer "ma", null: false
+    t.integer "st", null: false
+    t.integer "ag", null: false
+    t.integer "pa"
+    t.integer "av", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_skill_groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_skills", force: :cascade do |t|
+    t.integer "bb_skill_group_id", null: false
+    t.string "name", null: false
+    t.text "description"
+    t.boolean "must_use", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_special_rules", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_team_special_rules", force: :cascade do |t|
+    t.integer "bb_special_rule_id", null: false
+    t.integer "bb_team_template_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_team_templates", force: :cascade do |t|
+    t.integer "faction_id", null: false
+    t.integer "reroll_cost", null: false
+    t.integer "tier", null: false
+    t.boolean "apothecary", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
