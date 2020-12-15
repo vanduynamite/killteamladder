@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_13_085541) do
+ActiveRecord::Schema.define(version: 2020_12_15_001320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(version: 2020_12_13_085541) do
     t.integer "bb_player_template_id", null: false
     t.integer "bb_skill_group_id", null: false
     t.boolean "primary", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_player_skills", force: :cascade do |t|
+    t.integer "bb_player_id", null: false
+    t.integer "bb_skill_id", null: false
+    t.string "modifier"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -47,6 +55,46 @@ ActiveRecord::Schema.define(version: 2020_12_13_085541) do
     t.integer "ag", null: false
     t.integer "pa"
     t.integer "av", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_players", force: :cascade do |t|
+    t.integer "team_id", null: false
+    t.integer "bb_player_template_id", null: false
+    t.string "position_name", null: false
+    t.string "name", null: false
+    t.integer "number", null: false
+    t.integer "ma_original", null: false
+    t.integer "st_original", null: false
+    t.integer "ag_original", null: false
+    t.integer "pa_original", null: false
+    t.integer "av_original", null: false
+    t.integer "hiring_fee", null: false
+    t.integer "current_value", null: false
+    t.integer "ma_improvement", default: 0, null: false
+    t.integer "st_improvement", default: 0, null: false
+    t.integer "ag_improvement", default: 0, null: false
+    t.integer "pa_improvement", default: 0, null: false
+    t.integer "av_improvement", default: 0, null: false
+    t.integer "spp", default: 0, null: false
+    t.boolean "mng", default: false, null: false
+    t.integer "ni", default: 0, null: false
+    t.boolean "temporarily_retired", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_position_group_limits", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "max", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_position_groups", force: :cascade do |t|
+    t.integer "bb_position_group_limits_id", null: false
+    t.integer "bb_player_template_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -96,6 +144,9 @@ ActiveRecord::Schema.define(version: 2020_12_13_085541) do
     t.integer "treasury", default: 1000000, null: false
     t.integer "team_value", default: 0, null: false
     t.integer "current_team_value", default: 0, null: false
+    t.integer "assistant_coaches", default: 0, null: false
+    t.integer "cheerleaders", default: 0, null: false
+    t.integer "apothecaries", default: 0, null: false
   end
 
   create_table "factions", force: :cascade do |t|

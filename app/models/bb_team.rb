@@ -3,6 +3,9 @@
 # Table name: bb_teams
 #
 #  id                 :bigint           not null, primary key
+#  apothecaries       :integer          default(0), not null
+#  assistant_coaches  :integer          default(0), not null
+#  cheerleaders       :integer          default(0), not null
 #  current_team_value :integer          default(0), not null
 #  dedicated_fans     :integer          default(1), not null
 #  rerolls            :integer          default(0), not null
