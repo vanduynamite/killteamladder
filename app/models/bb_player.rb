@@ -30,7 +30,7 @@
 
 
 class BbPlayer < ApplicationRecord
-  validates_with PositionLimitValidator
+  validates_with PositionLimitValidator, if: :new_record?
   validates :ma_improvement, :st_improvement, :ag_improvement, :pa_improvement,
     :av_improvement, numericality: { less_than_or_equal_to: 2,
     message: "cannot be improved more than twice"}
@@ -44,61 +44,90 @@ class BbPlayer < ApplicationRecord
   has_one :faction, through: :team, source: :faction_record
   has_one :team_template, through: :faction, source: :bb_team_template
 
-  before_create :update_from_template
+  has_many :primary_skill_groups,
+    through: :player_template,
+    source: :primary_skill_groups
 
-  def update_from_template
+  has_many :primary_skills,
+    through: :primary_skill_groups,
+    source: :skills
+
+  has_many :secondary_skill_groups,
+    through: :player_template,
+    source: :secondary_skill_groups
+
+  has_many :secondary_skills,
+    through: :secondary_skill_groups,
+    source: :skills
+
+  has_many :skill_links, class_name: :BbPlayerSkill, dependent: :destroy
+  has_many :skills, through: :skill_links, source: :skill
+
+  before_create :transfer_data_from_template
+  after_create :add_skills_from_template
+
+  def transfer_data_from_template
     # must come in with team_id, name, number, template_id
+    template = BbPlayerTemplate.find(self.bb_player_template_id)
 
-    t = self.player_template
+    self.position_name = template.position_name
+    self.hiring_fee = template.cost
+    self.current_value = template.cost
+    self.ma_original = template.ma
+    self.st_original = template.st
+    self.ag_original = template.ag
+    self.pa_original = template.pa
+    self.av_original = template.av
+  end
 
-    self.position_name = t.position_name
-    self.hiring_fee = t.cost
-    self.current_value = t.cost
-    self.ma_original = t.ma
-    self.st_original = t.st
-    self.ag_original = t.ag
-    self.pa_original = t.pa
-    self.av_original = t.av
+  def add_skills_from_template
+    self.player_template.skill_links.each do |s|
+      skill_link = BbPlayerSkill.new
+      skill_link.player = self
+      skill_link.skill = s.skill
+      skill_link.modifier = s.modifier
+      skill_link.save
+    end
 
-    # defaults, so the validation doesn't get sad
-    # self.ma_improvement = 0
-    # self.st_improvement = 0
-    # self.ag_improvement = 0
-    # self.pa_improvement = 0
-    # self.av_improvement = 0
+    # TODO Update the team treasury and value too
   end
 
   def ma
-    return self.ma_original + self.ma_improvement
+    # TODO: add in injuries
+    self.ma_original + self.ma_improvement
   end
 
   def st
-    return self.st_original + self.st_improvement
+    # TODO: add in injuries
+    self.st_original + self.st_improvement
   end
 
   def ag
-    return self.ag_original + self.ag_improvement
+    # TODO: add in injuries
+    self.ag_original + self.ag_improvement
   end
 
   def pa
-    return self.pa_original + self.pa_improvement
+    # TODO: add in injuries
+    self.pa_original + self.pa_improvement
   end
 
   def av
-    return self.av_original + self.av_improvement
+    # TODO: add in injuries
+    self.av_original + self.av_improvement
   end
-  
-end
 
-#
-# class GoodnessValidator < ActiveModel::Validator
-#   def validate(record)
-#     if record.first_name == "Evil"
-#       record.errors.add :base, "This person is evil"
-#     end
-#   end
-# end
-#
-# class Person < ApplicationRecord
-#   validates_with GoodnessValidator
-# end
+  def available_primary_skills
+    primary_skills.where.not(id: skills.pluck(:id))
+  end
+
+  def available_secondary_skills
+    secondary_skills.where.not(id: skills.pluck(:id))
+  end
+
+  def skill_modifiers
+    # returns an array
+    skills.pluck(:modifier)
+  end
+
+end

@@ -27,7 +27,7 @@ class BbTeam < ApplicationRecord
 
   has_many :player_templates, through: :team_template
   has_many :special_rules, through: :team_template
-
+  has_many :players, through: :team
 
   def calculate_team_value
     self.team_value = self.team_value

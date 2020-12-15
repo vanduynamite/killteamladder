@@ -42,4 +42,16 @@ class BbPlayerTemplate < ApplicationRecord
   has_many :skill_links, class_name: :BbPlayerTemplateSkill
   has_many :skills, through: :skill_links, source: :skill
 
+  has_one :position_group,
+    class_name: :BbPositionGroup,
+    foreign_key: :bb_player_template_id
+
+  def group_max_allowed
+    if position_group
+      return position_group.max
+    else
+      return nil
+    end
+  end
+
 end
