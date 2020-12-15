@@ -41,6 +41,7 @@ class Team < ApplicationRecord
     dependent: :destroy
 
   has_many :players, class_name: :BbPlayer
+  has_one :bb_team, class_name: :BbTeam
 
   after_initialize :add_start_points, if: :new_record?
   after_create :maybe_create_bb_team

@@ -31,12 +31,15 @@
 
 class BbPlayer < ApplicationRecord
   validates_with PositionLimitValidator, if: :new_record?
+  validates_with CanTeamAffordNewPlayer, if: :new_record?
+
   validates :ma_improvement, :st_improvement, :ag_improvement, :pa_improvement,
     :av_improvement, numericality: { less_than_or_equal_to: 2,
     message: "cannot be improved more than twice"}
   validates :number, uniqueness: { scope: [:team_id] }
 
   belongs_to :team
+  has_one :bb_team, through: :team
   belongs_to :player_template,
     class_name: :BbPlayerTemplate,
     foreign_key: :bb_player_template_id
@@ -64,7 +67,7 @@ class BbPlayer < ApplicationRecord
   has_many :skills, through: :skill_links, source: :skill
 
   before_create :transfer_data_from_template
-  after_create :add_skills_from_template
+  after_create :after_create_tasks
 
   def transfer_data_from_template
     # must come in with team_id, name, number, template_id
@@ -80,6 +83,11 @@ class BbPlayer < ApplicationRecord
     self.av_original = template.av
   end
 
+  def after_create_tasks
+    add_skills_from_template
+    update_team_treasury_and_value
+  end
+
   def add_skills_from_template
     self.player_template.skill_links.each do |s|
       skill_link = BbPlayerSkill.new
@@ -88,8 +96,12 @@ class BbPlayer < ApplicationRecord
       skill_link.modifier = s.modifier
       skill_link.save
     end
+  end
 
-    # TODO Update the team treasury and value too
+  def update_team_treasury_and_value
+    treasury = bb_team.treasury
+    bb_team.update(treasury: treasury - self.hiring_fee)
+    bb_team.update_team_value!
   end
 
   def ma
