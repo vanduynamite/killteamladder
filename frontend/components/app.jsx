@@ -21,6 +21,7 @@ export default () => {
         <Route path='/killteam' component={ Ladder } />
         <Route path='/underworlds' component={ Ladder } />
         <Route path='/40k' component={ Ladder } />
+        <Route path='/bloodbowl' component={ Ladder } />
         <Route path='/' component={ Portal } />
       </Switch>
     </>

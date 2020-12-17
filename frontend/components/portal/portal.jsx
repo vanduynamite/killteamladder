@@ -35,6 +35,12 @@ class Portal extends React.Component {
           <Link to='/40k/'>
             <img src={ window.warhammer40k_logo } id='logo' />
           </Link>
+          <h2>
+            Blood Bowl
+          </h2>
+          <Link to='/bloodbowl/'>
+            <img src={ window.killteam_logo } id='logo' />
+          </Link>
         </div>
       </div>
     );

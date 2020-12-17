@@ -37,6 +37,12 @@ const ladderPic = (fullPath) => {
           <img src={ window.warhammer40k_logo } id='logo' />
         </Link>
       );
+    case '/bloodbowl':
+      return (
+        <Link to='/bloodbowl/'>
+          <img src={ window.killteam_logo } id='logo' />
+        </Link>
+      );
     case '':
     case '/carcosa':
       return (
