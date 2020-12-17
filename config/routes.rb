@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resources :factions, only: [:index]
     resources :seasons, only: [:create]
+    resources :bb_players, only: [:create, :update, :show]
+    resources :bb_teams, only: [:update]
   end
 
 end

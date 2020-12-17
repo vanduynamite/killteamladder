@@ -11,3 +11,14 @@ json.partial! 'api/teams/team_details.json.jbuilder', team: @team
 @matchups.each do |matchup|
   json.partial! 'api/matchups/matchup_basic.json.jbuilder', matchup: matchup
 end
+
+# to add for blood bowl teams
+if @bb_team
+  json.partial! 'api/bb_teams/bb_team_basic.json.jbuilder', team: @bb_team
+end
+
+if @players
+  @players.each do |player|
+    json.partial! 'api/bb_players/bb_player_basic.json.jbuilder', player: player
+  end
+end

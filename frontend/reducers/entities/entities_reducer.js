@@ -9,6 +9,7 @@ const entitiesReducer = combineReducers({
   teams,
   matches,
   factions,
+  players,
 });
 
 export default entitiesReducer;
