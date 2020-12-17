@@ -39,7 +39,7 @@ class Portal extends React.Component {
             Blood Bowl
           </h2>
           <Link to='/bloodbowl/'>
-            <img src={ window.killteam_logo } id='logo' />
+            <img src={ window.bloodbowl_logo } id='logo' />
           </Link>
         </div>
       </div>

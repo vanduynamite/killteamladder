@@ -11,5 +11,22 @@ json.teams do
     json.matchIds team.matchups.map { |m| m.id }.sort.reverse
 
     json.stats team.stats
+    
+    if @players
+      json.playerIds team.players.order('number asc').map { |p| p.id }
+    end
+
+    if @bb_team
+      json.bbStats do
+        json.apothecaries @bb_team.apothecaries
+        json.assistantCoaches @bb_team.assistant_coaches
+        json.cheerleaders @bb_team.cheerleaders
+        json.currentTeamValue @bb_team.current_team_value
+        json.dedicatedFans @bb_team.dedicated_fans
+        json.rerolls @bb_team.rerolls
+        json.teamValue @bb_team.team_value
+        json.treasury @bb_team.treasury
+      end
+    end
   end
 end

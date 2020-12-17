@@ -26,6 +26,13 @@
   padding: 8px 0px;
 }
 
+#bb-stats {
+  // border-top: none;
+  margin-bottom: 24px;
+  flex-direction: column;
+  padding: 8px 0px;
+}
+
 .stat-container {
   width: 100%;
   box-sizing: border-box;
@@ -41,6 +48,12 @@
 
 .stat-container.grey {
   background: #F1F3F4;
+}
+
+.bb-stat-line {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
 }
 
 #main-list-retired {

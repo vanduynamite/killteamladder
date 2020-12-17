@@ -40,7 +40,7 @@ const ladderPic = (fullPath) => {
     case '/bloodbowl':
       return (
         <Link to='/bloodbowl/'>
-          <img src={ window.killteam_logo } id='logo' />
+          <img src={ window.bloodbowl_logo } id='logo' />
         </Link>
       );
     case '':

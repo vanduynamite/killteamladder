@@ -3,6 +3,8 @@ import Statistic from '../general/statistic';
 import ImageButton from '../general/image_button';
 import ButtonLink from '../general/button_link';
 import MatchListItem from '../match/match_list_item';
+import PlayerCards from '../players/player_cards';
+import BBStatTable from '../bb_teams/team_stats';
 
 class Team extends React.Component {
 
@@ -47,7 +49,10 @@ class Team extends React.Component {
         { this.retiredSection() }
         { this.teamDetails() }
         { this.teamStats() }
+        { this.bbTeamHeader() }
+        { this.bbTeamDetails() }
         { logMatchButton }
+        { this.players() }
         { this.matches() }
       </div>
     );
@@ -179,6 +184,70 @@ class Team extends React.Component {
         { matchList }
       </div>
     );
+  }
+
+  bbTeamHeader() {
+    return;
+
+
+    if (!this.props.currentTeam) return;
+    if (this.props.ladder !== '/bloodbowl') return;
+    if (!this.props.currentTeam.bbStats) return;
+
+    const team = this.props.currentTeam;
+    const owner = this.props.users[team.userId];
+
+    let editLink;
+    let owned = '';
+    let bottomLine = (
+      <div className={ 'team-header-faction owned' }>
+        <div>Nothing for now</div>
+      </div>
+    );
+
+    if (this.props.ownerViewing && team.active) {
+      editLink = <ImageButton
+        path={ `${this.props.ladder}/team/${this.props.currentTeamId}/edit` }
+        image={ window.edit_dark } />;
+      owned = ' owned';
+    } else {
+      bottomLine =
+      <div className={ 'team-header-faction owned' }>
+        <div>Nothing for now</div>
+        <div>Nor over here</div>
+      </div>;
+    }
+
+    return (
+      <div className={ 'info-container' + owned } id='team-details'>
+        <div className={ 'team-header' + owned }>
+          <div className={ 'team-header-name' + owned }>
+            Blood Bowl team details
+          </div>
+          { bottomLine }
+        </div>
+        <div>
+          { editLink }
+        </div>
+      </div>
+    );
+  }
+
+  bbTeamDetails() {
+    if (!this.props.currentTeam) return;
+    if (this.props.ladder !== '/bloodbowl') return;
+    if (!this.props.currentTeam.bbStats) return;
+    const team = this.props.currentTeam;
+    return <BBStatTable team={ team } />
+  }
+
+  players() {
+    if (!this.props.currentTeam) return;
+    if (this.props.ladder !== '/bloodbowl') return;
+    const playerIds = this.props.currentTeam.playerIds;
+    const players = this.props.players;
+    if (!playerIds || !players) return;
+    return <PlayerCards players={ players } playerIds={ playerIds }/>
   }
 
 }
