@@ -54,10 +54,23 @@ class Api::TeamsController < ApplicationController
     @team.team_name = team_params[:team_name]
     @team.active = team_params[:active] if team_params[:active]
 
-    if @team.save
+    if @team.ladder_name == '/bloodbowl'
+      @bb_team = @team.bb_team
+      @bb_team.cheerleaders = team_params[:cheerleaders]
+      @bb_team.apothecaries = team_params[:apothecaries]
+      @bb_team.rerolls = team_params[:rerolls]
+      @bb_team.assistant_coaches = team_params[:assistant_coaches]
+      @bb_team.dedicated_fans = team_params[:dedicated_fans]
+      @bb_team.treasury = team_params[:treasury]
+    end
+
+    # TODO: this is only OK for bloodbowl right now
+    # team will still save even if bb_team does not
+    if @team.save && @bb_team.save
       render json: [@team.id, @team.ladder_name], status: 200
     else
-      render @team.errors.full_messages, status: 422
+      errors = @team.errors.full_messages.concat(@bb_team.errors.full_messages)
+      render json: errors, status: 422
     end
 
 
@@ -71,6 +84,12 @@ class Api::TeamsController < ApplicationController
       :team_name,
       :active,
       :ladder_name,
+      :cheerleaders,
+      :apothecaries,
+      :rerolls,
+      :assistant_coaches,
+      :dedicated_fans,
+      :treasury,
     )
   end
 

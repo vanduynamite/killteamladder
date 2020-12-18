@@ -20,8 +20,14 @@ class BbTeam < ApplicationRecord
     message: "must be between 0 and 6"}
   validates :rerolls, numericality: { greater_than_or_equal_to: 0, less_than: 9,
     message: "must be between 0 and 8" }
+  validates :cheerleaders, numericality: { greater_than_or_equal_to: 0, less_than: 13,
+    message: "must be between 0 and 12" }
+  validates :apothecaries, numericality: { greater_than_or_equal_to: 0, less_than: 2,
+    message: "must be between 0 and 1" }
+  validates :assistant_coaches, numericality: { greater_than_or_equal_to: 0, less_than: 7,
+    message: "must be between 0 and 6" }
   validates :treasury, numericality: { greater_than_or_equal_to: 0,
-    message: "must be positive"}
+    message: "must remain positive!"}
 
   belongs_to :team
   has_one :faction, through: :team, source: :faction_record

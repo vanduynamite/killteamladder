@@ -22,6 +22,12 @@ export const getTeam = id => {
 export const editTeam = team => {
 
   team.team_name = team.teamName;
+  team.assistant_coaches = team.assistantCoaches * 1;
+  team.dedicated_fans = team.dedicatedFans * 1;
+  team.cheerleaders = team.cheerleaders * 1;
+  team.apothecaries = team.apothecaries * 1;
+  team.rerolls = team.rerolls * 1;
+  team.treasury = team.treasury * 1;
 
   return $.ajax({
     method: 'PATCH',
