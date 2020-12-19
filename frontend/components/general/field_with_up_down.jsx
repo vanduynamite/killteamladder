@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function({ fieldName, label, ctx, min, max }) {
+export default function({ fieldName, label, ctx, min, max, tooExpensive=false }) {
   const inError = Object.keys(ctx.props.errors).includes(fieldName);
 
   const klass = inError ? 'error' : '';
@@ -14,7 +14,7 @@ export default function({ fieldName, label, ctx, min, max }) {
   );
 
   const inputField = (
-    <input type='text'
+    <input type='number'
       id={ fieldName }
       className={ klass }
       onChange={ ctx.updateField(fieldName) }
@@ -23,13 +23,11 @@ export default function({ fieldName, label, ctx, min, max }) {
   );
 
   const minusDisabled = ctx.state[fieldName] === min;
-  // TODO: also check available treasury
   const minusButtonClass = minusDisabled ?
     'button submit-disabled stat-adjust-button' :
     'button submit-active stat-adjust-button';
 
-  const plusDisabled = ctx.state[fieldName] === max;
-  // TODO: also check available treasury
+  const plusDisabled = ctx.state[fieldName] === max || tooExpensive;
   const plusButtonClass = plusDisabled ?
     'button submit-disabled stat-adjust-button' :
     'button submit-active stat-adjust-button';

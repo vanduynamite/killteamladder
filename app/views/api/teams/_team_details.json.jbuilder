@@ -11,7 +11,7 @@ json.teams do
     json.matchIds team.matchups.map { |m| m.id }.sort.reverse
 
     json.stats team.stats
-    
+
     if @players
       json.playerIds team.players.order('number asc').map { |p| p.id }
     end
@@ -26,6 +26,8 @@ json.teams do
         json.rerolls @bb_team.rerolls
         json.teamValue @bb_team.team_value
         json.treasury @bb_team.treasury
+        json.rerollCost @bb_team.team_template.reroll_cost
+        json.canHaveApothecary @bb_team.team_template.apothecary
       end
     end
   end

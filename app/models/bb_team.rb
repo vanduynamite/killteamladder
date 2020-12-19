@@ -28,6 +28,7 @@ class BbTeam < ApplicationRecord
     message: "must be between 0 and 6" }
   validates :treasury, numericality: { greater_than_or_equal_to: 0,
     message: "must remain positive!"}
+  # TODO: check for team_template.apothecary
 
   belongs_to :team
   has_one :faction, through: :team, source: :faction_record

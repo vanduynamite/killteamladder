@@ -62,17 +62,21 @@ class Api::TeamsController < ApplicationController
       @bb_team.assistant_coaches = team_params[:assistant_coaches]
       @bb_team.dedicated_fans = team_params[:dedicated_fans]
       @bb_team.treasury = team_params[:treasury]
-    end
 
-    # TODO: this is only OK for bloodbowl right now
-    # team will still save even if bb_team does not
-    if @team.save && @bb_team.save
-      render json: [@team.id, @team.ladder_name], status: 200
+      if @team.valid? && @bb_team.valid? && @team.save && @bb_team.save
+        @bb_team.update_team_value!
+        render json: [@team.id, @team.ladder_name], status: 200
+      else
+        errors = @team.errors.full_messages.concat(@bb_team.errors.full_messages)
+        render json: errors, status: 422
+      end
     else
-      errors = @team.errors.full_messages.concat(@bb_team.errors.full_messages)
-      render json: errors, status: 422
+      if @team.save
+        render json: [@team.id, @team.ladder_name], status: 200
+      else
+        render json: @team.errors.full_messages, status: 422
+      end
     end
-
 
   end
 

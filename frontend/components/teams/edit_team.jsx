@@ -66,7 +66,13 @@ class EditTeam extends React.Component {
 
   submit(e) {
     e.preventDefault();
-    if (this.formValid()) this.props.editTeam(this.state, this.props.history.push);
+    if (this.formValid()) {
+      const data = this.state;
+      if (this.props.ladder === '/bloodbowl') {
+        data.treasury = this.calculateTreasury();
+      }
+      this.props.editTeam(data, this.props.history.push);
+    }
   }
 
   updateField(field) {
@@ -77,12 +83,22 @@ class EditTeam extends React.Component {
 
   formValid() {
     if (!this.props.team) return false;
-    if (this.state.teamName === this.props.team.teamName &&
-        this.state.cheerleaders === this.props.team.cheerleaders &&
-        this.state.apothecaries === this.props.team.apothecaries &&
-        this.state.rerolls === this.props.team.rerolls &&
-        this.state.assistantCoaches === this.props.team.assistantCoaches &&
-        this.state.dedicatedFans === this.props.team.dedicatedFans) return false;
+
+    if (this.props.ladder === '/bloodbowl') {
+      if (this.state.cheerleaders === this.props.team.bbStats.cheerleaders &&
+          this.state.apothecaries === this.props.team.bbStats.apothecaries &&
+          this.state.rerolls === this.props.team.bbStats.rerolls &&
+          this.state.assistantCoaches === this.props.team.bbStats.assistantCoaches &&
+          this.state.dedicatedFans === this.props.team.bbStats.dedicatedFans) {
+        return false;
+      }
+      if (this.calculateTreasury() < 0) {
+        return false;
+      }
+    } else if (this.state.teamName === this.props.team.teamName) {
+      return false;
+    }
+
     return true;
   }
 
@@ -138,30 +154,118 @@ class EditTeam extends React.Component {
 
   bbFields() {
     if (this.props.ladder !== '/bloodbowl') return;
-    const minRerolls = Math.max(0, this.state.rerollsOriginal);
+    if (!this.props.team || !this.props.team.bbStats) return;
 
-    // if (this.props.teams.stats.matchesPlayed === 0) {
-      const dedicatedFans = (
+    const treasury = this.calculateTreasury();
+
+    const minRerolls = Math.max(0, this.state.rerollsOriginal);
+    let rerolls = (
+      <UpDownField fieldName='rerolls' label='Rerolls'
+        min={ minRerolls } max={8} ctx={ this }
+        tooExpensive={ this.rerollCost() > treasury } />
+    );
+    let dedicatedFans = (<></>);
+    let apothecaries = (<></>);
+    if (this.props.team.stats.matchesPlayed === 0) {
+      dedicatedFans = (
         <UpDownField fieldName='dedicatedFans' label='Dedicated Fans'
-          min={1} max={6} ctx={ this } />
+          min={1} max={6} ctx={ this } tooExpensive={ 10000 > treasury }/>
       );
-    //   const rerollCost = 2 * rerollCost;
-    // }
+      rerolls = (
+        <UpDownField fieldName='rerolls' label='Rerolls'
+          min={0} max={8} ctx={ this }
+          tooExpensive={ this.rerollCost() > treasury } />
+      );
+    }
+
+    if (this.props.team.bbStats.canHaveApothecary) {
+      apothecaries = (
+        <UpDownField fieldName='apothecaries' label='Apothecary'
+          min={0} max={1} ctx={ this } tooExpensive={ 50000 > treasury }/>
+      );
+    }
+
     return (
       <div>
-        <UpDownField fieldName='rerolls' label='Rerolls'
-          min={ minRerolls } max={8} ctx={ this } />
+        { rerolls }
+        { apothecaries }
         <UpDownField fieldName='assistantCoaches' label='Assistant Coaches'
-          min={0} max={6} ctx={ this } />
-        <UpDownField fieldName='apothecaries' label='Apothecary'
-          min={0} max={1} ctx={ this } />
+          min={0} max={6} ctx={ this } tooExpensive={ 10000 > treasury }/>
         <UpDownField fieldName='cheerleaders' label='Cheerleaders'
-          min={0} max={12} ctx={ this } />
+          min={0} max={12} ctx={ this } tooExpensive={ 10000 > treasury }/>
         { dedicatedFans }
+        { this.treasury(treasury) }
       </div>
     );
-    // TODO: put in estimated treasury change
 
+  }
+
+  treasury(treasury) {
+    if (this.props.ladder !== '/bloodbowl') return;
+    if (!this.props.team || !this.props.team.bbStats) return;
+
+    return (
+      <div className='single-input'>
+        <label
+          className={ treasury < 0 ? 'error' : ''}
+          htmlFor='treasury'>
+          Treasury
+        </label>
+        <input type='number'
+          id='treasury'
+          className={ treasury < 0 ? 'error disabled' : 'disabled' }
+          value={ treasury }
+          disabled={ true }/>
+      </div>
+    );
+  }
+
+  rerollCost() {
+    if (!this.props.team.stats || !this.props.team.bbStats) return;
+
+    if (this.props.team.stats.matchesPlayed === 0) {
+      return this.props.team.bbStats.rerollCost;
+    } else {
+      return 2 * this.props.team.bbStats.rerollCost;
+    }
+  }
+
+  calculateTreasury() {
+    if (this.props.ladder !== '/bloodbowl') return;
+    if (!this.props.team || !this.props.team.bbStats) return;
+
+    const freshTeam = this.props.team.stats.matchesPlayed === 0;
+    let treasury = this.state.treasury * 1;
+
+    const vals = [];
+    vals.push({
+      diff: this.state.cheerleaders - this.props.team.bbStats.cheerleaders,
+      cost: 10000,
+      name: 'cheerleaders'});
+    vals.push({
+      diff: this.state.apothecaries - this.props.team.bbStats.apothecaries,
+      cost: 50000,
+      name: 'apothecaries'});
+    vals.push({
+      diff: this.state.rerolls - this.props.team.bbStats.rerolls,
+      cost: this.rerollCost(),
+      name: 'rerolls'});
+    vals.push({
+      diff: this.state.assistantCoaches - this.props.team.bbStats.assistantCoaches,
+      cost: 10000,
+      name: 'assistantCoaches'});
+    vals.push({
+      diff: this.state.dedicatedFans - this.props.team.bbStats.dedicatedFans,
+      cost: 10000,
+      name: 'dedicatedFans'});
+
+    vals.forEach(({diff, cost, name}) => {
+      if (diff > 0 || (diff < 0 && freshTeam)) {
+        treasury -= cost * diff;
+      }
+    });
+
+    return treasury;
   }
 
 }
