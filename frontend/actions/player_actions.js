@@ -1,13 +1,22 @@
 import * as PlayerAPI from '../util/player_api_util';
 
+export const RECEIVE_PLAYER = 'RECEIVE_PLAYER';
 export const RECEIVE_PLAYERS = 'RECEIVE_PLAYERS';
 export const RECEIVE_PLAYER_ERRORS = 'RECEIVE_PLAYER_ERRORS';
 
-export const receivePlayers = ({ players, templates }) => {
+export const receivePlayers = ({ players, templates, teams }) => {
   return {
     type: RECEIVE_PLAYERS,
     players,
     templates,
+    teams,
+  }
+};
+
+export const receivePlayer = player => {
+  return {
+    type: RECEIVE_PLAYER,
+    player,
   }
 };
 
@@ -20,7 +29,7 @@ const receiverPlayerErrors = ({ errors }) => {
 
 export const getPlayer = id => dispatch => {
   return PlayerAPI.getPlayer(id).then(
-    payload => dispatch(receivePlayers(payload))
+    payload => dispatch(receivePlayer(payload))
   );
 };
 

@@ -9,7 +9,7 @@ export const getPlayer = id => {
 export const getPlayersAndTemplates = teamId => {
   return $.ajax({
     method: 'GET',
-    url: `/api/bb_team_templates/${teamId}`,
+    url: `/api/bb_teams/${teamId}`,
   });
 };
 
@@ -27,8 +27,10 @@ export const newPlayer = (teamId, templateId) => {
     method: 'POST',
     url: '/api/bb_players',
     data: {
-      team_id: teamId,
-      template_id: templateId,
+      player: {
+        team_id: teamId,
+        template_id: templateId,
+      }
     },
   });
 };

@@ -1,5 +1,6 @@
 import { RECEIVE_TEAMS } from '../../actions/team_actions';
 import { RECEIVE_USERS } from '../../actions/user_actions';
+import { RECEIVE_PLAYERS } from '../../actions/player_actions';
 import { RECEIVE_DELETED_MATCH } from '../../actions/match_actions';
 import { merge } from 'lodash';
 
@@ -10,6 +11,7 @@ const userReducer = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_USERS:
     case RECEIVE_TEAMS:
+    case RECEIVE_PLAYERS:
       return merge(newState, action.teams);
 
     case RECEIVE_DELETED_MATCH:
