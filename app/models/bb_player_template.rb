@@ -53,5 +53,29 @@ class BbPlayerTemplate < ApplicationRecord
       return nil
     end
   end
+  
+  def primary_skill_group_string
+    psg_string = ""
+    primary_skill_groups.pluck(:name).sort.each { |sg| psg_string << sg[0] }
+    return psg_string
+  end
+
+  def secondary_skill_group_string
+    ssg_string = ""
+    secondary_skill_groups.pluck(:name).sort.each { |sg| ssg_string << sg[0] }
+    return ssg_string
+  end
+
+  def skill_string
+    skill_str = ""
+    skill_arr = skills.pluck(:name, :modifier, :must_use)
+    skill_arr.each_with_index do |skill, i|
+      skill_str << skill[0]
+      skill_str << "(" + skill[1] + ")" if skill[1]
+      skill_str << "*" if skill[2]
+      skill_str << ", " unless i == skill_arr.size - 1
+    end
+    return skill_str
+  end
 
 end

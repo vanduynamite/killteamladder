@@ -1,5 +1,5 @@
 
-class Api::FactionsController < ApplicationController
+class Api::BbPlayersController < ApplicationController
 
   def create
     # accepts data with team_id: and template_id:

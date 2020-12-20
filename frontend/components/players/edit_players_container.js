@@ -2,9 +2,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import EditPlayers from './edit_players';
 import {
-  editTeam ,
-  getTeam
-} from '../../actions/team_actions';
+  getPlayersAndTemplates,
+} from '../../actions/player_actions';
 
 const msp = (state, ownProps) => {
   const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); //console.log(ladder);
@@ -39,7 +38,7 @@ const msp = (state, ownProps) => {
 
 const mdp = dispatch => {
   return {
-    getTeam: id => dispatch(getTeam(id)),
+    getPlayersAndTemplates: teamId => dispatch(getPlayersAndTemplates(teamId)),
     // editTeam: (team, historyPush) => dispatch(editTeam(team, historyPush)),
   };
 };
