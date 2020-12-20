@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :seasons, only: [:create]
     resources :bb_players, only: [:create, :update, :show]
     resources :bb_teams, only: [:update]
+    resources :bb_team_templates, only: [:show]
   end
 
 end

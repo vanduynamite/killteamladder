@@ -25,15 +25,15 @@ const receiveTeamErrors = errors => {
 export const clearTeamErrors = () => {
   return {
     type: CLEAR_TEAM_ERRORS,
-  }
-}
+  };
+};
 
 const receiveFactions = ({ factions }) => {
   return {
     type: RECEIVE_FACTIONS,
     factions,
-  }
-}
+  };
+};
 
 
 
@@ -52,7 +52,7 @@ export const newTeam = (team, historyPush) => dispatch => {
 export const editTeam = (team, historyPush) => dispatch => {
   return TeamAPI.editTeam(team).then(
     payload => {
-      historyPush(`${payload[1]}/team/${payload[0]}`)
+      historyPush(`${payload[1]}/team/${payload[0]}`);
     },
     errors => dispatch(receiveTeamErrors(errors))
   );
