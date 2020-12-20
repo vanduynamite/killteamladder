@@ -33,7 +33,6 @@ class Team extends React.Component {
   }
 
   render() {
-
     let logMatchButton;
     if (this.props.currentTeam && this.props.currentUser && this.props.currentTeam.active) {
       if (this.props.currentTeam.userId === this.props.currentUser.id) {
@@ -52,6 +51,7 @@ class Team extends React.Component {
         { this.bbTeamHeader() }
         { this.bbTeamDetails() }
         { logMatchButton }
+        { this.playersHeader() }
         { this.players() }
         { this.matches() }
       </div>
@@ -187,7 +187,7 @@ class Team extends React.Component {
   }
 
   bbTeamHeader() {
-    return;
+    return; // not using this right now, not sure what the UI should look like
 
 
     if (!this.props.currentTeam) return;
@@ -241,13 +241,56 @@ class Team extends React.Component {
     return <BBStatTable team={ team } />
   }
 
+  playersHeader() {
+    if (!this.props.currentTeam) return;
+    if (this.props.ladder !== '/bloodbowl') return;
+
+    const team = this.props.currentTeam;
+    const owner = this.props.users[team.userId];
+
+    let editLink;
+    let owned = '';
+    let bottomLine = (
+      <div className={ 'team-header-faction owned' }>
+        <div>Nothing for now</div>
+      </div>
+    );
+
+    if (this.props.ownerViewing && team.active) {
+      editLink = <ImageButton
+        path={ `${this.props.ladder}/teamplayers/${this.props.currentTeamId}/edit` }
+        image={ window.edit_dark } />;
+      owned = ' owned';
+    } else {
+      bottomLine =
+      <div className={ 'team-header-faction owned' }>
+        <div>Nothing for now</div>
+        <div>Nor over here</div>
+      </div>;
+    }
+
+    return (
+      <div className={ 'info-container' + owned } id='team-details'>
+        <div className={ 'team-header' + owned }>
+          <div className={ 'team-header-name' + owned }>
+            Players
+          </div>
+          { bottomLine }
+        </div>
+        <div>
+          { editLink }
+        </div>
+      </div>
+    );
+  }
+
   players() {
     if (!this.props.currentTeam) return;
     if (this.props.ladder !== '/bloodbowl') return;
     const playerIds = this.props.currentTeam.playerIds;
     const players = this.props.players;
     if (!playerIds || !players) return;
-    return <PlayerCards players={ players } playerIds={ playerIds }/>
+    return <PlayerCards players={ players } playerIds={ playerIds }/>;
   }
 
 }

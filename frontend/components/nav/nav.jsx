@@ -62,28 +62,27 @@ const navButtons = (fullPath, loggedIn) => {
     return;
   }
 
-  switch (path) {
-    case '/login':
-    case '/signup':
-    case '/match/new':
-    case '/account':
-    case '/team/:teamId':
-      return <ImageButton path={ `${ladder}/` } image={ window.close } />;
-
-    case '/account/edit':
-    case '/team/new':
-      return <ImageButton path={ `${ladder}/account` } image={ window.close } />;
-
-    case '/':
-      if (loggedIn) return accountAndMatchButtons(ladder);
-      else return authButtons(ladder);
-
-      break;
-
-    default:
-      return <ImageButton path={ `${ladder}/` } image={ window.close } />;
-
+  if (path.indexOf('/team') !== -1 && path.indexOf('/edit') !== -1) {
+    const startIndex = path.indexOf('/teamplayers') !== -1 ? 13 : 6;
+    const teamId = path.slice(startIndex, path.length - 5);
+    return <ImageButton path={ `${ladder}/team/${teamId}` } image={ window.close } />;
   }
+
+  if (path === '/account/edit' || path === '/team/new') {
+    return <ImageButton path={ `${ladder}/account` } image={ window.close } />;
+  }
+
+  if (path === '/') {
+    if (loggedIn) {
+      return accountAndMatchButtons(ladder);
+    } else {
+      return authButtons(ladder);
+    }
+  }
+
+  // login, signup, match/new, account, team
+  // default case, back to the ladder page
+  return <ImageButton path={ `${ladder}/` } image={ window.close } />;
 };
 
 const accountAndMatchButtons = (ladder) => {

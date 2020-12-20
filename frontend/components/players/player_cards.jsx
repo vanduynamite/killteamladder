@@ -12,7 +12,6 @@ export default function({ players, playerIds }) {
 
   return (
     <div id='main-list'>
-      <h2>Players</h2>
       { playerList }
     </div>
   );

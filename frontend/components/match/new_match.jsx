@@ -115,7 +115,9 @@ class NewMatch extends React.Component {
       if (team.ladder === this.props.ladder) results.push([id, teams[id].teamName]);
     });
 
-    results.push(['new team', 'Create a team...']);
+    if (this.props.ladder !== '/bloodbowl') {
+      results.push(['new team', 'Create a team...']);
+    }
     return results;
   }
 

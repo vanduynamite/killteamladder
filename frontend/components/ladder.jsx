@@ -12,6 +12,7 @@ import EditMatch from './match/edit_match_container';
 import DeleteMatch from './match/delete_match_container';
 import NewTeam from './teams/new_team_container';
 import EditTeam from './teams/edit_team_container';
+import EditPlayers from './players/edit_players_container';
 import RetireTeam from './teams/retire_team_container';
 import Team from './teams/team_container';
 
@@ -38,6 +39,7 @@ class Ladder extends React.Component {
         <ProtectedRoute path={ `${ladder}/match/new` } component={ NewMatch } />
         <ProtectedRoute path={ `${ladder}/team/new` } component={ NewTeam } />
         <ProtectedRoute path={ `${ladder}/team/:teamId/edit` } component={ EditTeam } />
+        <ProtectedRoute path={ `${ladder}/teamplayers/:teamId/edit` } component={ EditPlayers } />
         <ProtectedRoute path={ `${ladder}/team/:teamId/retire` } component={ RetireTeam } />
         <Route path={ `${ladder}/team/:teamId` } component={ Team } />
         <Route path={ `${ladder}/` } component={ Main } />
