@@ -11,6 +11,7 @@ const msp = (state, ownProps) => {
   const teamId = ownProps.match.params.teamId;
   const team = state.entities.teams[teamId];
   const players = state.entities.players;
+  const templates = state.entities.templates;
 
   let ownerId;
   if (team) ownerId = team.userId;
@@ -33,13 +34,13 @@ const msp = (state, ownProps) => {
     players,
     currentTeam,
     ownerViewing,
+    templates,
   };
 };
 
 const mdp = dispatch => {
   return {
     getPlayersAndTemplates: teamId => dispatch(getPlayersAndTemplates(teamId)),
-    // editTeam: (team, historyPush) => dispatch(editTeam(team, historyPush)),
   };
 };
 

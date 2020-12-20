@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PlayerCards from '../players/player_cards';
+import TemplateCards from '../players/template_cards';
 
 class EditPlayers extends React.Component {
 
@@ -29,7 +30,7 @@ class EditPlayers extends React.Component {
         <h1>
           Edit players
         </h1>
-        { this.availablePositions() }
+        { this.templates() }
         { this.players() }
       </div>
     );
@@ -37,16 +38,16 @@ class EditPlayers extends React.Component {
 
   // subcomponents
 
-  availablePositions() {
+  templates() {
     if (!this.props.currentTeam) return;
     if (this.props.ladder !== '/bloodbowl') return;
-    const playerIds = this.props.currentTeam.playerIds;
-    const players = this.props.players;
-    if (!playerIds || !players) return;
+    const templateIds = this.props.currentTeam.templates;
+    const templates = this.props.templates;
+    if (!templateIds || !templates) return;
     return (
       <div id='main-list'>
         <h2>Available positions</h2>
-        <PlayerCards players={ players } playerIds={ playerIds } editable={ true }/>;
+        <TemplateCards templates={ templates } templateIds={ templateIds }/>;
       </div>
     );
   }

@@ -11,7 +11,7 @@ export default function({ players, playerIds, editable=false }) {
   });
 
   return (
-    <div id='main-list'>
+    <div>
       { playerList }
     </div>
   );

@@ -33,7 +33,7 @@ end
 json.templates do
   json.set! template.id do
     json.id template.id
-    json.position_name template.position_name
+    json.positionName template.position_name
     json.cost template.cost
     json.ma template.ma
     json.st template.st
