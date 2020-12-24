@@ -2,14 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ImageButton from '../general/image_button';
 
-export default function({ template }) {
+export default function({ template, addable=false }) {
   const positionName = template.positionName;
   const cost = 'Cost: ' + template.cost;
   const statGroups = template.psg + ' / ' + template.ssg;
   const numAllowed = 'Remaining available: ' + template.allowed;
   const skills = template.skills;
-  const addPositionButton = <ImageButton
-    path={ `addposition/${template.id}` } image={ window.add } />;
+  const addPositionButton = addable ? <ImageButton
+    path={ `addposition/${template.id}` } image={ window.add } /> :
+    <></>;
 
   return (
     <div className={ 'team-list-item' }>

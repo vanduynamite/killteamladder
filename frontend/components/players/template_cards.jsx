@@ -8,7 +8,8 @@ export default function({ templates, templateIds }) {
   const templateList = Object.values(templateIds).map(record => {
     if (record.allowed === 0) return;
     const template = templates[record.id];
-    return <TemplateListItem template={ template } key={ record.id } />;
+    return <TemplateListItem template={ template } key={ record.id }
+      addable={ true }/>;
   });
 
   return (

@@ -14,7 +14,7 @@ export const getPlayersAndTemplates = teamId => {
 };
 
 export const editPlayer = player => {
-  // TODO: adjust values as needed
+  const id = player.id;
   return $.ajax({
     method: 'PATCH',
     url: `/api/bb_players/${id}`,
@@ -24,7 +24,7 @@ export const editPlayer = player => {
 
 export const newPlayer = player => {
   player.team_id = player.teamId;
-  player.template_id = player.template_id;
+  player.bb_player_template_id = player.templateId;
   return $.ajax({
     method: 'POST',
     url: '/api/bb_players',

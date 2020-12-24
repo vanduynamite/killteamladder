@@ -65,14 +65,12 @@ const navButtons = (fullPath, loggedIn) => {
   if (path.indexOf('/editposition') !== -1) {
     const endIndex = path.indexOf('/editposition');
     const teamId = path.slice(13, path.length - endIndex + 1);
-    console.log(teamId);
     return <ImageButton path={ `${ladder}/teamplayers/${teamId}/edit` } image={ window.close } />;
   }
 
   if (path.indexOf('/addposition') !== -1) {
     const endIndex = path.indexOf('/addposition');
     const teamId = path.slice(13, path.length - endIndex + 1);
-    console.log(teamId);
     return <ImageButton path={ `${ladder}/teamplayers/${teamId}/edit` } image={ window.close } />;
   }
 
