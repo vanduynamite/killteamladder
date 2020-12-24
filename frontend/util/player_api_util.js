@@ -14,10 +14,10 @@ export const getPlayersAndTemplates = teamId => {
 };
 
 export const editPlayer = player => {
-  const id = player.id;
+  player.id = player.playerId;
   return $.ajax({
     method: 'PATCH',
-    url: `/api/bb_players/${id}`,
+    url: `/api/bb_players/${player.id}`,
     data: { player },
   });
 };

@@ -12,12 +12,13 @@ class EditPlayer extends React.Component {
 
   constructor(props) {
     super(props);
+    this.checkForTreasuryError();
     this.state = {
       teamId: this.props.teamId,
       templateId: this.props.templateId,
       playerId: this.props.playerId,
       name: this.props.player ? this.props.player.name : '',
-      number: this.props.player ? this.props.player.number : 0,
+      number: this.props.player ? this.props.player.number : '',
       treasury: this.props.team ? this.props.team.treasury : 0,
       playerNumbers: this.playerNumbers(),
     };
@@ -27,11 +28,7 @@ class EditPlayer extends React.Component {
     if (!this.props.template && !this.props.player) {
       this.props.getPlayersAndTemplates(this.props.teamId);
     }
-    if (this.props.team && this.props.template) {
-      if (this.props.team.treasury < this.props.template.cost) {
-        this.props.errors.treasury = 'You don\'t have enough money';
-      }
-    }
+    this.checkForTreasuryError();
   }
 
   componentDidUpdate(prevProps) {
@@ -46,7 +43,8 @@ class EditPlayer extends React.Component {
       });
     }
 
-    if (!prevProps.player && this.props.player) {
+    if (!prevProps.player && this.props.player ||
+        prevProps.playerId !== this.props.playerId) {
       this.setState({
         name: this.props.player.name,
         number: this.props.player.number,
@@ -54,17 +52,15 @@ class EditPlayer extends React.Component {
       });
     }
 
-    if (!prevProps.template && this.props.template) {
+    if (!prevProps.template && this.props.template ||
+        prevProps.templateId !== this.props.templateId) {
       this.setState({
         templateId: this.props.templateId,
       });
     }
 
-    if (this.props.team && this.props.template) {
-      if (this.props.team.treasury < this.props.template.cost) {
-        this.props.errors.treasury = 'You don\'t have enough money';
-      }
-    }
+    this.checkForTreasuryError();
+
   }
 
   submit(e) {
@@ -112,13 +108,13 @@ class EditPlayer extends React.Component {
     return (
       <div className='frame'>
         <h1>{ title }</h1>
-        { this.errorSection() }
         <form onSubmit={ this.submit.bind(this) } autoComplete='off'>
           <input autoComplete='false' name='hidden'
             type='text' style={{ display:'none' }} />
 
           <div className='inputs'>
             { this.playerCard() }
+            { this.errorSection() }
             <Field fieldName='number' label='Number'
               maxLength='2' ctx={ this } type='number' />
             <Field fieldName='name' label='Name'
@@ -172,6 +168,16 @@ class EditPlayer extends React.Component {
     if (!this.props.templateId) return;
     return <Field fieldName='treasury' label='Current treasury'
       ctx={ this } disabled={ true } />
+  }
+
+  checkForTreasuryError() {
+    if (this.props.team && this.props.template) {
+      if (this.props.team.treasury < this.props.template.cost) {
+        this.props.errors.treasury = 'You don\'t have enough money';
+      } else {
+        delete this.props.errors.treasury;
+      }
+    }
   }
 
   errorSection() {

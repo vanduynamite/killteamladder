@@ -20,11 +20,11 @@ export const receivePlayer = player => {
   }
 };
 
-const receiverPlayerErrors = ({ errors }) => {
+const receivePlayerErrors = errors => {
   return {
     type: RECEIVE_PLAYER_ERRORS,
     errors,
-  }
+  };
 };
 
 export const getPlayer = id => dispatch => {
@@ -42,21 +42,22 @@ export const getPlayersAndTemplates = teamId => dispatch => {
 export const editPlayer = (player, historyPush) => dispatch => {
   return PlayerAPI.editPlayer(player).then(
     payload => {
-      const teamId = payload[0];
-      const ladder = payload[1];
-      historyPush(`${ladder}/teamplayers/${teamId}`);
+      dispatch(receivePlayers(payload));
+      const teamId = payload.team.id;
+      const ladder = payload.ladder.name;
+      historyPush(`${ladder}/teamplayers/${teamId}/edit`);
     },
     errors => dispatch(receivePlayerErrors(errors))
   );
 };
 
-export const newPlayer = player => dispatch => {
+export const newPlayer = (player, historyPush) => dispatch => {
   return PlayerAPI.newPlayer(player).then(
     payload => {
       dispatch(receivePlayers(payload));
-      // TODO: need to get the team Id from the payload
-      // might have an issue here with teamId
-      historyPush(`${ladder}/teamplayers/${teamId}`);
+      const teamId = payload.team.id;
+      const ladder = payload.ladder.name;
+      historyPush(`${ladder}/teamplayers/${teamId}/edit`);
     },
     errors => dispatch(receivePlayerErrors(errors))
   );

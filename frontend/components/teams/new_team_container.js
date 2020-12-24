@@ -4,7 +4,7 @@ import NewTeam from './new_team';
 import { newTeam } from '../../actions/team_actions';
 
 const msp = (state, ownProps) => {
-  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); //console.log(ladder);
+  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1));
   const errors = state.errors.teams || {};
   const factions = state.entities.factions;
 

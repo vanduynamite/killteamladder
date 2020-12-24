@@ -83,13 +83,14 @@ class EditTeam extends React.Component {
 
   formValid() {
     if (!this.props.team) return false;
-    debugger;
+    
     if (this.props.ladder === '/bloodbowl') {
       if (this.state.cheerleaders === this.props.team.bbStats.cheerleaders &&
           this.state.apothecaries === this.props.team.bbStats.apothecaries &&
           this.state.rerolls === this.props.team.bbStats.rerolls &&
           this.state.assistantCoaches === this.props.team.bbStats.assistantCoaches &&
-          this.state.dedicatedFans === this.props.team.bbStats.dedicatedFans) {
+          this.state.dedicatedFans === this.props.team.bbStats.dedicatedFans &&
+          this.state.teamName === this.props.team.teamName) {
         return false;
       }
       if (this.calculateTreasury() < 0) {

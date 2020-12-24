@@ -6,7 +6,7 @@ import {
 import Signup from './signup';
 
 const msp = (state, ownProps) => {
-  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); //console.log(ladder);
+  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1));
   const errors = state.errors.session;
   const title = 'Register';
 

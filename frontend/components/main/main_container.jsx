@@ -4,7 +4,7 @@ import { clearPathHistory } from '../../actions/ui_actions';
 import Main from './main';
 
 const msp = (state, ownProps) => {
-  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)); //console.log(ladder);
+  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1));
 
   const loggedIn = state.session.id !== undefined && state.session.id !== null;
   let currentUser;

@@ -25,8 +25,9 @@ const playersErrorsReducer = (state = {}, action) => {
 };
 
 const errorFieldMap = {
-  "Team name has already been taken": "name",
-  "Faction is not included in the list": "number",
+  "Number has already been taken": "number",
+  "Number is too high": "number",
+  "You don't have enough money": "treasury",
 };
 
 export default playersErrorsReducer;
