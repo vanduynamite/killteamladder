@@ -33,13 +33,13 @@ export const getPlayer = id => dispatch => {
   );
 };
 
-export const getPlayersAndTemplates = (teamId, ladder) => dispatch => {
-  return PlayerAPI.getPlayersAndTemplates(teamId, ladder).then(
+export const getPlayersAndTemplates = teamId => dispatch => {
+  return PlayerAPI.getPlayersAndTemplates(teamId).then(
     payload => dispatch(receivePlayers(payload))
   );
 };
 
-export const editPlayer = (player, historyPush, ladder) => dispatch => {
+export const editPlayer = (player, historyPush) => dispatch => {
   return PlayerAPI.editPlayer(player).then(
     payload => {
       const teamId = payload[0];
@@ -50,12 +50,12 @@ export const editPlayer = (player, historyPush, ladder) => dispatch => {
   );
 };
 
-export const newPlayer = (teamId, templateId) => dispatch => {
-  return PlayerAPI.newPlayer(teamId, templateId).then(
+export const newPlayer = player => dispatch => {
+  return PlayerAPI.newPlayer(player).then(
     payload => {
       dispatch(receivePlayers(payload));
+      // TODO: need to get the team Id from the payload
       // might have an issue here with teamId
-      // I suspect it's closed over the value but maybe not
       historyPush(`${ladder}/teamplayers/${teamId}`);
     },
     errors => dispatch(receivePlayerErrors(errors))

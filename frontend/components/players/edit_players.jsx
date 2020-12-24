@@ -13,7 +13,9 @@ class EditPlayers extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.team) this.props.getPlayersAndTemplates(this.props.teamId);
+    if (!this.props.team || !this.props.team.templates) {
+      this.props.getPlayersAndTemplates(this.props.teamId);
+    }
   }
 
   componentDidUpdate(prevProps) {

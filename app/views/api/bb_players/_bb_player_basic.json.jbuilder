@@ -1,5 +1,6 @@
 json.players do
   json.set! player.id do
+    json.id player.id
     json.team_id player.team_id
     json.number player.number
     json.name player.name

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ImageButton from '../general/image_button';
 
-export default function({ player }) {
+export default function({ player, editable=false }) {
 
   const numberAndName = '#' + player.number + ' ' + player.name;
   const position = player.positionName;
@@ -11,11 +11,17 @@ export default function({ player }) {
   const statGroups = player.psg + ' / ' + player.ssg;
   const stats = 'yes';
   const skills = player.skills;
+  const editPlayerButton = editable ? <ImageButton
+    path={ `editposition/${player.id}` } image={ window.edit } /> :
+    <></>;
 
   return (
-    <div className={ `team-list-item` }>
-      <div className={ `match-names` }>
-        <h2>{ numberAndName }</h2>
+    <div className={ 'team-list-item' }>
+      <div className={ 'match-names' }>
+        <div className={ 'player-title' }>
+          <h2>{ numberAndName }</h2>
+          { editPlayerButton }
+        </div>
         <div className={ 'team-faction-and-owner' }>
           <div>{ position }</div>
           <div>{ value }</div>

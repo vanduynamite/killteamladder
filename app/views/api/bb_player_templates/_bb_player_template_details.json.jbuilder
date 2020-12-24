@@ -11,7 +11,7 @@ if !position_group
 else
   grouped_player_template_ids = position_group.grouped_player_template_ids
 
-  group_allowed = player_template.group_max_allowed - @players.where(
+  group_allowed = template.group_max_allowed - @players.where(
     team_id: @team_id,
     bb_player_template_id: (grouped_player_template_ids)
   ).count

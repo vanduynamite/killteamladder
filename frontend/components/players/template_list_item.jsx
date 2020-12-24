@@ -8,11 +8,16 @@ export default function({ template }) {
   const statGroups = template.psg + ' / ' + template.ssg;
   const numAllowed = 'Remaining available: ' + template.allowed;
   const skills = template.skills;
+  const addPositionButton = <ImageButton
+    path={ `addposition/${template.id}` } image={ window.add } />;
 
   return (
-    <div className={ `team-list-item` }>
-      <div className={ `match-names` }>
-        <h2>{ positionName }</h2>
+    <div className={ 'team-list-item' }>
+      <div className={ 'match-names' }>
+        <div className={ 'player-title' }>
+          <h2>{ positionName }</h2>
+          { addPositionButton }
+        </div>
         <div className={ 'team-faction-and-owner' }>
           <div>{ numAllowed }</div>
         </div>

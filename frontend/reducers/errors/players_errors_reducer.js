@@ -1,6 +1,6 @@
 import {
   RECEIVE_PLAYERS,
-  RECEIVE_PLAYERS_ERRORS,
+  RECEIVE_PLAYER_ERRORS,
 } from '../../actions/player_actions';
 import { merge } from 'lodash';
 
@@ -9,7 +9,7 @@ const playersErrorsReducer = (state = {}, action) => {
   const newState = {};
 
   switch (action.type) {
-    case RECEIVE_PLAYERS_ERRORS:
+    case RECEIVE_PLAYER_ERRORS:
       const errors = {};
       action.errors.responseJSON.map(error => errors[errorFieldMap[error]] = error);
       return merge(newState, errors);

@@ -62,6 +62,20 @@ const navButtons = (fullPath, loggedIn) => {
     return;
   }
 
+  if (path.indexOf('/editposition') !== -1) {
+    const endIndex = path.indexOf('/editposition');
+    const teamId = path.slice(13, path.length - endIndex + 1);
+    console.log(teamId);
+    return <ImageButton path={ `${ladder}/teamplayers/${teamId}/edit` } image={ window.close } />;
+  }
+
+  if (path.indexOf('/addposition') !== -1) {
+    const endIndex = path.indexOf('/addposition');
+    const teamId = path.slice(13, path.length - endIndex + 1);
+    console.log(teamId);
+    return <ImageButton path={ `${ladder}/teamplayers/${teamId}/edit` } image={ window.close } />;
+  }
+
   if (path.indexOf('/team') !== -1 && path.indexOf('/edit') !== -1) {
     const startIndex = path.indexOf('/teamplayers') !== -1 ? 13 : 6;
     const teamId = path.slice(startIndex, path.length - 5);

@@ -11,3 +11,13 @@
   border-radius: 16px;
   margin-left: 24px;
 }
+
+.player-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player-title .img-button {
+  margin-right: 0px;
+}
