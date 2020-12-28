@@ -5,5 +5,7 @@ json.advancements do
     json.rank advancement.rank
     json.sppCost advancement.spp_cost
     json.valueIncrease advancement.value_increase
+    json.statUpgrade advancement.stat_upgrade
+    json.requiresSkillId advancement.requires_skill_id
   end
 end
