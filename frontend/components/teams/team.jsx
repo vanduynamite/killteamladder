@@ -85,7 +85,7 @@ class Team extends React.Component {
     let owned = '';
     let bottomLine = (
       <div className={ 'team-header-faction owned' }>
-        <div>{ faction.faction_name }</div>
+        <div>{ faction.factionName }</div>
       </div>
     );
 
@@ -97,7 +97,7 @@ class Team extends React.Component {
     } else {
       bottomLine =
       <div className={ 'team-header-faction owned' }>
-        <div>{ faction.faction_name }</div>
+        <div>{ faction.factionName }</div>
         <div>{ fullName }</div>
       </div>;
     }

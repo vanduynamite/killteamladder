@@ -83,7 +83,7 @@ class NewAdvancement extends React.Component {
 
           <div className='form-buttons'>
             <ButtonLink text='Cancel' type='cancel'
-              path={ `${this.props.ladder}/teamplayers/${this.props.player.team_id}/edit` } />
+              path={ `${this.props.ladder}/teamplayers/${this.props.player.teamId}/edit` } />
             <SubmitButton text='Add advancement' active={ this.formValid() } />
           </div>
         </form>

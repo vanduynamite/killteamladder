@@ -32,7 +32,7 @@ export default function({ match, team, opposingTeam, opponent,
         <Link to={ `${ladder}/team/${ opposingTeam.id }` }>
           <h2>{ opposingTeam.teamName }</h2>
           <div className={ 'team-faction-and-owner' }>
-            <div>{ opposingFaction.faction_name }</div>
+            <div>{ opposingFaction.factionName }</div>
             <div className={ 'owner' }>{ opponentName }</div>
           </div>
         </Link>

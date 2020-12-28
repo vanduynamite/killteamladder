@@ -68,7 +68,7 @@ class NewTeam extends React.Component {
     const result = [];
     factions.forEach(faction => {
       if (faction.ladder === this.props.ladder) {
-        result.push([faction.id, faction.faction_name]);
+        result.push([faction.id, faction.factionName]);
       }
     });
     result.sort((a, b) => a[1] <= b[1] ? -1 : 1);

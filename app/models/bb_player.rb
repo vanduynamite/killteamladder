@@ -111,28 +111,24 @@ class BbPlayer < ApplicationRecord
     bb_team.update_team_value!
   end
 
+  # TODO: add in injuries when doing match events
   def ma
-    # TODO: add in injuries
     self.ma_original + self.ma_improvement
   end
 
   def st
-    # TODO: add in injuries
     self.st_original + self.st_improvement
   end
 
   def ag
-    # TODO: add in injuries
     self.ag_original + self.ag_improvement
   end
 
   def pa
-    # TODO: add in injuries
     self.pa_original + self.pa_improvement
   end
 
   def av
-    # TODO: add in injuries
     self.av_original + self.av_improvement
   end
 

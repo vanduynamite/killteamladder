@@ -20,7 +20,7 @@ export default function({ team, owner, currentUserId, active=true, ladder, facti
         <div className={ `team-names ${klass}` }>
           <h2>{ team.teamName }</h2>
           <div className={ 'team-faction-and-owner' }>
-            <div>{ faction.faction_name }</div>
+            <div>{ faction.factionName }</div>
             <div className={ 'owner' }>{ ownerName }</div>
           </div>
         </div>
