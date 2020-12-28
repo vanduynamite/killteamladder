@@ -10,13 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_15_001320) do
+ActiveRecord::Schema.define(version: 2020_12_28_044804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "approved_emails", force: :cascade do |t|
     t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_advancements", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "rank", null: false
+    t.integer "spp_cost", null: false
+    t.integer "value_increase", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_player_advancements", force: :cascade do |t|
+    t.integer "bb_player_id", null: false
+    t.integer "bb_advancement_id", null: false
+    t.integer "bb_skill_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

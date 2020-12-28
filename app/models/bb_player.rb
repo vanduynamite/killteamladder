@@ -67,6 +67,12 @@ class BbPlayer < ApplicationRecord
   has_many :skill_links, class_name: :BbPlayerSkill, dependent: :destroy
   has_many :skills, through: :skill_links, source: :skill
 
+  has_many :advancement_links,
+    class_name: :BbPlayerAdvancement,
+    foreign_key: :bb_player_id
+
+  has_many :advancements, through: :advancement_links, source: :advancement
+
   before_create :transfer_data_from_template
   after_create :after_create_tasks
 
