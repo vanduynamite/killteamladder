@@ -14,6 +14,7 @@ class NewAdvancement extends React.Component {
     this.state = {
       playerId: this.props.playerId,
       advancementId: 'x',
+      skillGroupId: 'x',
     };
   }
 
@@ -46,7 +47,10 @@ class NewAdvancement extends React.Component {
 
   updateField(field) {
     return e => {
-      if (e.target.value !== 'x') this.setState({ [field]: e.target.value });
+      if (e.target.value !== 'x') {
+        this.setState({ [field]: e.target.value });
+        console.log(this.state);
+      }
     };
   }
 
@@ -55,44 +59,15 @@ class NewAdvancement extends React.Component {
     if (this.props.ladder !== '/bloodbowl') return false;
 
     if (!this.state.playerId) return false;
-    if (!this.state.advancementId) return false;
-    // TODO: This needs more logic, only if we need a skill ID on this advancement
-    if (!this.state.skillId) return false;
+    if (!this.state.advancementId || this.state.advancementId === 'x') return false;
+
+    const advancement = this.props.advancements[this.state.advancementId];
+    if (advancement.requiresSkillId && !this.state.skillId) return false;
 
     return true;
   }
 
   render() {
-/*
-  First choose an advancement
-    Only show advancements you can afford
-    Also, somehow change the ability ones down to a single option
-
-  ### SKILLS ###
-
-  If the advancement is a skill based
-    Choose an appropriate skill group
-    Will need to know primary or secondary
-
-  Once skill group is chosen, go get the list of skills from back end
-    TODO: Send all the skills to the front-end. This will be a new action
-
-  If random, show an option to randomize or nah
-
-  If computer randomizes, choose a skill and store it
-
-  If player chooses (in either case), show the appropriate dropdown
-    WHEW!
-
-  ### STATS ###
-  Show randomize buttons
-
-  Randomize, or show dropdown
-
-*/
-
-
-
     if (!this.props.player) return <div></div>;
 
     return (
@@ -136,9 +111,16 @@ class NewAdvancement extends React.Component {
   }
 
   advancementDropdown() {
+    const player = this.props.player;
     const advancements = Object.values(this.props.advancements);
-    const advancementList = [['x', 'Select an advancement...']];
-    advancements.map(adv => advancementList.push([adv.id, adv.name]));
+    const advancementList = [];
+    advancements.forEach(adv => {
+      if (adv.sppCost <= player.spp && !adv.statUpgrade) {
+        advancementList.push([adv.id, adv.name]);
+      }
+    });
+
+    advancementList.unshift(['x', 'Select an advancement...']);
 
     return <SelectList
       fieldName='advancementId'
@@ -154,25 +136,70 @@ class NewAdvancement extends React.Component {
     return <div>{advancement.sppCost} SPP, {advancement.valueIncrease} GP</div>;
   }
 
+  //   Choose an appropriate skill group
+  //   Will need to know primary or secondary
+  // Once skill group is chosen, go get the list of skills from back end
   skillGroupDropdown() {
-    return;
+    if (this.state.advancementId === 'x') return;
+    const advancement = this.props.advancements[this.state.advancementId];
+    if (!advancement.requiresSkillId) return;
+
+    let skillGroups = [];
+    if (advancement.name.indexOf('Primary') !== -1) {
+      skillGroups = this.props.player.primarySkillGroups;
+    } else if (advancement.name.indexOf('Secondary') !== -1) {
+      skillGroups = this.props.player.secondarySkillGroups;
+    }
+
+    const skillGroupList = [];
+    skillGroups.forEach(group => {
+        skillGroupList.push([group.id, group.name]);
+    });
+    // TODO: Would be nice to choose the first one if there is only one
+    // But I remember that's kind of a hassle, so this is for later
+    skillGroupList.unshift(['x', 'Select a skill group...']);
+
+    return <SelectList
+      fieldName='skillGroupId'
+      label='Skill Group'
+      ctx={this}
+      optionsList={skillGroupList}
+      />;
   }
 
+  // TODO: Send all the skills to the front-end. This will be a new action
+  // If random, show an option to randomize or nah
+  // If computer randomizes, choose a skill and store it
   skillRandomizeButtons() {
+    if (this.state.advancementId === 'x') return;
+    const advancement = this.props.advancements[this.state.advancementId];
+    if (!advancement.requiresSkillId) return;
     return;
   }
 
+  // If player chooses (in either case), show the appropriate dropdown
   skillDropdown() {
+    if (this.state.advancementId === 'x') return;
+    const advancement = this.props.advancements[this.state.advancementId];
+    if (!advancement.requiresSkillId) return;
     return;
 
   }
 
+  // Show randomize buttons
   statRandomizeButtons() {
+    if (this.state.advancementId === 'x') return;
+    const advancement = this.props.advancements[this.state.advancementId];
+    if (advancement.requiresSkillId) return;
     return;
 
   }
 
+  // Randomize, or show dropdown
   statDropdown() {
+    if (this.state.advancementId === 'x') return;
+    const advancement = this.props.advancements[this.state.advancementId];
+    if (advancement.requiresSkillId) return;
     return;
 
   }

@@ -8,6 +8,7 @@ export const receiveAdvancements = payload => {
     type: RECEIVE_ADVANCEMENTS,
     players: payload.players,
     advancements: payload.advancements,
+    skills: payload.skills,
   };
 };
 
