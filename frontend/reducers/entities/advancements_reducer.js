@@ -1,4 +1,5 @@
 import { RECEIVE_ADVANCEMENTS } from '../../actions/advancement_actions';
+import { RECEIVE_PLAYERS } from '../../actions/player_actions';
 import { merge } from 'lodash';
 
 const advancementReducer = (state = {}, action) => {
@@ -8,6 +9,9 @@ const advancementReducer = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_ADVANCEMENTS:
       return merge(newState, action.advancements);
+
+    case RECEIVE_PLAYERS:
+      return newState;
 
     default:
       return newState;
