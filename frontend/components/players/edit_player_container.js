@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import EditPlayer from './edit_player';
 import { getPlayersAndTemplates, editPlayer } from '../../actions/player_actions';
-import { getAdvancements } from '../../actions/advancement_actions';
 
 const msp = (state, ownProps) => {
   const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1));
@@ -34,7 +33,6 @@ const msp = (state, ownProps) => {
 const mdp = dispatch => {
   return {
     getPlayersAndTemplates: teamId => dispatch(getPlayersAndTemplates(teamId)),
-    getAdvancements: playerId => dispatch(getAdvancements(playerId)),
     formAction: (player, historyPush) => dispatch(editPlayer(player, historyPush)),
   };
 };

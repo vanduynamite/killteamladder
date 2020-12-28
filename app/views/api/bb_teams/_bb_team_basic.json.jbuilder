@@ -1,3 +1,4 @@
+# TODO: front-end-ize all variable names
 json.teams do
   json.set! team.team_id do
     json.apothecaries team.apothecaries

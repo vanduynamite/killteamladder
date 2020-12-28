@@ -24,7 +24,7 @@ export const getAdvancements = playerId => dispatch => {
   );
 };
 
-export const newPlayer = (advancement, historyPush) => dispatch => {
+export const newAdvancement = (advancement, historyPush) => dispatch => {
   return AdvancementAPI.newAdvancement(advancement).then(
     payload => {
       const teamId = payload.team.id;

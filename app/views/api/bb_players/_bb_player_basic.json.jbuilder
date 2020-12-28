@@ -1,3 +1,4 @@
+# TODO: front-end-ize all variable names
 json.players do
   json.set! player.id do
     json.id player.id
@@ -18,5 +19,7 @@ json.players do
     json.skills player.skill_string
     json.psg player.primary_skill_group_string
     json.ssg player.secondary_skill_group_string
+    # TODO: N+1 going on here, I'm working on something else right now though
+    json.userId player.team.user_id
   end
 end

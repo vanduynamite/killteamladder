@@ -17,6 +17,7 @@ import RetireTeam from './teams/retire_team_container';
 import Team from './teams/team_container';
 import EditPlayer from './players/edit_player_container';
 import NewPlayer from './players/new_player_container';
+import NewAdvancement from './advancements/new_advancement_container';
 
 
 class Ladder extends React.Component {
@@ -45,6 +46,7 @@ class Ladder extends React.Component {
         <ProtectedRoute path={ `/bloodbowl/teamplayers/:teamId/edit` } component={ EditPlayers } />
         <ProtectedRoute path={ `/bloodbowl/teamplayers/:teamId/editposition/:playerId` } component={ EditPlayer } />
         <ProtectedRoute path={ `/bloodbowl/teamplayers/:teamId/addposition/:templateId` } component={ NewPlayer } />
+        <ProtectedRoute path={ `/bloodbowl/advancements/:playerId` } component={ NewAdvancement } />
         <Route path={ `${ladder}/team/:teamId` } component={ Team } />
         <Route path={ `${ladder}/` } component={ Main } />
       </Switch>

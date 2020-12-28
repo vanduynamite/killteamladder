@@ -25,7 +25,7 @@ class EditPlayer extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.template && !this.props.player) {
+    if (!this.props.template || !this.props.player) {
       this.props.getPlayersAndTemplates(this.props.teamId);
     }
     this.checkForTreasuryError();
@@ -101,9 +101,15 @@ class EditPlayer extends React.Component {
 
   render() {
 
-    if (!this.props.team) return <></>;
+    if (!this.props.team) return <div></div>;
 
     const title = this.props.player ? 'Edit player' : 'New player';
+
+    const advancementsButton = (
+      <ButtonLink text='Advancements'
+        path={ `${this.props.ladder}/advancements/${this.props.playerId}` }
+        type='submit-active'/>
+    );
 
     return (
       <div className='frame'>
@@ -115,6 +121,7 @@ class EditPlayer extends React.Component {
           <div className='inputs'>
             { this.playerCard() }
             { this.errorSection() }
+            { advancementsButton }
             <Field fieldName='number' label='Number'
               maxLength='2' ctx={ this } type='number' />
             <Field fieldName='name' label='Name'

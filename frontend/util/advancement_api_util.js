@@ -8,9 +8,9 @@ export const getAdvancements = playerId => {
 };
 
 export const newAdvancement = advancement => {
-  advancement.bb_advancement_id = advancement.id;
+  advancement.bb_advancement_id = advancement.advancementId;
   advancement.bb_player_id = advancement.playerId;
-  advancement.bb_skill_id = advancement.skill_id;
+  advancement.bb_skill_id = advancement.skillId;
   return $.ajax({
     method: 'POST',
     url: '/api/bb_player_advancements',
