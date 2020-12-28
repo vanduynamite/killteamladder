@@ -63,6 +63,35 @@ class NewAdvancement extends React.Component {
   }
 
   render() {
+/*
+  First choose an advancement
+    Only show advancements you can afford
+    Also, somehow change the ability ones down to a single option
+
+  ### SKILLS ###
+
+  If the advancement is a skill based
+    Choose an appropriate skill group
+    Will need to know primary or secondary
+
+  Once skill group is chosen, go get the list of skills from back end
+    TODO: Send all the skills to the front-end. This will be a new action
+
+  If random, show an option to randomize or nah
+
+  If computer randomizes, choose a skill and store it
+
+  If player chooses (in either case), show the appropriate dropdown
+    WHEW!
+
+  ### STATS ###
+  Show randomize buttons
+
+  Randomize, or show dropdown
+
+*/
+
+
 
     if (!this.props.player) return <div></div>;
 
@@ -78,8 +107,11 @@ class NewAdvancement extends React.Component {
             { this.advancementDropdown() }
             { this.advancementCosts() }
             { this.skillGroupDropdown() }
+            { this.skillRandomizeButtons() }
+            { this.skillDropdown() }
+            { this.statRandomizeButtons() }
+            { this.statDropdown() }
           </div>
-
 
           <div className='form-buttons'>
             <ButtonLink text='Cancel' type='cancel'
@@ -124,6 +156,25 @@ class NewAdvancement extends React.Component {
 
   skillGroupDropdown() {
     return;
+  }
+
+  skillRandomizeButtons() {
+    return;
+  }
+
+  skillDropdown() {
+    return;
+
+  }
+
+  statRandomizeButtons() {
+    return;
+
+  }
+
+  statDropdown() {
+    return;
+
   }
 
   errorSection() {
