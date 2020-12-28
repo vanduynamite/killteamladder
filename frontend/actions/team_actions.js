@@ -5,15 +5,15 @@ export const RECEIVE_TEAM_ERRORS = 'RECEIVE_TEAM_ERRORS';
 export const CLEAR_TEAM_ERRORS = 'CLEAR_TEAM_ERRORS';
 export const RECEIVE_FACTIONS = 'RECEIVE_FACTIONS';
 
-export const receiveTeams = ({ teams, users, matches, players }) => {
+export const receiveTeams = payload => {
   return {
     type: RECEIVE_TEAMS,
-    teams,
-    users,
-    matches,
-    players,
-  }
-}
+    teams: payload.teams,
+    users: payload.users,
+    matches: payload.matches,
+    players: payload.players,
+  };
+};
 
 const receiveTeamErrors = errors => {
   return {
@@ -28,10 +28,10 @@ export const clearTeamErrors = () => {
   };
 };
 
-const receiveFactions = ({ factions }) => {
+const receiveFactions = payload => {
   return {
     type: RECEIVE_FACTIONS,
-    factions,
+    factions: payload.factions,
   };
 };
 

@@ -4,20 +4,20 @@ export const RECEIVE_PLAYER = 'RECEIVE_PLAYER';
 export const RECEIVE_PLAYERS = 'RECEIVE_PLAYERS';
 export const RECEIVE_PLAYER_ERRORS = 'RECEIVE_PLAYER_ERRORS';
 
-export const receivePlayers = ({ players, templates, teams }) => {
+export const receivePlayers = payload => {
   return {
     type: RECEIVE_PLAYERS,
-    players,
-    templates,
-    teams,
-  }
+    players: payload.players,
+    templates: payload.templates,
+    teams: payload.teams,
+  };
 };
 
 export const receivePlayer = player => {
   return {
     type: RECEIVE_PLAYER,
     player,
-  }
+  };
 };
 
 const receivePlayerErrors = errors => {

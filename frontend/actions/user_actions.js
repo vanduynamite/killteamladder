@@ -4,12 +4,12 @@ import { receiveSessionErrors } from './session_actions';
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const RECEIVE_USER_ERRORS = 'RECEIVE_USER_ERRORS';
 
-const receiveUsers = ({ users, teams }) => {
+const receiveUsers = payload => {
   return {
     type: RECEIVE_USERS,
-    users,
-    teams,
-  }
+    users: payload.users,
+    teams: payload.teams,
+  };
 };
 
 export const getUser = (id, ladder) => dispatch => {
@@ -21,6 +21,6 @@ export const getUser = (id, ladder) => dispatch => {
 export const editUser = (user, historyPush, ladder) => dispatch => {
   return UserAPI.editUser(user).then(
     payload => historyPush(`${ladder}/account`),
-    errors => dispatch(receiveSessionErrors(errors)),
+    errors => dispatch(receiveSessionErrors(errors))
   );
 };

@@ -11,11 +11,11 @@ const receiveMatchErrors = errors => {
   };
 };
 
-const receiveDeletedMatch = ({teamIds, matchIds}) => {
+const receiveDeletedMatch = payload => {
   return {
     type: RECEIVE_DELETED_MATCH,
-    teamIds,
-    matchIds,
+    teamIds: payload.teamIds,
+    matchIds: payload.matchIds,
   };
 };
 

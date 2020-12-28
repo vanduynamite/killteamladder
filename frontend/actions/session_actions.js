@@ -6,11 +6,11 @@ export const RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 export const REMOVE_CURRENT_USER = 'REMOVE_CURRENT_USER';
 export const CLEAR_SESSION_ERRORS = 'CLEAR_SESSION_ERRORS';
 
-const receiveCurrentUser = ({ users, session }) => {
+const receiveCurrentUser = payload => {
   return {
     type: RECEIVE_CURRENT_USER,
-    users,
-    session,
+    users: payload.users,
+    session: payload.session,
   };
 };
 
@@ -24,14 +24,14 @@ export const receiveSessionErrors = errors => {
 export const clearSessionErrors = () => {
   return {
     type: CLEAR_SESSION_ERRORS,
-  }
-}
+  };
+};
 
-const removeCurrentUser = ({ users, session }) => {
+const removeCurrentUser = payload => {
   return {
     type: REMOVE_CURRENT_USER,
-    users,
-    session,
+    users: payload.users,
+    session: payload.session,
   };
 };
 
