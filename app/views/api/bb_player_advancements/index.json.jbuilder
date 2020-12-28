@@ -4,13 +4,15 @@ end
 
 json.partial! 'api/bb_players/bb_player_basic.json.jbuilder', player: @player
 
+primary_skill_ids = @player.available_primary_skills.map{ |s| s.id }
+secondary_skill_ids = @player.available_secondary_skills.map{ |s| s.id }
+
 json.players do
   json.set! @player.id do
     json.id @player.id
     json.primarySkillGroups @player.primary_skill_groups.map{ |g| {id: g.id, name: g.name} }
     json.secondarySkillGroups @player.secondary_skill_groups.map{ |g| {id: g.id, name: g.name} }
-    json.primarySkills @player.primary_skills.map{ |s| s.id }
-    json.secondarySkills @player.secondary_skills.map{ |s| s.id }
+    json.potentialSkillIds primary_skill_ids.concat(secondary_skill_ids)
   end
 end
 

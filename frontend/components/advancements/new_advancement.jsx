@@ -5,7 +5,6 @@ import SelectList from '../general/select_list';
 import PlayerListItem from '../players/player_list_item';
 import ButtonLink from '../general/button_link';
 import SubmitButton from '../general/submit_button';
-import UpDownField from '../general/field_with_up_down';
 
 class NewAdvancement extends React.Component {
 
@@ -15,6 +14,11 @@ class NewAdvancement extends React.Component {
       playerId: this.props.playerId,
       advancementId: 'x',
       skillGroupId: 'x',
+      skillId: 'x',
+      selectionMethod: 'x',
+      characteristicId: 'x',
+      randomSkill: 'x',
+      characteristicRoll: 'x',
     };
   }
 
@@ -40,16 +44,68 @@ class NewAdvancement extends React.Component {
   submit(e) {
     e.preventDefault();
     if (this.formValid()) {
-      const advancement = this.state;
-      this.props.formAction(advancement, this.props.history.push);
+      const newAdvancement = this.state;
+      if (newAdvancement.characteristicId) {
+        newAdvancement.advancementId = newAdvancement.characteristicId;
+      }
+      this.props.formAction(newAdvancement, this.props.history.push);
     }
   }
 
   updateField(field) {
     return e => {
       if (e.target.value !== 'x') {
-        this.setState({ [field]: e.target.value });
-        console.log(this.state);
+        const newState = {};
+        switch (field) {
+          case 'advancementId':
+            newState.skillGroupId = 'x';
+            newState.selectionMethod = 'x';
+            newState.skillId = 'x';
+            newState.characteristicId = 'x';
+            newState.randomSkill = 'x';
+            newState.characteristicRoll = 'x';
+            break;
+
+          case 'skillGroupId':
+            newState.selectionMethod = 'x';
+            newState.skillId = 'x';
+            newState.characteristicId = 'x';
+            newState.randomSkill = 'x';
+            newState.characteristicRoll = 'x';
+            break;
+
+          case 'selectionMethod':
+            newState.skillId = 'x';
+            newState.characteristicId = 'x';
+            newState.randomSkill = 'x';
+            newState.characteristicRoll = 'x';
+            break;
+
+          case 'skillId':
+            newState.characteristicId = 'x';
+            newState.randomSkill = 'x';
+            newState.characteristicRoll = 'x';
+            break;
+
+          case 'characteristicId':
+            newState.characteristicId = 'x';
+            newState.randomSkill = 'x';
+            break;
+
+          default:
+        }
+
+        if (field === 'selectionMethod' && e.target.value === 'random') {
+          const advancement = this.props.advancements[this.state.advancementId];
+          if (advancement.requiresSkillId) {
+            newState.skillId = this.getRandomSkillId();
+            newState.randomSkill = this.props.skills[newState.skillId].name;
+          } else {
+            newState.characteristicRoll = Math.floor(Math.random() * 16) + 1;
+          }
+        }
+        newState[field] = e.target.value;
+        this.setState(newState);
       }
     };
   }
@@ -62,7 +118,9 @@ class NewAdvancement extends React.Component {
     if (!this.state.advancementId || this.state.advancementId === 'x') return false;
 
     const advancement = this.props.advancements[this.state.advancementId];
-    if (advancement.requiresSkillId && !this.state.skillId) return false;
+    if (advancement.requiresSkillId && this.state.skillId === 'x') return false;
+    if (!advancement.requiresSkillId && this.state.characteristicId === 'x') return false;
+    if (this.props.player.spp < advancement.sppCost) return false;
 
     return true;
   }
@@ -80,12 +138,13 @@ class NewAdvancement extends React.Component {
           <div className='inputs'>
             { this.playerCard() }
             { this.advancementDropdown() }
-            { this.advancementCosts() }
             { this.skillGroupDropdown() }
-            { this.skillRandomizeButtons() }
+            { this.randomizeButtons() }
+            { this.randomlyPickedSkill() }
             { this.skillDropdown() }
-            { this.statRandomizeButtons() }
+            { this.characteristicRoll() }
             { this.statDropdown() }
+            { this.advancementCosts() }
           </div>
 
           <div className='form-buttons'>
@@ -130,33 +189,17 @@ class NewAdvancement extends React.Component {
       />;
   }
 
-  advancementCosts() {
-    if (this.state.advancementId === 'x') return;
-    const advancement = this.props.advancements[this.state.advancementId];
-    return <div>{advancement.sppCost} SPP, {advancement.valueIncrease} GP</div>;
-  }
-
-  //   Choose an appropriate skill group
-  //   Will need to know primary or secondary
-  // Once skill group is chosen, go get the list of skills from back end
   skillGroupDropdown() {
     if (this.state.advancementId === 'x') return;
     const advancement = this.props.advancements[this.state.advancementId];
     if (!advancement.requiresSkillId) return;
 
-    let skillGroups = [];
-    if (advancement.name.indexOf('Primary') !== -1) {
-      skillGroups = this.props.player.primarySkillGroups;
-    } else if (advancement.name.indexOf('Secondary') !== -1) {
-      skillGroups = this.props.player.secondarySkillGroups;
-    }
+    const skillGroups = advancement.primarySkill ?
+      this.props.player.primarySkillGroups :
+      this.props.player.secondarySkillGroups;
 
     const skillGroupList = [];
-    skillGroups.forEach(group => {
-        skillGroupList.push([group.id, group.name]);
-    });
-    // TODO: Would be nice to choose the first one if there is only one
-    // But I remember that's kind of a hassle, so this is for later
+    skillGroups.forEach(group => skillGroupList.push([group.id, group.name]));
     skillGroupList.unshift(['x', 'Select a skill group...']);
 
     return <SelectList
@@ -167,41 +210,156 @@ class NewAdvancement extends React.Component {
       />;
   }
 
-  // TODO: Send all the skills to the front-end. This will be a new action
-  // If random, show an option to randomize or nah
-  // If computer randomizes, choose a skill and store it
-  skillRandomizeButtons() {
+  randomizeButtons() {
     if (this.state.advancementId === 'x') return;
     const advancement = this.props.advancements[this.state.advancementId];
-    if (!advancement.requiresSkillId) return;
-    return;
+    if (!advancement.random) return;
+    if (advancement.requiresSkillId && this.state.skillGroupId === 'x') return;
+
+    const options = [
+      ['x', 'Select a method...'],
+      ['trust', 'I am trustworthy, I will choose!'],
+      ['random', 'I am a scoundrel, choose for me!'],
+    ];
+
+    return <SelectList
+      fieldName='selectionMethod'
+      label='Selection Method'
+      ctx={this}
+      optionsList={options}
+      />;
   }
 
-  // If player chooses (in either case), show the appropriate dropdown
   skillDropdown() {
     if (this.state.advancementId === 'x') return;
     const advancement = this.props.advancements[this.state.advancementId];
     if (!advancement.requiresSkillId) return;
-    return;
+    if (this.state.skillGroupId === 'x') return;
+    if (advancement.random && this.state.selectionMethod !== 'trust') return;
 
+    const skillGroupId = this.state.skillGroupId;
+    const skills = Object.values(this.props.skills);
+    const skillList = this.getSkillList();
+    skillList.unshift(['x', 'Select a skill...']);
+
+    return <SelectList
+      fieldName='skillId'
+      label='Skill'
+      ctx={this}
+      optionsList={skillList}
+      />;
   }
 
-  // Show randomize buttons
-  statRandomizeButtons() {
+  getRandomSkillId() {
+    const list = this.getSkillList();
+    return list[Math.floor(Math.random() * list.length)][0];
+  }
+
+  getSkillList() {
+    const skillGroupId = this.state.skillGroupId;
+    const skills = Object.values(this.props.skills);
+    const skillList = [];
+    skills.forEach(skill => {
+      if (skill.groupId != skillGroupId) return;
+      if (!this.props.player.potentialSkillIds.includes(skill.id)) return;
+      skillList.push([skill.id, skill.name]);
+    });
+
+    return skillList;
+  }
+
+  randomlyPickedSkill() {
     if (this.state.advancementId === 'x') return;
     const advancement = this.props.advancements[this.state.advancementId];
-    if (advancement.requiresSkillId) return;
-    return;
+    if (!advancement.random) return;
+    if (this.state.selectionMethod !== 'random') return;
+    if (this.state.skillId === 'x') return;
 
+    return <Field fieldName='randomSkill' label='Randomly picked skill'
+      ctx={ this } disabled={ true } />;
   }
 
-  // Randomize, or show dropdown
   statDropdown() {
     if (this.state.advancementId === 'x') return;
     const advancement = this.props.advancements[this.state.advancementId];
+    const player = this.props.player;
     if (advancement.requiresSkillId) return;
-    return;
+    const selectionMethod = this.state.selectionMethod;
+    if (selectionMethod === 'x') return;
 
+    const characteristicList = selectionMethod === 'trust' ?
+      this.getCharacteristicList() :
+      this.getRandomCharacteristicList();
+
+    characteristicList.unshift(['x', 'Select a characteristic...']);
+
+    return <SelectList
+      fieldName='characteristicId'
+      label='Characteristic'
+      ctx={this}
+      optionsList={characteristicList}
+      />;
+  }
+
+  getRandomCharacteristicList() {
+    const list = this.getCharacteristicList().sort((a, b) => a[0] - b[0]);
+    const rand = this.state.characteristicRoll;
+    switch (true) {
+      case rand <= 7:
+        return list.slice(0, 2);
+
+      case rand <= 13:
+        return list.slice(0, 3);
+
+      case rand <= 14:
+        return list.slice(2, 4);
+
+      case rand <= 15:
+        return list.slice(3, 5);
+
+      default:
+        return list;
+    }
+  }
+
+  characteristicRoll() {
+    if (this.state.advancementId === 'x') return;
+    const advancement = this.props.advancements[this.state.advancementId];
+    if (!advancement.random) return;
+    if (this.state.selectionMethod !== 'random') return;
+    if (this.state.characteristicRoll === 'x') return;
+
+    return <Field fieldName='characteristicRoll' label='Characteristic roll'
+      ctx={ this } disabled={ true } />;
+  }
+
+  getCharacteristicList() {
+    const advancements = Object.values(this.props.advancements);
+    const player = this.props.player;
+    const characteristicList = [];
+    advancements.forEach(adv => {
+      if (adv.sppCost <= player.spp && adv.statUpgrade) {
+        characteristicList.push([adv.id, adv.name]);
+      }
+    });
+    return characteristicList;
+  }
+
+  advancementCosts() {
+    if (this.state.advancementId === 'x') return;
+    const advancement = this.props.advancements[this.state.advancementId];
+
+    const text = `This advancement will cost ${advancement.sppCost}SPP
+      and increase the value of this player by ${advancement.valueIncrease}GP.`;
+
+    return (
+      <div className='single-input'>
+        <label htmlFor='advancementCost'>
+          Advancement Cost
+        </label>
+        <div className='disabled' id='advancementCost'>{ text }</div>
+      </div>
+    );
   }
 
   errorSection() {

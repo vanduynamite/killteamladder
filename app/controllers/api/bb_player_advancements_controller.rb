@@ -16,7 +16,8 @@ class Api::BbPlayerAdvancementsController < ApplicationController
   end
 
   def index
-    @player = BbPlayer.includes(:primary_skill_groups, :secondary_skill_groups, :primary_skills, :secondary_skills)
+    @player = BbPlayer.includes(:primary_skill_groups, :secondary_skill_groups,
+                                :primary_skills, :secondary_skills)
                       .find(params[:bb_player_id])
     current_rank = @player.advancements.count
     @advancements = BbAdvancement.where(rank: current_rank + 1)

@@ -4,6 +4,8 @@
 #
 #  id                :bigint           not null, primary key
 #  name              :string           not null
+#  primary_skill     :boolean          default(FALSE), not null
+#  random            :boolean          default(FALSE), not null
 #  rank              :integer          not null
 #  spp_cost          :integer          not null
 #  stat_upgrade      :boolean          default(FALSE), not null

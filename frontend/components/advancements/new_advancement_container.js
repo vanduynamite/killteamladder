@@ -9,6 +9,7 @@ const msp = (state, ownProps) => {
   const playerId = ownProps.match.params.playerId;
   const player = state.entities.players[playerId];
   const advancements = state.entities.advancements;
+  const skills = state.entities.skills;
 
   let ownerId;
   if (player) ownerId = player.userId;
@@ -23,6 +24,7 @@ const msp = (state, ownProps) => {
     playerId,
     player,
     advancements,
+    skills,
   };
 };
 
