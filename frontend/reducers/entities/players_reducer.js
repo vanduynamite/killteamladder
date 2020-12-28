@@ -1,5 +1,6 @@
 import { RECEIVE_TEAMS } from '../../actions/team_actions';
 import { RECEIVE_PLAYER, RECEIVE_PLAYERS } from '../../actions/player_actions';
+import { RECEIVE_ADVANCEMENTS } from '../../actions/advancement_actions';
 import { merge } from 'lodash';
 
 const userReducer = (state = {}, action) => {
@@ -7,6 +8,7 @@ const userReducer = (state = {}, action) => {
   const newState = merge({}, state);
 
   switch (action.type) {
+    case RECEIVE_ADVANCEMENTS:
     case RECEIVE_TEAMS:
     case RECEIVE_PLAYER:
     case RECEIVE_PLAYERS:

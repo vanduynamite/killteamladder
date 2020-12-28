@@ -5,6 +5,7 @@ import matches from './matches_reducer';
 import factions from './factions_reducer';
 import players from './players_reducer';
 import templates from './templates_reducer';
+import advancements from './advancements_reducer';
 
 const entitiesReducer = combineReducers({
   users,
@@ -13,6 +14,7 @@ const entitiesReducer = combineReducers({
   factions,
   players,
   templates,
+  advancements,
 });
 
 export default entitiesReducer;

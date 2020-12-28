@@ -33,7 +33,7 @@ class EditPlayer extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.currentUserId !== this.props.ownerId) {
-      this.props.history.push(`${this.props.ladder}/team/${this.props.team.id}`);
+      this.props.history.push(`${this.props.ladder}/team/${this.props.teamId}`);
     }
 
     if (!prevProps.team && this.props.team) {
