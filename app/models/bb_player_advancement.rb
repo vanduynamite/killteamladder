@@ -21,8 +21,4 @@ class BbPlayerAdvancement < ApplicationRecord
     class_name: :BbAdvancement,
     foreign_key: :bb_advancement_id
 
-  belongs_to :skill,
-    class_name: :BbSkill,
-    foreign_key: :bb_skill_id
-
 end

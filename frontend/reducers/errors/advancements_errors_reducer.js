@@ -23,9 +23,14 @@ const advancementsErrorsReducer = (state = {}, action) => {
 
 // TODO: translate advancement errors
 const errorFieldMap = {
-  "Number has already been taken": "number",
-  "Number is too high": "number",
-  "You don't have enough money": "treasury",
+  "This is the wrong rank advancement for this player": "advancementId",
+  "St improvement cannot be more than +2": "characteristicId",
+  "Ma improvement cannot be more than +2": "characteristicId",
+  "Ag improvement cannot be more than +2": "characteristicId",
+  "Pa improvement cannot be more than +2": "characteristicId",
+  "Av improvement cannot be more than +2": "characteristicId",
+  "You need to include a skill. Please refresh the page and try again.": "skillId",
+  "Bb player already has this skill": "skillId",
 };
 
 export default advancementsErrorsReducer;

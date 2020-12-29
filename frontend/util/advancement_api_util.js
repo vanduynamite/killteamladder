@@ -11,6 +11,8 @@ export const newAdvancement = advancement => {
   advancement.bb_advancement_id = advancement.advancementId;
   advancement.bb_player_id = advancement.playerId;
   advancement.bb_skill_id = advancement.skillId;
+  if (advancement.bb_skill_id === 'x') delete advancement.bb_skill_id;
+
   return $.ajax({
     method: 'POST',
     url: '/api/bb_player_advancements',

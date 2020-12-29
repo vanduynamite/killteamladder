@@ -15,7 +15,7 @@ export const receiveAdvancements = payload => {
 export const receiveAdvancementErrors = payload => {
   return {
     type: RECEIVE_ADVANCEMENT_ERRORS,
-    errors: payload.errors,
+    errors: payload,
   };
 };
 
@@ -28,6 +28,7 @@ export const getAdvancements = playerId => dispatch => {
 export const newAdvancement = (advancement, historyPush) => dispatch => {
   return AdvancementAPI.newAdvancement(advancement).then(
     payload => {
+      dispatch(receiveAdvancements(payload));
       const teamId = payload.team.id;
       const ladder = payload.ladder.name;
       historyPush(`${ladder}/teamplayers/${teamId}/edit`);

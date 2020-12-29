@@ -35,9 +35,10 @@ class BbPlayer < ApplicationRecord
 
   validates :ma_improvement, :st_improvement, :ag_improvement, :pa_improvement,
     :av_improvement, numericality: { less_than_or_equal_to: 2,
-    message: "cannot be improved more than twice"}
+    message: "cannot be more than +2"}
   validates :number, uniqueness: { scope: [:team_id] },
-    numericality: { less_than: 21, message: "is too high" }
+    numericality: { less_than: 17, message: ", like the rent, is too damn high" }
+  validates :spp, numericality: { greater_than_or_equal_to: 0, message: "can't be negative"}
 
   belongs_to :team
   has_one :bb_team, through: :team
@@ -121,11 +122,11 @@ class BbPlayer < ApplicationRecord
   end
 
   def ag
-    self.ag_original + self.ag_improvement
+    self.ag_original - self.ag_improvement
   end
 
   def pa
-    self.pa_original + self.pa_improvement
+    self.pa_original - self.pa_improvement
   end
 
   def av

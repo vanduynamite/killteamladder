@@ -11,7 +11,7 @@ const advancementReducer = (state = {}, action) => {
       return merge(newState, action.advancements);
 
     case RECEIVE_PLAYERS:
-      return newState;
+      return {};
 
     default:
       return newState;

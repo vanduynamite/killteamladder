@@ -45,10 +45,10 @@ class NewAdvancement extends React.Component {
     e.preventDefault();
     if (this.formValid()) {
       const newAdvancement = this.state;
-      if (newAdvancement.characteristicId) {
+      if (newAdvancement.characteristicId !== 'x') {
         newAdvancement.advancementId = newAdvancement.characteristicId;
       }
-      this.props.formAction(newAdvancement, this.props.history.push);
+      this.props.newAdvancement(newAdvancement, this.props.history.push);
     }
   }
 
@@ -137,6 +137,7 @@ class NewAdvancement extends React.Component {
 
           <div className='inputs'>
             { this.playerCard() }
+            { this.errorSection() }
             { this.advancementDropdown() }
             { this.skillGroupDropdown() }
             { this.randomizeButtons() }

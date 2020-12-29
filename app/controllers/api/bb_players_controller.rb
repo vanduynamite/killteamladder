@@ -9,7 +9,7 @@ class Api::BbPlayersController < ApplicationController
     template = BbPlayerTemplate.find(player_params[:bb_player_template_id])
 
     if !templates.include?(template)
-      render json: ["This team does not allow this position"], status: 422
+      render json: ['This team does not allow this position'], status: 422
       return
     end
 

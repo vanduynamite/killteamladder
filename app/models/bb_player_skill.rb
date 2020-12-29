@@ -12,6 +12,8 @@
 
 
 class BbPlayerSkill < ApplicationRecord
+  validates :bb_player_id, uniqueness: { scope: [:bb_skill_id],
+    message: "already has this skill"  }
 
   belongs_to :player,
     class_name: :BbPlayer,

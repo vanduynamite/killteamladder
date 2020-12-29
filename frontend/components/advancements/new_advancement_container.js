@@ -15,7 +15,7 @@ const msp = (state, ownProps) => {
   if (player) ownerId = player.userId;
   let currentUserId;
   if (state.session.id) currentUserId = state.session.id;
-
+  
   return {
     ladder,
     errors,
