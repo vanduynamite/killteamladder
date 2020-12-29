@@ -12,7 +12,7 @@ json.partial! 'api/teams/team_details.json.jbuilder', team: @team
   json.partial! 'api/matchups/matchup_basic.json.jbuilder', matchup: matchup
 end
 
-# to add for blood bowl teams
+# TODO: Gotta do a similar thing here to cut down the queries
 if @players
   @players.each do |player|
     json.partial! 'api/bb_players/bb_player_basic.json.jbuilder', player: player

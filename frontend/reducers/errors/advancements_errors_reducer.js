@@ -21,7 +21,6 @@ const advancementsErrorsReducer = (state = {}, action) => {
 
 };
 
-// TODO: translate advancement errors
 const errorFieldMap = {
   "This is the wrong rank advancement for this player": "advancementId",
   "St improvement cannot be more than +2": "characteristicId",

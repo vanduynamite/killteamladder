@@ -2,13 +2,20 @@
 class Api::BbPlayersController < ApplicationController
 
   def create
-    @team = Team.find(player_params[:team_id])
+    @team_id = player_params[:team_id]
+    @team = Team.find(@team_id)
     return false unless authorized_user?(@team.user_id)
 
     templates = @team.bb_team.player_templates
-    template = BbPlayerTemplate.find(player_params[:bb_player_template_id])
+    @template = BbPlayerTemplate.find(player_params[:bb_player_template_id])
+    @players = BbPlayer.includes(
+      :primary_skill_groups,
+      :secondary_skill_groups,
+      :skill_links,
+      :skills,
+    ).where(team: @team)
 
-    if !templates.include?(template)
+    if !templates.include?(@template)
       render json: ['This team does not allow this position'], status: 422
       return
     end
@@ -21,7 +28,7 @@ class Api::BbPlayersController < ApplicationController
     );
 
     if @player.save
-      render 'api/bb_players/show.json.jbuilder', status: 200
+      render 'api/bb_players/create.json.jbuilder', status: 200
     else
       render json: @player.errors.full_messages, status: 422
     end
