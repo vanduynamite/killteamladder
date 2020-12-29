@@ -17,7 +17,7 @@ class Api::BbPlayerAdvancementsController < ApplicationController
       return
     end
 
-    if @advancement.stat_upgrade && advancement_params[:bb_skill_id]
+    if !@advancement.requires_skill_id && advancement_params[:bb_skill_id]
       render json: ['Something went wrong and a skill was included, refresh the page and try again.'], status: 422
       return
     end

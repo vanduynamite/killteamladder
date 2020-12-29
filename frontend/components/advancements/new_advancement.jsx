@@ -67,11 +67,8 @@ class NewAdvancement extends React.Component {
             break;
 
           case 'skillGroupId':
-            newState.selectionMethod = 'x';
             newState.skillId = 'x';
-            newState.characteristicId = 'x';
             newState.randomSkill = 'x';
-            newState.characteristicRoll = 'x';
             break;
 
           case 'selectionMethod':
@@ -82,13 +79,10 @@ class NewAdvancement extends React.Component {
             break;
 
           case 'skillId':
-            newState.characteristicId = 'x';
             newState.randomSkill = 'x';
-            newState.characteristicRoll = 'x';
             break;
 
           case 'characteristicId':
-            newState.characteristicId = 'x';
             newState.randomSkill = 'x';
             break;
 
@@ -119,7 +113,7 @@ class NewAdvancement extends React.Component {
 
     const advancement = this.props.advancements[this.state.advancementId];
     if (advancement.requiresSkillId && this.state.skillId === 'x') return false;
-    if (!advancement.requiresSkillId && this.state.characteristicId === 'x') return false;
+    if (advancement.statUpgrade && this.state.characteristicId === 'x') return false;
     if (this.props.player.spp < advancement.sppCost) return false;
 
     return true;
@@ -145,6 +139,8 @@ class NewAdvancement extends React.Component {
             { this.skillDropdown() }
             { this.characteristicRoll() }
             { this.statDropdown() }
+            { this.secondarySkillGroupDropdown() }
+            { this.secondarySkillDropdown() }
             { this.advancementCosts() }
           </div>
 
@@ -273,6 +269,7 @@ class NewAdvancement extends React.Component {
     if (this.state.advancementId === 'x') return;
     const advancement = this.props.advancements[this.state.advancementId];
     if (!advancement.random) return;
+    if (this.state.characteristicId !== 'x') return;
     if (this.state.selectionMethod !== 'random') return;
     if (this.state.skillId === 'x') return;
 
@@ -305,22 +302,29 @@ class NewAdvancement extends React.Component {
   getRandomCharacteristicList() {
     const list = this.getCharacteristicList().sort((a, b) => a[0] - b[0]);
     const rand = this.state.characteristicRoll;
+    let resultList;
     switch (true) {
       case rand <= 7:
-        return list.slice(0, 2);
+        resultList = list.slice(0, 2);
+        break;
 
       case rand <= 13:
-        return list.slice(0, 3);
+        resultList = list.slice(0, 3);
+        break;
 
       case rand <= 14:
-        return list.slice(2, 4);
+        resultList = list.slice(2, 4);
+        break;
 
       case rand <= 15:
-        return list.slice(3, 5);
+        resultList = list.slice(3, 5);
+        break;
 
       default:
-        return list;
+        resultList = list.slice(0, 5);
     }
+    resultList.push(list[list.length - 1]);
+    return resultList;
   }
 
   characteristicRoll() {
@@ -346,9 +350,54 @@ class NewAdvancement extends React.Component {
     return characteristicList;
   }
 
+  secondarySkillGroupDropdown() {
+    if (this.state.advancementId === 'x' || this.state.characteristicId === 'x') return;
+    const advancement = this.props.advancements[this.state.characteristicId];
+    // this is the only skill like it - a stat upgrade that also requires a skill
+    if (!advancement.requiresSkillId || !advancement.statUpgrade) return;
+
+    const skillGroups = advancement.primarySkill ?
+      this.props.player.primarySkillGroups :
+      this.props.player.secondarySkillGroups;
+
+    const skillGroupList = [];
+    skillGroups.forEach(group => skillGroupList.push([group.id, group.name]));
+    skillGroupList.unshift(['x', 'Select a skill group...']);
+
+    return <SelectList
+      fieldName='skillGroupId'
+      label='Skill Group'
+      ctx={this}
+      optionsList={skillGroupList}
+      />;
+  }
+
+  secondarySkillDropdown() {
+    if (this.state.advancementId === 'x' || this.state.characteristicId === 'x') return;
+    const advancement = this.props.advancements[this.state.characteristicId];
+    // this is the only skill like it - a stat upgrade that also requires a skill
+    if (!advancement.requiresSkillId || !advancement.statUpgrade) return;
+    if (this.state.skillGroupId === 'x') return;
+
+    const skillGroupId = this.state.skillGroupId;
+    const skills = Object.values(this.props.skills);
+    const skillList = this.getSkillList();
+    skillList.unshift(['x', 'Select a skill...']);
+
+    return <SelectList
+      fieldName='skillId'
+      label='Skill'
+      ctx={this}
+      optionsList={skillList}
+      />;
+  }
+
   advancementCosts() {
     if (this.state.advancementId === 'x') return;
-    const advancement = this.props.advancements[this.state.advancementId];
+    const id = this.state.characteristicId === 'x' ?
+      this.state.advancementId :
+      this.state.characteristicId;
+    const advancement = this.props.advancements[id];
 
     const text = `This advancement will cost ${advancement.sppCost}SPP
       and increase the value of this player by ${advancement.valueIncrease}GP.`;
