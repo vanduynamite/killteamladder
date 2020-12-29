@@ -6,8 +6,8 @@ json.teams do
     json.userId @team.user_id
     json.active @team.active
     json.ladder @team.ladder_name
-    json.treasury @team.bb_team.treasury
-    json.playerIds @team.players.order('number asc').map { |p| p.id }
+    json.treasury @bb_team.treasury
+    json.playerIds @players.order('number asc').map { |p| p.id }
   end
 end
 

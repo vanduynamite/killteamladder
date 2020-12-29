@@ -155,12 +155,11 @@ class BbPlayer < ApplicationRecord
 
   def skill_string
     skill_str = ""
-    skill_arr = skills.pluck(:name, :modifier, :must_use)
-    skill_arr.each_with_index do |skill, i|
-      skill_str << skill[0]
-      skill_str << "(" + skill[1] + ")" if skill[1]
-      skill_str << "*" if skill[2]
-      skill_str << ", " unless i == skill_arr.size - 1
+    skill_links.each_with_index do |link, i|
+      skill_str << link.skill.name
+      skill_str << "(" + link.modifier + ")" if link.modifier
+      skill_str << "*" if link.skill.must_use
+      skill_str << ", " unless i == skill_links.size - 1
     end
     return skill_str
   end

@@ -26,7 +26,7 @@ const playersErrorsReducer = (state = {}, action) => {
 
 const errorFieldMap = {
   "Number has already been taken": "number",
-  "Number is too high": "number",
+  "Number , like the rent, is too damn high": "number",
   "You don't have enough money": "treasury",
 };
 
