@@ -3,7 +3,8 @@ class Api::BbPlayerAdvancementsController < ApplicationController
 
   def create
     @player = BbPlayer.find(advancement_params[:bb_player_id])
-    return false unless authorized_user?(@player.team.user_id)
+    @team = @player.team
+    return false unless authorized_user?(@team.user_id)
     @advancement = BbAdvancement.find(advancement_params[:bb_advancement_id])
 
     if @player.advancements.count + 1 != @advancement.rank
@@ -73,6 +74,7 @@ class Api::BbPlayerAdvancementsController < ApplicationController
     @player = BbPlayer.includes(:primary_skill_groups, :secondary_skill_groups,
                                 :primary_skills, :secondary_skills)
                       .find(params[:bb_player_id])
+    @team = @player.team
     current_rank = @player.advancements.count
     @advancements = BbAdvancement.where(rank: current_rank + 1)
 
