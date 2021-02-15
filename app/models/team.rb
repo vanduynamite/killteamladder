@@ -17,8 +17,8 @@
 class Team < ApplicationRecord
   validates :faction, :team_name, presence: true
   validates :team_name, uniqueness: true, length: { maximum: 40 }
-  validates :user_id, uniqueness: { scope: [:faction_id, :ladder],
-   message: 'already has a team in this faction' }
+  # validates :user_id, uniqueness: { scope: [:faction_id, :ladder],
+  #  message: 'already has a team in this faction' }
 
   belongs_to :user
 
