@@ -19,6 +19,12 @@ const Nav = (props) => {
 const ladderPic = (fullPath) => {
   const ladder = fullPath.slice(0, fullPath.indexOf('/', 1));
   switch (ladder) {
+    case '/orders':
+      return(
+        <Link to='/orders/'>
+          <img src={ window.orders_icon } id='logo' />
+        </Link>
+      );
     case '/killteam':
       return (
         <Link to='/killteam/'>
@@ -96,7 +102,7 @@ const accountAndMatchButtons = (ladder) => {
   );
 };
 
-const authButtons = ladder => {
+const authButtons = (ladder) => {
   let backLink;
   if (ladder !== '') backLink = <Link to='/'><img src={ window.close } className='img-button' /></Link>;
   return (
