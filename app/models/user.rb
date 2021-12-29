@@ -11,6 +11,7 @@
 #  last_name  :string                 not null
 #  authorized_2020_league :boolean    not null
 #  admin      :boolean                not null
+#  ordermaster            :boolean    not null, default false
 #
 
 class User < ApplicationRecord
