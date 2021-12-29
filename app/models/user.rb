@@ -29,6 +29,9 @@ class User < ApplicationRecord
     through: :teams,
     source: :matchups
 
+  has_many :items,
+    class_name: :OrderItem
+
   attr_reader :password
 
   def self.find_by_credentials(email, pw)

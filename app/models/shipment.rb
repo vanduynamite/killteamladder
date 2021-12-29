@@ -16,4 +16,7 @@ class Shipment < ApplicationRecord
 
   belongs_to :distributor
 
+  has_many :items,
+    class_name: :OrderItem
+
 end

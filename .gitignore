@@ -31,6 +31,7 @@ bundle.js.map
 /heroku_errors.txt
 
 /db/emails.rb
+/db/orderinfoseed.rb
 
 /killzone_db_export_21_02_2019
 /frontend/components/general/field.rb
