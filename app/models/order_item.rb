@@ -52,8 +52,4 @@ class OrderItem < ApplicationRecord
     self.shipment_id ? Shipment.find(self.shipment_id) : nil
   end
 
-  def tracking_num
-    self.shipment ? shipment.tracking_num : nil
-  end
-
 end

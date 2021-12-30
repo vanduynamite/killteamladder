@@ -4,12 +4,13 @@ class Api::ItemNotesController < ApplicationController
   def create
     return false unless authorized_user? || ordermaster?
 
-    @user = current_user
+    user = current_user
     @items = OrderItem.where(id: item_note_params.item_id_list)
+    @notes = []
     @items.each do |item|
-      ItemNote.create(
+      @notes << ItemNote.create(
         item: item,
-        user: @user,
+        user: user,
         note: note,
       )
     end

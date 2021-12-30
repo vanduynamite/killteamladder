@@ -14,17 +14,16 @@ Rails.application.routes.draw do
     resources :factions, only: [:index]
     resources :seasons, only: [:create]
     resources :distributors, only: [:index]
-    resources :order_statuses, only: [:index]
     resources :item_notes, only: [:create]
     resources :invoices, only: [:create]
     resources :shipments, only: [:create]
-    resources :order_items, only: [:create, :index]
-    get :new_items, to: 'orderitems#new_items'
-    get :invoiced_items, to: 'orderitems#invoiced_items'
-    get :ordered_items, to: 'orderitems#ordered_items'
-    get :shipped_items, to: 'orderitems#shipped_items'
-    get :complete_items, to: 'orderitems#complete_items'
-    get :items_with_issue, to: 'orderitems#items_with_issue'
+    resources :order_items, only: [:create, :index, :update]
+    get :new_items, to: 'order_items#new_items'
+    get :invoiced_items, to: 'order_items#invoiced_items'
+    get :ordered_items, to: 'order_items#ordered_items'
+    get :shipped_items, to: 'order_items#shipped_items'
+    get :complete_items, to: 'order_items#complete_items'
+    get :items_with_issue, to: 'order_items#items_with_issue'
   end
 
 end

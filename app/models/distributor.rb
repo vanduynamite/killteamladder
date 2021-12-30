@@ -12,6 +12,7 @@ class Distributor < ApplicationRecord
   validates :name, presence: true
   validates :name, uniqueness: true
 
-  has_many :order_items
+  has_many :items,
+    class_name: :OrderItem
 
 end

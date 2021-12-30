@@ -2,13 +2,13 @@
 class Api::OrderItemsController < ApplicationController
 
   def index
-    user = current_user
-    @items = OrderItem.where(user: user).includes(:distributor, :status, :notes)
+    @user = current_user
+    @items = OrderItem.where(user: @user).includes(:notes)
     render 'api/order_items/index.json.jbuilder'
   end
 
   def create
-    user = current_user
+    @user = current_user
 
     names = new_order_items_params.name_list
     quantities = new_order_items_params.quantity_list
@@ -40,11 +40,13 @@ class Api::OrderItemsController < ApplicationController
       @items << item
     end
 
-    render 'api/order_items/create.json.jbuilder'
+    render 'api/order_items/index.json.jbuilder'
   end
 
   def update
     return false unless authorized_user? || ordermaster?
+
+    @user = current_user
 
     item_ids = update_order_items_params.item_id_list
     name = update_order_items_params.name
@@ -66,11 +68,27 @@ class Api::OrderItemsController < ApplicationController
     @items.update(name: name) if name
     @items.update(quantity: quantity) if quantity
     @items.update(distributor: distributor) if distributor
-    @items.update(status: status) if status
     @items.update(purchased_in_store: purchased_in_store) if purchased_in_store
-    @items.update(item_note: item_code) if item_code
+    @items.update(item_code: item_code) if item_code
+    if status
+      user = current_user
+      @items.each do |item|
+        old_status = item.status
+        StatusChange.create(
+          item: item,
+          old_status: old_status,
+          new_status: status,
+          user: user,
+        )
+      end
+      @items.update(status: status)
+    end
 
-    render 'api/order_items/update.json.jbuilder'
+    render 'api/order_items/index.json.jbuilder'
+  end
+
+  def new_items
+    ordermaster_index(["awaiting_invoice"])
   end
 
   def invoiced_items
@@ -80,10 +98,6 @@ class Api::OrderItemsController < ApplicationController
       "preordered",
       "backordered",
     ])
-  end
-
-  def new_items
-    ordermaster_index(["awaiting_invoice"])
   end
 
   def ordered_items
@@ -106,9 +120,11 @@ class Api::OrderItemsController < ApplicationController
 
   def ordermaster_index(statuses)
     return false unless ordermaster?
-    @items = OrderItem.where(status:
-      OrderStatus.find_by(search_name: statuses))
-        .includes(:distributor, :status, :notes)
+    @user = current_user
+    @ordermaster = true
+    @items = OrderItem
+      .where(status: OrderStatus.find_by(search_name: statuses))
+      .includes(:notes)
     render 'api/order_items/index.json.jbuilder'
   end
 

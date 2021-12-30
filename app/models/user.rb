@@ -32,6 +32,8 @@ class User < ApplicationRecord
   has_many :items,
     class_name: :OrderItem
 
+  has_many :item_notes
+
   attr_reader :password
 
   def self.find_by_credentials(email, pw)
