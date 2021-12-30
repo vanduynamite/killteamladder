@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_10_071637) do
+ActiveRecord::Schema.define(version: 2021_12_29_211602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,11 +21,35 @@ ActiveRecord::Schema.define(version: 2020_12_10_071637) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "distributors", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_distributors_on_name", unique: true
+  end
+
   create_table "factions", force: :cascade do |t|
     t.string "faction_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "ladder_name", null: false
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.string "carcosa_id", null: false
+    t.string "square_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["carcosa_id"], name: "index_invoices_on_carcosa_id", unique: true
+    t.index ["square_id"], name: "index_invoices_on_square_id", unique: true
+  end
+
+  create_table "item_notes", force: :cascade do |t|
+    t.string "note", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "order_item_id", null: false
+    t.integer "user_id", null: false
   end
 
   create_table "ladders", force: :cascade do |t|
@@ -47,6 +71,32 @@ ActiveRecord::Schema.define(version: 2020_12_10_071637) do
     t.index ["team_id"], name: "index_matchups_on_team_id"
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "quantity", default: 1, null: false
+    t.string "name", null: false
+    t.integer "status_id", null: false
+    t.integer "invoice_id"
+    t.integer "invoice_item_num"
+    t.integer "distributor_id", null: false
+    t.integer "shipment_id"
+    t.string "item_id"
+    t.boolean "purchased_in_store", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "order_statuses", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "sort_num", null: false
+    t.boolean "user_visible", default: true, null: false
+    t.boolean "item_cancelable", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "search_name", null: false
+    t.index ["name"], name: "index_order_statuses_on_name", unique: true
+  end
+
   create_table "seasons", force: :cascade do |t|
     t.integer "season", null: false
     t.datetime "created_at", null: false
@@ -60,6 +110,24 @@ ActiveRecord::Schema.define(version: 2020_12_10_071637) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["token"], name: "index_sessions_on_token"
+  end
+
+  create_table "shipments", force: :cascade do |t|
+    t.string "tracking_num"
+    t.integer "distributor_id", null: false
+    t.string "distributor_invoice"
+    t.date "received"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "status_changes", force: :cascade do |t|
+    t.integer "order_item_id", null: false
+    t.integer "old_status_id", null: false
+    t.integer "new_status_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teams", force: :cascade do |t|
@@ -86,6 +154,7 @@ ActiveRecord::Schema.define(version: 2020_12_10_071637) do
     t.string "last_name", null: false
     t.boolean "authorized_2020_league", default: false, null: false
     t.boolean "admin", default: false, null: false
+    t.boolean "ordermaster", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

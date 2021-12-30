@@ -2,16 +2,16 @@
 #
 # Table name: users
 #
-#  id         :bigint(8)              not null, primary key
-#  email      :string                 not null
-#  pw_digest  :string                 not null
-#  created_at :datetime               not null
-#  updated_at :datetime               not null
-#  first_name :string                 not null
-#  last_name  :string                 not null
-#  authorized_2020_league :boolean    not null
-#  admin      :boolean                not null
-#  ordermaster            :boolean    not null, default false
+#  id                     :bigint(8)              not null, primary key
+#  email                  :string                 not null
+#  pw_digest              :string                 not null
+#  created_at             :datetime               not null
+#  updated_at             :datetime               not null
+#  first_name             :string                 not null
+#  last_name              :string                 not null
+#  authorized_2020_league :boolean                not null
+#  admin                  :boolean                not null
+#  ordermaster            :boolean                default: false
 #
 
 class User < ApplicationRecord

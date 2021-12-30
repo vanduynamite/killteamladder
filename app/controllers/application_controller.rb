@@ -6,12 +6,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  ADMINS = [
-    'paul.vanduyn@gmail.com',
-    'isaac.vanduyn@gmail.com',
-    'nrdeveaux@gmail.com',
-  ]
-
   LEAGUE_ADMINS = [
     'paul.vanduyn@gmail.com',
     'nrdeveaux@gmail.com',
@@ -53,6 +47,11 @@ class ApplicationController < ActionController::Base
 
     true
 
+  end
+
+  def ordermaster?
+    return false unless logged_in? && current_user.ordermaster
+    true
   end
 
   def get_rankings(ladder)

@@ -4,12 +4,13 @@
 #
 #  id                   :bigint(8)              not null, primary key
 #  user_id              :integer                not null
-#  quantity             :integer                not null
 #  name                 :string                 not null
+#  quantity             :integer                not null
+#  distributor_id       :integer                not null
 #  status_id            :integer                not null
+#  purchased_in_store   :boolean
 #  invoice_id           :integer
 #  invoice_item_num     :integer
-#  distributor_id       :integer                not null
 #  shipment_id          :integer
 #  item_id              :string
 #  created_at           :datetime               not null
