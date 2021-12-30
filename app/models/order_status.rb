@@ -20,4 +20,12 @@ class OrderStatus < ApplicationRecord
     class_name: :OrderItem,
     foreign_key: :status_id
 
+  has_many :acceptable_status_change_links,
+    class_name: :AcceptableStatusChange,
+    foreign_key: :order_status_id_from
+
+  has_many :acceptable_status_changes,
+    through: :acceptable_status_change_links,
+    source: :change_to
+
 end

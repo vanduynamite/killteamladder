@@ -55,26 +55,20 @@ class Api::OrderItemsController < ApplicationController
     note = update_order_items_params.note
     item_code = update_order_items_params.item_code
 
-
-    # don't allow update to certain statuses (invoice, ship)
-    # probably don't allow update FROM certain statuses
-    # maybe make a map of to:from, if it doesn't fit then get out
-
-    # don't allow certain changes unless an ordermaster
-    # some status changes are OK
+    @items = OrderItems.where(id: item_ids)
 
     # if not a valid distributor or status, kill it
+    # TODO: I forget how the data comes in from the front-end
 
-
-    @items = OrderItems.where(id: item_ids)
+    # don't allow certain status changes, and check ordermaster capabilities too
+    return false unless all_items_can_update_to_new_status(status)
 
     @items.update(name: name) if name
     @items.update(quantity: quantity) if quantity
     @items.update(distributor: distributor) if distributor
     @items.update(status: status) if status
     @items.update(purchased_in_store: purchased_in_store) if purchased_in_store
-    @items.update(item_id: item_code) if item_code
-
+    @items.update(item_note: item_code) if item_code
 
     render 'api/order_items/update.json.jbuilder'
   end
@@ -116,6 +110,20 @@ class Api::OrderItemsController < ApplicationController
       OrderStatus.find_by(search_name: statuses))
         .includes(:distributor, :status, :notes)
     render 'api/order_items/index.json.jbuilder'
+  end
+
+  def all_items_can_update_to_new_status(new_status)
+    acceptable_status_change_links = ordermaster ?
+      AcceptableStatusChange.where(change_to: new_status) :
+      AcceptableStatusChange.where(change_to: new_status, ordermaster_only: false)
+    acceptable_from_statuses = OrderStatus.where(acceptable_status_change_links: acceptable_status_change_links)
+    all_from_statuses = OrderStatus.where(order_items: @items)
+    unacceptable_statuses = all_from_statuses - acceptable_from_statuses
+
+    return true if unacceptable_statuses.empty?
+
+    render json: ['Not all items can be updated to the new status'], status: 422
+    return false
   end
 
   def new_order_items_params

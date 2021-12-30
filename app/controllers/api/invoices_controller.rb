@@ -8,7 +8,7 @@ class Api::InvoicesController < ApplicationController
     @items = OrderItem.where(id: item_note_params.item_id_list)
 
     # check to make sure all items belong to the same user
-    num_users = @items.pluck(:user_id).uniq.count
+    num_users = User.where(items: @items).count
     unless num_users == 1
       render json: ['Not all of these items belong to the same user'], status: 422
       return

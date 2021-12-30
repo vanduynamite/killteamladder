@@ -12,7 +12,7 @@
 #  invoice_id           :integer
 #  invoice_item_num     :integer
 #  shipment_id          :integer
-#  item_id              :string
+#  item_code            :string
 #  created_at           :datetime               not null
 #  updated_at           :datetime               not null
 #
@@ -27,7 +27,14 @@ class OrderItem < ApplicationRecord
     foreign_key: :status_id
 
   has_many :notes,
-    class_name: :ItemNote
+    class_name: :ItemNote,
+    foreign_key: :order_item_id,
+    dependent: :destroy
+
+  has_many :status_changes,
+    class_name: :StatusChange,
+    foreign_key: :order_item_id,
+    dependent: :destroy
 
   def invoice
     self.invoice_id ? Invoice.find(self.invoice_id) : nil

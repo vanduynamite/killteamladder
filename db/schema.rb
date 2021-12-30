@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_29_211602) do
+ActiveRecord::Schema.define(version: 2021_12_30_165650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "acceptable_status_changes", force: :cascade do |t|
+    t.integer "order_status_id_from", null: false
+    t.integer "order_status_id_to", null: false
+    t.boolean "ordermaster_only", default: true, null: false
+  end
 
   create_table "approved_emails", force: :cascade do |t|
     t.string "email", null: false
@@ -80,10 +86,10 @@ ActiveRecord::Schema.define(version: 2021_12_29_211602) do
     t.integer "invoice_item_num"
     t.integer "distributor_id", null: false
     t.integer "shipment_id"
-    t.string "item_id"
     t.boolean "purchased_in_store", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "item_code"
   end
 
   create_table "order_statuses", force: :cascade do |t|
