@@ -2,10 +2,8 @@
 export const newNotes = (notes) => {
 
   // {
-  //   notes: {
-  //     item_id_list: [1, 2, 3],
-  //     note: 'string',
-  //   }
+  //   item_id_list: [1, 2, 3],
+  //   note: 'string',
   // }
 
   notes.item_id_list = notes.itemIdList;

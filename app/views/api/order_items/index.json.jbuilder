@@ -5,12 +5,12 @@ shipments = Shipment.where(items: @items)
 notes = ItemNote.where(item: @items)
 users = User.where(item_notes: notes).or(User.where(id: @user.id))
 statuses = OrderStatus.all.includes(:acceptable_status_change_links)
-status_changes = ordermaster ?
+status_changes = @user.ordermaster ?
   AcceptableStatusChange.all :
   AcceptableStatusChange.where(ordermaster_only: false)
 
 @items.each do |item|
-  json.partial! 'api/order_items/order_item_basic.json.jbuilder', item: item
+  json.partial! 'api/order_items/order_item_basic.json.jbuilder', order_item: item
 end
 
 distributors.each do |distributor|
@@ -34,7 +34,7 @@ users.each do |user|
 end
 
 statuses.each do |status|
-  json.partial! 'api/statuses/order_status_basic.json.jbuilder', status: status
+  json.partial! 'api/order_statuses/order_status_basic.json.jbuilder', status: status
 end
 
 status_changes.each do |status_change|

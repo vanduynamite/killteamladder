@@ -5,13 +5,13 @@ class Api::ItemNotesController < ApplicationController
     return false unless authorized_user? || ordermaster?
 
     user = current_user
-    @items = OrderItem.where(id: item_note_params.item_id_list)
+    @items = OrderItem.where(id: item_note_params[:item_id_list])
     @notes = []
     @items.each do |item|
       @notes << ItemNote.create(
         item: item,
         user: user,
-        note: note,
+        note: item_note_params[:note],
       )
     end
 
@@ -28,7 +28,7 @@ class Api::ItemNotesController < ApplicationController
   def item_note_params
     params.require(:notes).permit(
       :note,
-      :item_id_list,
+      :item_id_list => [],
     )
   end
 

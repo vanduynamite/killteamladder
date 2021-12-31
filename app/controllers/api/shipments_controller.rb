@@ -5,7 +5,7 @@ class Api::ShipmentsController < ApplicationController
     return false unless ordermaster?
     user = current_user
 
-    @items = OrderItem.where(id: item_note_params.item_id_list)
+    @items = OrderItem.where(id: shipment_params[:item_id_list])
 
     # check to make sure the items are all in a valid state
     invalid_items = @items.where(
@@ -19,14 +19,40 @@ class Api::ShipmentsController < ApplicationController
     )
     unless invalid_items.empty?
       render json: ['Some of these items are in an invalid status'], status: 422
-      return
+      return false
     end
 
-    @shipment = Shipment.create(
-      tracking_num: invoice_params.tracking_num,
-      distributor_id: invoice_params.distributor_id,
-      distributor_invoice: invoice_params.distributor_invoice,
+    unknown_distributor = Distributor.find_by(name: "Unknown")
+    distributor_id = shipment_params[:distributor_id] ?
+      shipment_params[:distributor_id].to_i :
+      unknown_distributor.id
+    
+    if distributor_id != unknown_distributor.id
+      distributors = Distributor.where(items: @items)
+        .where.not(id: unknown_distributor.id)
+
+      if distributors.length > 1
+        render json: ['Not all the items on this shipment are from the same distributor'], status: 422
+        return false
+      end
+
+      if distributors[0].id != distributor_id
+        render json: ['The items on this shipment are for the wrong distibutor'], status: 422
+        return false
+      end
+    end
+
+    @shipment = Shipment.new(
+      tracking_num: shipment_params[:tracking_num],
+      distributor_id: distributor_id,
+      distributor_invoice: shipment_params[:distributor_invoice],
     )
+
+    if !@shipment.save
+      render json: @shipment.errors.full_messages, status: 422
+      return false
+    end
+
     new_status = OrderStatus.find_by(search_name: "shipped")
     @items.each do |item|
       old_status = item.status
@@ -40,7 +66,7 @@ class Api::ShipmentsController < ApplicationController
 
       item.update(
         status: new_status,
-        shipment_id: invoice.id,
+        shipment_id: @shipment.id,
       )
     end
 
@@ -54,7 +80,7 @@ class Api::ShipmentsController < ApplicationController
       :tracking_num,
       :distributor_id,
       :distributor_invoice,
-      :item_id_list,
+      :item_id_list => [],
     )
   end
 

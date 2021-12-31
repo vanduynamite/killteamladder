@@ -11,7 +11,7 @@
 
 class Invoice < ApplicationRecord
   validates :carcosa_id, presence: true
-  validates :carcosa_id, :square_id, uniqueness: true
+  validates :carcosa_id, uniqueness: true
 
   has_many :items,
     class_name: :OrderItem

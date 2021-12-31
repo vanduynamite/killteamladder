@@ -1,6 +1,6 @@
 
 @notes.each do |note|
-  json.partial! 'api/item_notes/item_note_basic.json.jbuilder'
+  json.partial! 'api/item_notes/item_note_basic.json.jbuilder', note: note
 end
 
 @items.each do |item|

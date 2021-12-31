@@ -2,15 +2,13 @@
 export const newItems = (items) => {
 
   // {
-  //   items: {
-  //     name_list: ['name1', 'name2'],
-  //     quantity_list: [1, 1],
-  //     item_note_list: ['note1', null],
-  //     purchased_in_store: false,
-  //   }
+  //   name_list: ['name1', 'name2'],
+  //   quantity_list: [1, 1],
+  //   note_list: ['note1', null],
+  //   purchased_in_store: false,
   // }
 
-  // TODO: probably will be receiving an object of objects
+  // TODO: probably will be receiving a list of objects
   // need to convert to an object of lists
 
   return $.ajax({
@@ -30,16 +28,14 @@ export const getItems = () => {
 export const editItems = (items) => {
 
   // {
-  //   items: {
-  //     item_id_list: [1, 2, 3],
-  //     name: 'new name',
-  //     quantity: 1,
-  //     distributor_id: 2,
-  //     status_id: 34,
-  //     purchased_in_store: false,
-  //     note: 'meh I dunno',
-  //     item_code: 'AHC054',
-  //   }
+  //   item_id_list: [1, 2, 3],
+  //   name: 'new name',
+  //   quantity: 1,
+  //   distributor_id: 2,
+  //   status_id: 34,
+  //   purchased_in_store: false,
+  //   note: 'meh I dunno',
+  //   item_code: 'AHC054',
   // }
 
   items.item_id_list = items.itemIdList;

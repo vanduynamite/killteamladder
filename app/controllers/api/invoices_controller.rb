@@ -5,7 +5,7 @@ class Api::InvoicesController < ApplicationController
     return false unless ordermaster?
     user = current_user
 
-    @items = OrderItem.where(id: item_note_params.item_id_list)
+    @items = OrderItem.where(id: invoice_params[:item_id_list])
 
     # check to make sure all items belong to the same user
     num_users = User.where(items: @items).count
@@ -21,10 +21,14 @@ class Api::InvoicesController < ApplicationController
       return
     end
 
-    @invoice = Invoice.create(
-      carcosa_id: invoice_params.carcosa_id,
-      square_id: invoice_params.square_id
+    @invoice = Invoice.new(
+      carcosa_id: invoice_params[:carcosa_id],
+      square_id: invoice_params[:square_id],
     )
+    if !@invoice.save
+      render json: @invoice.errors.full_messages, status: 422
+      return false
+    end
     @items.each_with_index do |item, i|
       new_status = item.purchased_in_store ?
         OrderStatus.find_by(search_name: "delivered") :
@@ -40,7 +44,7 @@ class Api::InvoicesController < ApplicationController
 
       item.update(
         status: new_status,
-        invoice_id: invoice.id,
+        invoice_id: @invoice.id,
         invoice_item_num: i + 1,
       )
     end
@@ -59,7 +63,7 @@ class Api::InvoicesController < ApplicationController
     params.require(:invoice).permit(
       :carcosa_id,
       :square_id,
-      :item_id_list,
+      :item_id_list => [],
     )
   end
 
