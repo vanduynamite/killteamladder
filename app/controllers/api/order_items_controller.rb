@@ -108,7 +108,7 @@ class Api::OrderItemsController < ApplicationController
     ordermaster_index(["shipped"])
   end
 
-  def complete_items
+  def completed_items
     ordermaster_index(["refunded", "delivered"])
   end
 
@@ -143,7 +143,7 @@ class Api::OrderItemsController < ApplicationController
   end
 
   def new_order_items_params
-    params.require(:new_order_items).permit(
+    params.require(:items).permit(
       :name_list,
       :quantity_list,
       :item_note_list,
@@ -152,7 +152,7 @@ class Api::OrderItemsController < ApplicationController
   end
 
   def update_order_items_params
-    params.require(:update_order_items).permit(
+    params.require(:items).permit(
       :item_id_list,
       :name,
       :quantity,

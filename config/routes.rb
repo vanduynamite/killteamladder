@@ -17,12 +17,13 @@ Rails.application.routes.draw do
     resources :item_notes, only: [:create]
     resources :invoices, only: [:create]
     resources :shipments, only: [:create]
-    resources :order_items, only: [:create, :index, :update]
+    resources :order_items, only: [:create, :index]
+    patch :order_items, to: 'order_items#update'
     get :new_items, to: 'order_items#new_items'
     get :invoiced_items, to: 'order_items#invoiced_items'
     get :ordered_items, to: 'order_items#ordered_items'
     get :shipped_items, to: 'order_items#shipped_items'
-    get :complete_items, to: 'order_items#complete_items'
+    get :completed_items, to: 'order_items#completed_items'
     get :items_with_issue, to: 'order_items#items_with_issue'
   end
 

@@ -26,7 +26,7 @@ class Api::ItemNotesController < ApplicationController
   private
 
   def item_note_params
-    params.require(:item_note).permit(
+    params.require(:notes).permit(
       :note,
       :item_id_list,
     )
