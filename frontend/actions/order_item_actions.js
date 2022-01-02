@@ -32,7 +32,8 @@ export const getItems = () => (dispatch) => {
 
 export const getOrdermasterItems = (subset) => (dispatch) => {
   return OrderItemAPI.getOrdermasterItems(subset).then(
-    (payload) => dispatch(receiveOrderItems(payload))
+    (payload) => dispatch(receiveOrderItems(payload)),
+    (errors) => dispatch(receiveOrderItemErrors(errors))
   );
 };
 

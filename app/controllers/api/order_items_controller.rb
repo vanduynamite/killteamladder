@@ -61,8 +61,9 @@ class Api::OrderItemsController < ApplicationController
     status_id = update_order_items_params[:status_id]
     status = OrderStatus.find(status_id) if status_id
 
-    purchased_in_store = ActiveModel::Type::Boolean.new.cast(
-      new_order_items_params[:purchased_in_store]) || nil
+    purchased_in_store = update_order_items_params[:purchased_in_store] ?
+      ActiveModel::Type::Boolean.new.cast(update_order_items_params[:purchased_in_store]) :
+      nil;
     item_code = update_order_items_params[:item_code]
 
     @items = OrderItem.where(id: item_ids)
@@ -77,7 +78,7 @@ class Api::OrderItemsController < ApplicationController
     @items.update(name: name) if name
     @items.update(quantity: quantity) if quantity
     @items.update(distributor: distributor) if distributor
-    @items.update(purchased_in_store: purchased_in_store) if purchased_in_store
+    @items.update(purchased_in_store: purchased_in_store) if purchased_in_store != nil
     @items.update(item_code: item_code) if item_code
     if status
       user = current_user
@@ -128,11 +129,14 @@ class Api::OrderItemsController < ApplicationController
   private
 
   def ordermaster_index(statuses)
-    return false unless ordermaster?
+    if !ordermaster?
+      render json: ['Unauthorized'], status: 401
+      return false
+    end
     @user = current_user
     @ordermaster = true
     @items = OrderItem
-      .where(status: OrderStatus.find_by(search_name: statuses))
+      .where(status: OrderStatus.where(search_name: statuses))
       .includes(:notes)
     render 'api/order_items/index.json.jbuilder'
   end

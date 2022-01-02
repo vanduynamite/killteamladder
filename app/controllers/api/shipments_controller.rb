@@ -9,9 +9,10 @@ class Api::ShipmentsController < ApplicationController
 
     # check to make sure the items are all in a valid state
     invalid_items = @items.where(
-      status: OrderStatus.find_by(
+      status: OrderStatus.where(
         search_name: [
           "awaiting_invoice",
+          "shipped",
           "delivered",
           "refunded",
         ]
@@ -26,7 +27,7 @@ class Api::ShipmentsController < ApplicationController
     distributor_id = shipment_params[:distributor_id] ?
       shipment_params[:distributor_id].to_i :
       unknown_distributor.id
-    
+
     if distributor_id != unknown_distributor.id
       distributors = Distributor.where(items: @items)
         .where.not(id: unknown_distributor.id)

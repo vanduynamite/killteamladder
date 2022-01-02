@@ -5,7 +5,7 @@ import {
 } from '../../actions/team_actions';
 import { merge } from 'lodash';
 
-const sessionErrorsReducer = (state = {}, action) => {
+const teamErrorsReducer = (state = {}, action) => {
   Object.freeze(state);
   const newState = {};
 
@@ -33,6 +33,4 @@ const errorFieldMap = {
   "User already has a team in this faction": "faction",
 };
 
-export default sessionErrorsReducer;
-
-// ["Incorrect username or password"],
+export default teamErrorsReducer;

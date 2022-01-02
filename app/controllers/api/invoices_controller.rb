@@ -15,7 +15,7 @@ class Api::InvoicesController < ApplicationController
     end
 
     # check to make sure the item has not already been invoiced
-    invalid_items = @items.where.not(status: OrderStatus.find_by(search_name: "awaiting_invoice"))
+    invalid_items = @items.where.not(status: OrderStatus.where(search_name: "awaiting_invoice"))
     unless invalid_items.empty?
       render json: ['Not all of these items are awaiting invoice'], status: 422
       return

@@ -5,7 +5,7 @@ export const RECEIVE_SHIPMENT_ERRORS = 'RECEIVE_SHIPMENT_ERRORS';
 
 const receiveShipment = (data) => {
   return {
-    type: RECEIVE_SHIPIMENT,
+    type: RECEIVE_SHIPMENT,
     shipments: data.shipments,
     orderItems: data.orderItems,
   };

@@ -2,7 +2,7 @@ import { RECEIVE_TEAMS } from '../../actions/team_actions';
 import { RECEIVE_MATCH_ERRORS } from '../../actions/match_actions';
 import { merge } from 'lodash';
 
-const sessionErrorsReducer = (state = {}, action) => {
+const matchErrorsReducer = (state = {}, action) => {
   Object.freeze(state);
   const newState = {};
 
@@ -30,6 +30,4 @@ const errorFieldMap = {
   "Matchup results are invalid": "result",
 };
 
-export default sessionErrorsReducer;
-
-// ["Incorrect username or password"],
+export default matchErrorsReducer;

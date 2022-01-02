@@ -38,5 +38,3 @@ const errorFieldMap = {
 };
 
 export default sessionErrorsReducer;
-
-// ["Incorrect username or password"],

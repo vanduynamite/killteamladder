@@ -11,6 +11,11 @@ export const newItems = (items) => {
   // TODO: probably will be receiving a list of objects
   // need to convert to an object of lists
 
+  items.name_list = items.nameList;
+  items.quantity_list = items.quantityList;
+  items.note_list = items.noteList;
+  items.purchased_in_store = items.purchasedInStore;
+
   return $.ajax({
     method: 'POST',
     url: '/api/order_items',
@@ -34,7 +39,6 @@ export const editItems = (items) => {
   //   distributor_id: 2,
   //   status_id: 34,
   //   purchased_in_store: false,
-  //   note: 'meh I dunno',
   //   item_code: 'AHC054',
   // }
 
