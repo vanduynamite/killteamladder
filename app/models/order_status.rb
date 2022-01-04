@@ -8,6 +8,7 @@
 #  sort_num          :integer                not null
 #  user_visible      :boolean                not null, default true
 #  item_cancelable   :boolean                not null, default false
+#  complete          :boolean                not null, default false
 #  created_at        :datetime               not null
 #  updated_at        :datetime               not null
 #
