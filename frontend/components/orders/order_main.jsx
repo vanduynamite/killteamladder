@@ -2,6 +2,7 @@ import React from 'react';
 import ListItem from './list_item';
 import {Link} from 'react-router-dom';
 import EmptyDiv from '../general/empty_div';
+import FloatingImageButton from '../general/floating_image_button';
 
 class Main extends React.Component {
 
@@ -16,6 +17,8 @@ class Main extends React.Component {
   }
 
   render() {
+    if (!this.props.loggedIn) return <EmptyDiv/>;
+
     const items = this.props.items;
     const statuses = this.props.statuses;
     const screenData = this.props.screenData;
@@ -34,6 +37,10 @@ class Main extends React.Component {
       (<Link to={screenData.topLink.link} >{screenData.topLink.text}</Link>) :
       (<EmptyDiv/>);
 
+    const editButton = this.props.checkedItems && Object.keys(this.props.checkedItems).length !== 0 ?
+      <FloatingImageButton path={'/orders/edit'} image={window.edit} /> :
+      <EmptyDiv/> ;
+
     return (
       <div className='frame'>
         <div className='link-titlebar'>
@@ -43,6 +50,7 @@ class Main extends React.Component {
         <div id={'ranking-list'}>
           { this.orderList(statusesToDisplay) }
         </div>
+        {editButton}
       </div>
     );
   }

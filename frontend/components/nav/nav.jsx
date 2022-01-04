@@ -68,6 +68,8 @@ const navButtons = (fullPath, loggedIn) => {
     case '/match/new':
     case '/account':
     case '/team/:teamId':
+    case '/edit':
+    case '/new':
       return <ImageButton path={ `${ladder}/` } image={ window.close } />;
 
     case '/account/edit':
@@ -75,6 +77,7 @@ const navButtons = (fullPath, loggedIn) => {
       return <ImageButton path={ `${ladder}/account` } image={ window.close } />;
 
     case '/':
+    case '/closed':
       if (loggedIn) return accountAndMatchButtons(ladder);
       else return authButtons(ladder);
 
@@ -87,14 +90,17 @@ const navButtons = (fullPath, loggedIn) => {
 };
 
 const accountAndMatchButtons = (ladder) => {
+  const newLink =
+    <Link to={ladder !== '/orders' ? `${ladder}/match/new` : '/orders/new'}>
+      <img src={ window.add } className='img-button' />
+    </Link>;
+
   return (
     <div id='nav-button-group'>
       <Link to={`${ladder}/account`}>
         <img src={ window.account } className='img-button' />
       </Link>
-      <Link to={`${ladder}/match/new`}>
-        <img src={ window.add } className='img-button' />
-      </Link>
+      {newLink}
       <Link to='/'>
         <img src={ window.close } className='img-button' />
       </Link>

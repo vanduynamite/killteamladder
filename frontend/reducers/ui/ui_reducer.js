@@ -16,7 +16,14 @@ const uiReducer = (state = {}, action) => {
     case TOGGLE_CHECKED_ITEM:
       const itemId = action.data;
       const checkedItems = newState.checkedItems || {};
-      checkedItems[itemId] = !checkedItems[itemId];
+      
+      if (checkedItems[itemId]) {
+         // specifically deleting so the edit button will disappear
+        delete checkedItems[itemId];
+      } else {
+        checkedItems[itemId] = true;
+      }
+
       return merge(newState, {checkedItems: checkedItems});
 
     case CLEAR_CHECKED_ITEMS:

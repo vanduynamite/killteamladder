@@ -5,6 +5,8 @@ import Main from './order_main';
 
 const msp = (state, ownProps) => {
   const loggedIn = state.session.id !== undefined && state.session.id !== null;
+  if (!loggedIn) return {loggedIn};
+
   let currentUser;
   if (loggedIn) currentUser = state.entities.users[state.session.id];
   const users = state.entities.users;

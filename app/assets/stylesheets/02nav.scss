@@ -51,3 +51,33 @@
   height: 40px;
   margin-right: 12px;
 }
+
+.fab-container {
+  bottom: 100px;
+  box-sizing: border-box;
+  display: flex;
+  height: 66px;
+  justify-content: flex-end;
+  max-width: 500px;
+  padding-right: 24px;
+  pointer-events: none;
+  position: fixed;
+  width: calc(100% - 48px);
+}
+
+.floating-img-button {
+  animation: fadein 0.2s;
+  background: #FFFFFF;
+  border: 1px solid #D5D9E0;
+  border-radius: 32px;
+  box-shadow: 0px 0px 10px 2px #d5d9e0;
+  box-sizing: content-box;
+  height: 40px;
+  padding: 12px;
+  pointer-events: auto;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
