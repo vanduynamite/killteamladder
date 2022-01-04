@@ -11,7 +11,7 @@ export default function({ match, team, opposingTeam, opponent,
     opposingTeam.userId === currentUser.id :
     false;
 
-  const owned = opponentViewing ? 'owned' : '';
+  const owned = opponentViewing ? 'dark-theme' : '';
   const opponentName = currentUser ?
     `${opponent.firstName} ${opponent.lastName}` :
     '';

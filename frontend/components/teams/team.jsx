@@ -79,7 +79,7 @@ class Team extends React.Component {
     let editLink;
     let owned = '';
     let bottomLine = (
-      <div className={ 'team-header-faction owned' }>
+      <div className={ 'team-header-faction dark-theme' }>
         <div>{ faction.faction_name }</div>
       </div>
     );
@@ -88,10 +88,10 @@ class Team extends React.Component {
       editLink = <ImageButton
         path={ `${this.props.ladder}/team/${this.props.currentTeamId}/edit` }
         image={ window.edit_dark } />;
-      owned = ' owned';
+      owned = ' dark-theme';
     } else {
       bottomLine =
-      <div className={ 'team-header-faction owned' }>
+      <div className={ 'team-header-faction dark-theme' }>
         <div>{ faction.faction_name }</div>
         <div>{ fullName }</div>
       </div>;

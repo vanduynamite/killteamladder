@@ -64,14 +64,14 @@ class Team extends React.Component {
     let editLink;
     let owned = '';
     let bottomLine =
-      <div className={ 'team-header-faction owned' }>
+      <div className={ 'team-header-faction dark-theme' }>
         <div>{ faction.faction_name }</div>
       </div>;
     if (this.props.ownerViewing) {
       editLink = <ImageButton
         path={ `${this.props.ladder}/team/${this.props.currentTeamId}/edit` }
         image={ window.edit_dark } />;
-      owned = ' owned';
+      owned = ' dark-theme';
     }
 
     return (

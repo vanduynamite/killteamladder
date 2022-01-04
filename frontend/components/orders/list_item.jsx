@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import ImageButton from '../general/image_button';
 
 const listItem = (data) => {
+  const includeUserInfo = data.includeUserInfo;
   const currentUser = data.currentUser;
   const item = data.item;
 
-  const selectedClass = data.checked ? 'owned' : '';
+  const selectedClass = data.checked ? 'dark-theme' : '';
   const dateCreatedString = new Date(item.dateCreated).toDateString();
+
+
 
   const distributor = item.inStorePurchase ?
     (<div>{'Purchased in store'}</div>) :

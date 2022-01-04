@@ -13,7 +13,7 @@
   margin-right: 8px;
 }
 
-.info-container.owned {
+.info-container.dark-theme {
   color: #FFFFFF;
   background: #2E3A42;
 }
@@ -32,7 +32,7 @@
   line-height: 24px;
 }
 
-.team-header-name.owned {
+.team-header-name.dark-theme {
   color: #FFFFFF;
 }
 
@@ -49,7 +49,7 @@
   font-weight: 500;
 }
 
-.team-header-faction.owned {
+.team-header-faction.dark-theme {
   color: #BDC1C6;
 }
 
@@ -80,7 +80,7 @@
   font-weight: 400;
 }
 
-.team-rank.owned {
+.team-rank.dark-theme {
   background: #2E3A42;
   background: #4F5B69;
   border: 1px solid #2E3A42;
@@ -102,7 +102,7 @@
   background: #FFFFFF;
 }
 
-.team-names.owned, .match-names.owned {
+.team-names.dark-theme, .match-names.dark-theme {
   border: 1px solid #2E3A42;
 }
 
@@ -128,7 +128,7 @@
   text-align: right;
 }
 
-.team-names.owned h2, .match-names.owned h2 {
+.team-names.dark-theme h2, .match-names.dark-theme h2 {
   color: #2E3A42;
 }
 
