@@ -1,10 +1,8 @@
-import {
-  RECEIVE_CURRENT_USER,
-  REMOVE_CURRENT_USER
-} from '../../actions/session_actions';
-import { RECEIVE_USERS } from '../../actions/user_actions';
-import { RECEIVE_TEAMS } from '../../actions/team_actions';
-import { merge } from 'lodash';
+import {RECEIVE_CURRENT_USER, REMOVE_CURRENT_USER} from '../../actions/session_actions';
+import {RECEIVE_USERS} from '../../actions/user_actions';
+import {RECEIVE_TEAMS} from '../../actions/team_actions';
+import {RECEIVE_ORDER_ITEMS} from '../../actions/order_item_actions';
+import {merge} from 'lodash';
 
 const userReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -14,6 +12,7 @@ const userReducer = (state = {}, action) => {
     case RECEIVE_TEAMS:
     case RECEIVE_CURRENT_USER:
     case RECEIVE_USERS:
+    case RECEIVE_ORDER_ITEMS:
       return merge(newState, action.users);
 
     case REMOVE_CURRENT_USER:

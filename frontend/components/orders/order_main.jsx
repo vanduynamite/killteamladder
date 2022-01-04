@@ -1,4 +1,5 @@
 import React from 'react';
+import ListItem from './list_item';
 
 class Main extends React.Component {
 
@@ -8,52 +9,67 @@ class Main extends React.Component {
 
   componentDidMount() {
     this.props.clearPathHistory();
+    this.props.clearCheckedItems();
+    this.props.getItems();
   }
 
   render() {
+    const items = this.props.items;
+    const statuses = this.props.statuses;
+
+    const statusesToDisplay = {};
+    Object.values(items).forEach((item) => {
+      if (!statusesToDisplay[item.statusId]) {
+        statusesToDisplay[item.statusId] = [];
+      }
+      statusesToDisplay[item.statusId].push(item);
+    });
+
     return (
       <div className='frame'>
         <h1>
-          Items
+          Your Items
         </h1>
-        { this.orderList() }
+        <div id={'ranking-list'}>
+          { this.orderList(statusesToDisplay) }
+        </div>
       </div>
     );
   }
 
-  orderList() {
-    // const currentUserId = this.props.currentUser ?
-    //   this.props.currentUser.id : 0;
-    //
-    // const teams = this.props.teams;
-    // const users = this.props.users;
-    //
-    // const teamRecords = Object.values(teams).map(
-    //   team => [team.id, team.points]).sort(
-    //     (a, b) => b[1] - a[1]);
-    //
-    // const teamList = teamRecords.map(
-    //   record => {
-    //     const id = record[0];
-    //     const team = teams[id];
-    //     const faction = this.props.factions[team.factionId];
-    //     if (team.ladder !== this.props.ladder || !team.active) return;
-    //     const user = users[team.userId];
-    //     if (!team || !user) return <div key={id}></div>;
-    //     return <TeamListItem
-    //         ladder={ this.props.ladder }
-    //         key={ id }
-    //         team={ team }
-    //         owner={ user }
-    //         faction={ faction }
-    //         currentUserId={ currentUserId }/>;
-    //     });
+  orderList(statusesToDisplay) {
+    const distributors = this.props.distributors;
+    const invoices = this.props.invoices;
+    const notes = this.props.notes;
+    const users = this.props.users;
+    const checkedItems = this.props.checkedItems;
+    const toggleCheckedItem = this.props.toggleCheckedItem;
 
-    return (
-      <div id='ranking-list'>
-        hooop
-      </div>
-    );
+    return Object.keys(statusesToDisplay).map((statusId) => {
+      const status = this.props.statuses[statusId];
+      const itemArray = statusesToDisplay[statusId];
+
+      const itemList = itemArray.map((item) => {
+        return <ListItem
+          action={toggleCheckedItem.bind('clickAction', item.id)}
+          key={item.id}
+          item={item}
+          distributor={distributors[item.distributorId]}
+          invoice={invoices[item.invoiceId]}
+          notes={notes}
+          checked={checkedItems[item.id]}
+          users={users}
+          currentUser={this.props.currentUser} />;
+      });
+
+      return (
+        <div key={status.id}>
+          <h2>{status.name}</h2>
+          {itemList}
+        </div>
+      );
+
+    });
   }
 }
 

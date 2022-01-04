@@ -12,5 +12,7 @@ json.orderItems do
     json.shipmentId order_item.shipment_id if order_item.shipment_id
     json.itemCode order_item.item_code if order_item.item_code
     json.noteIds order_item.notes.pluck(:id)
+    json.dateCreated order_item.created_at
+    json.lastUpdated order_item.updated_at
   end
 end
