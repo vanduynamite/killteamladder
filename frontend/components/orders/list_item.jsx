@@ -1,30 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ImageButton from '../general/image_button';
+import EmptyDiv from '../general/empty_div';
 
 const listItem = (data) => {
-  const includeUserInfo = data.includeUserInfo;
-  const currentUser = data.currentUser;
   const item = data.item;
+  const currentUser = data.currentUser;
+  const owner = data.users[item.userId];
 
   const selectedClass = data.checked ? 'dark-theme' : '';
   const dateCreatedString = new Date(item.dateCreated).toDateString();
 
-
+  const userInfo = currentUser === owner ?
+    <EmptyDiv/> :
+    <div><b>{`${owner.firstName} ${owner.lastName}`}</b></div>;
 
   const distributor = item.inStorePurchase ?
-    (<div>{'Purchased in store'}</div>) :
-    (<div>{data.distributor.name}</div>);
+    <div>{'Purchased in store'}</div> :
+    <div>{data.distributor.name}</div>;
 
   const carcosaNum = item.invoiceId ?
-    (<div>{`${data.invoice.carcosaId}, item ${item.invoiceItemNum}`}</div>) :
-    (<></>);
+    <div>{`${data.invoice.carcosaId}, item ${item.invoiceItemNum}`}</div> :
+    <EmptyDiv/>;
 
   const notes = item.noteIds.map((noteId) => {
     const note = data.notes[noteId];
     if (!note) return;
     const user = data.users[note.userId];
-    return [note.note, new Date(note.created), note.id, user?.firstName];
+    return [note.note, new Date(note.created), note.id, user.firstName || ''];
   }).sort((a, b) => {
     return a[1] - b[1];
   }).map((noteInfo) => {
@@ -50,6 +53,7 @@ const listItem = (data) => {
         </div>
         <div className={'match-results-container'}>
           <div className={'match-results'}>
+            {userInfo}
             {carcosaNum}
             {distributor}
             {notes}

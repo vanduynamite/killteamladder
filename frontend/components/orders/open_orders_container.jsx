@@ -21,8 +21,22 @@ const msp = (state, ownProps) => {
   const orderStatuses = state.entities.orderStatuses;
 
   const checkedItems = state.ui.checkedItems;
+  const statusesToInclude = Object.fromEntries(
+    Object.entries(orderStatuses).filter((status) => {
+      return status[1].complete === false;
+    }));
+
+  const screenData = {
+    title: 'Open orders',
+    statusesToInclude,
+    topLink : {
+      text: 'Completed orders >',
+      link: '/orders/closed',
+    },
+  };
 
   return {
+    screenData,
     loggedIn,
     currentUser,
     users,

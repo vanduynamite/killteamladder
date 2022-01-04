@@ -1,5 +1,7 @@
 import React from 'react';
 import ListItem from './list_item';
+import {Link} from 'react-router-dom';
+import EmptyDiv from '../general/empty_div';
 
 class Main extends React.Component {
 
@@ -16,20 +18,28 @@ class Main extends React.Component {
   render() {
     const items = this.props.items;
     const statuses = this.props.statuses;
+    const screenData = this.props.screenData;
 
+    const statusesToInclude = screenData.statusesToInclude;
     const statusesToDisplay = {};
     Object.values(items).forEach((item) => {
+      if (!statusesToInclude[item.statusId]) return;
       if (!statusesToDisplay[item.statusId]) {
         statusesToDisplay[item.statusId] = [];
       }
       statusesToDisplay[item.statusId].push(item);
     });
 
+    const titlebarLink = screenData.topLink ?
+      (<Link to={screenData.topLink.link} >{screenData.topLink.text}</Link>) :
+      (<EmptyDiv/>);
+
     return (
       <div className='frame'>
-        <h1>
-          Your Items
-        </h1>
+        <div className='link-titlebar'>
+          <h1>{screenData.title}</h1>
+          {titlebarLink}
+        </div>
         <div id={'ranking-list'}>
           { this.orderList(statusesToDisplay) }
         </div>
@@ -51,7 +61,7 @@ class Main extends React.Component {
 
       const itemList = itemArray.map((item) => {
         return <ListItem
-          action={toggleCheckedItem.bind('clickAction', item.id)}
+          action={this.maybeToggleCheckedItem.bind(this, item.id)}
           key={item.id}
           item={item}
           distributor={distributors[item.distributorId]}
@@ -70,6 +80,11 @@ class Main extends React.Component {
       );
 
     });
+  }
+
+  maybeToggleCheckedItem(itemId) {
+    // Nothing here yet, but maybe in the future
+    this.props.toggleCheckedItem(itemId);
   }
 }
 
