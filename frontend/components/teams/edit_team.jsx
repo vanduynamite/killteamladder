@@ -4,6 +4,7 @@ import Field from '../general/field';
 import SelectList from '../general/select_list';
 import ButtonLink from '../general/button_link';
 import SubmitButton from '../general/submit_button';
+import EmptyDiv from '../general/empty_div';
 
 class EditTeam extends React.Component {
 
@@ -48,7 +49,7 @@ class EditTeam extends React.Component {
 
   render() {
 
-    if (!this.props.team) return <></>;
+    if (!this.props.team) return <EmptyDiv/>;
 
     return (
       <div className='frame'>

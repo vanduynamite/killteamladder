@@ -3,6 +3,7 @@ import Statistic from '../general/statistic';
 import ImageButton from '../general/image_button';
 import ButtonLink from '../general/button_link';
 import MatchListItem from '../match/match_list_item';
+import EmptyDiv from '../general/empty_div';
 
 class Team extends React.Component {
 
@@ -74,7 +75,7 @@ class Team extends React.Component {
       `${owner.firstName} ${owner.lastName}` :
       '';
     const faction = this.props.factions[team.factionId];
-    if (!faction) return <></>; // don't know why this is happening still
+    if (!faction) return <EmptyDiv/>; // don't know why this is happening still
 
     let editLink;
     let owned = '';

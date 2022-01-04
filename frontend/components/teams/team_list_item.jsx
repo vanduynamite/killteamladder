@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import EmptyDiv from '../general/empty_div';
 
 export default function({ team, owner, currentUserId, active=true, ladder, faction }) {
-  if (!faction) return <></>; // don't know why this is happening still
+  if (!faction) return <EmptyDiv/>; // don't know why this is happening still
   let klass = team.userId === currentUserId ? ' dark-theme' : '';
   const ownerName = currentUserId ?
     `${owner.firstName} ${owner.lastName}` :

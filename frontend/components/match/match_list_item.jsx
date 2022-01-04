@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ImageButton from '../general/image_button';
+import EmptyDiv from '../general/empty_div';
 
 export default function({ match, team, opposingTeam, opponent,
   currentUser, ownerViewing, editable=false, ladder, factions }) {
@@ -17,9 +18,9 @@ export default function({ match, team, opposingTeam, opponent,
     '';
 
   const opposingFaction = factions[opposingTeam.factionId];
-  if (!opposingFaction) return <></>; // don't know why this is happening still
+  if (!opposingFaction) return <EmptyDiv/>; // don't know why this is happening still
 
-  let editButton = <></>;
+  let editButton = <EmptyDiv/>;
   if (editable && (opponentViewing || ownerViewing)) {
     editButton = <ImageButton path={ `${ladder}/match/${match.id}/edit` } image={ window.edit } />;
   }

@@ -14,6 +14,7 @@ import NewTeam from './teams/new_team_container';
 import EditTeam from './teams/edit_team_container';
 import RetireTeam from './teams/retire_team_container';
 import Team from './teams/team_container';
+import EmptyDiv from './general/empty_div';
 
 
 class Ladder extends React.Component {
@@ -27,7 +28,7 @@ class Ladder extends React.Component {
   }
 
   render() {
-    if (!this.props.receivedFactions) return <></>;
+    if (!this.props.receivedFactions) return <EmptyDiv/>;
     const ladder = this.props.ladder;
     return (
       <Switch>
