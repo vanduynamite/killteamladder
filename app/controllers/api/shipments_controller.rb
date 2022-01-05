@@ -23,7 +23,7 @@ class Api::ShipmentsController < ApplicationController
       return false
     end
 
-    unknown_distributor = Distributor.find_by(name: "Unknown")
+    unknown_distributor = Distributor.find_by(name: "Unknown distributor")
     distributor_id = shipment_params[:distributor_id] ?
       shipment_params[:distributor_id].to_i :
       unknown_distributor.id

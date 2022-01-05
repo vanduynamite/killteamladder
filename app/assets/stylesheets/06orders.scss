@@ -1,0 +1,23 @@
+.item-note {
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.img-action-button-container {
+  align-items: flex-end;
+  display: flex;
+  margin-left: 12px;
+}
+
+.img-action-button-container .img-button {
+  bottom: -4px;
+  position: relative;
+}
+
+.item-name {
+  width: calc(100% - 12px);
+}
+
+.item-qty {
+  width: 60px;
+}

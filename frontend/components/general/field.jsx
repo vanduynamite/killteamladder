@@ -1,10 +1,11 @@
 import React from 'react';
 
 export default function({ fieldName, label, type='text',
-  ctx, disabled=false, maxLength=20 }) {
+  ctx, disabled=false, maxLength=20, extraClasses='' }) {
   const inError = Object.keys(ctx.props.errors).includes(fieldName);
 
-  let klass = inError ? 'error' : '';
+  let klass = extraClasses;
+  if (inError) klass += ' error';
   if (disabled) klass += ' disabled';
 
   const inputLabel = (
@@ -25,7 +26,7 @@ export default function({ fieldName, label, type='text',
       disabled={ disabled }/>;
 
   return (
-    <div className='single-input'>
+    <div className={`${extraClasses} single-input`}>
       { inputLabel }
       { inputField }
     </div>

@@ -37,9 +37,12 @@ export const getOrdermasterItems = (subset) => (dispatch) => {
   );
 };
 
-export const newItems = (items) => (dispatch) => {
+export const newItems = (items, historyPush) => (dispatch) => {
   return OrderItemAPI.newItems(items).then(
-    (payload) => dispatch(receiveOrderItems(payload)),
+    (payload) => {
+      dispatch(receiveOrderItems(payload));
+      historyPush('/orders/');
+    },
     (errors) => dispatch(receiveOrderItemErrors(errors))
   );
 };

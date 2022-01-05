@@ -8,12 +8,16 @@ export const newItems = (items) => {
   //   purchased_in_store: false,
   // }
 
-  // TODO: probably will be receiving a list of objects
-  // need to convert to an object of lists
+  items.name_list = [];
+  items.quantity_list = [];
+  items.note_list = [];
 
-  items.name_list = items.nameList;
-  items.quantity_list = items.quantityList;
-  items.note_list = items.noteList;
+  for (let i = 0; i < items.numberOfItems; i++) {
+    items.name_list.push(items[`name${i}`]);
+    items.quantity_list.push(items[`qty${i}`]);
+    items.note_list.push(items[`note${i}`] || '');
+  }
+
   items.purchased_in_store = items.purchasedInStore;
 
   return $.ajax({

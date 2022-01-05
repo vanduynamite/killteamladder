@@ -60,7 +60,7 @@ class Main extends React.Component {
     const invoices = this.props.invoices;
     const notes = this.props.notes;
     const users = this.props.users;
-    const checkedItems = this.props.checkedItems;
+    const checkedItems = this.props.checkedItems || {};
     const toggleCheckedItem = this.props.toggleCheckedItem;
 
     return Object.keys(statusesToDisplay).map((statusId) => {
