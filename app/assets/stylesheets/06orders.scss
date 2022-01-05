@@ -1,3 +1,13 @@
+.link-titlebar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.link-titlebar h1 {
+  width: auto;
+}
+
 .item-note {
   margin-top: 6px;
   cursor: pointer;
