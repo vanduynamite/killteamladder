@@ -6,6 +6,7 @@ import ButtonLink from '../general/button_link';
 import SubmitButton from '../general/submit_button';
 import FloatingActionButton from '../general/floating_action_button';
 import ImageActionButton from '../general/image_action_button';
+import Checkbox from '../general/checkbox';
 
 class CreateOrder extends React.Component {
 
@@ -20,6 +21,7 @@ class CreateOrder extends React.Component {
       numberOfItems: 1,
       qty0: 1,
       name0: '',
+      purchasedInStore: false,
     });
     // Keeping this for a bit for testing purposes
     // this.setState({
@@ -32,6 +34,7 @@ class CreateOrder extends React.Component {
     //   qty2: 3,
     //   name2: 'item 3',
     //   note2: 'note 3',
+    //   purchasedInStore: true,
     // });
   }
 
@@ -52,6 +55,10 @@ class CreateOrder extends React.Component {
         if (!Number.isInteger(val * 1)) return;
         if (val * 1 < 0) return;
         if (val === '0') return;
+      }
+      if (field === 'purchasedInStore') {
+        this.setState({purchasedInStore: !this.state.purchasedInStore});
+        return;
       }
       if (e.target.value !== 'x') {
         this.setState({ [field]: e.target.value });
@@ -94,6 +101,7 @@ class CreateOrder extends React.Component {
           <div className='inputs'>
             {itemInputs}
           </div>
+          <Checkbox fieldName='purchasedInStore' label='Purchased in store' ctx={this} />
           <div className='form-buttons'>
             <ButtonLink text='Cancel' path='/orders/' type='cancel' />
             <SubmitButton active={ this.formValid() } />
