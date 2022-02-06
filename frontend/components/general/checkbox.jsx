@@ -15,7 +15,7 @@ export default function({ fieldName, label, ctx, disabled=false,
       { label }
     </label>
   );
-  // debugger;
+  
   const inputField =
     <input type='checkbox'
       id={ fieldName }

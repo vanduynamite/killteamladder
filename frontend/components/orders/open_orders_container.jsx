@@ -12,9 +12,7 @@ const msp = (state, ownProps) => {
   const users = state.entities.users;
 
   const orderItemsArray = Object.entries(state.entities.orderItems)
-    .filter((item) => {
-      return item[1].userId === currentUser.id;
-    });
+    .filter((item) => item[1].userId === currentUser.id);
   const orderItems = Object.fromEntries(orderItemsArray);
   const itemNotes = state.entities.itemNotes;
   const distributors = state.entities.distributors;

@@ -47,10 +47,11 @@ export const editItems = (items) => {
   // }
 
   items.item_id_list = items.itemIdList;
-  items.distributor_id = items.distributorId;
-  items.status_id = items.statusId;
+  if (items.distributorId !== 'x') items.distributor_id = items.distributorId;
+  if (items.statusId !== 'x') items.status_id = items.statusId;
   items.purchased_in_store = items.purchasedInStore;
   items.item_code = items.itemCode;
+  if (items.quantity) items.quantity = items.quantity * 1;
 
   return $.ajax({
     method: 'PATCH',

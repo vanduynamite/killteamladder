@@ -75,11 +75,11 @@ class Api::OrderItemsController < ApplicationController
       return false
     end
 
-    @items.update(name: name) if name
-    @items.update(quantity: quantity) if quantity
+    @items.update(name: name) if name != ""
+    @items.update(quantity: quantity) if quantity != ""
     @items.update(distributor: distributor) if distributor
     @items.update(purchased_in_store: purchased_in_store) if purchased_in_store != nil
-    @items.update(item_code: item_code) if item_code
+    @items.update(item_code: item_code) if item_code != ""
     if status
       user = current_user
       @items.each do |item|

@@ -10,8 +10,11 @@ const receiveItemNotes = (data) => {
   };
 };
 
-export const newItemNotes = (notes) => (dispatch) => {
+export const newItemNotes = (notes, historyPush) => (dispatch) => {
   return ItemNoteAPI.newNotes(notes).then(
-    payload => dispatch(receiveItemNotes(payload))
+    payload => {
+      dispatch(receiveItemNotes(payload));
+      if (historyPush) historyPush('/orders/');
+    }
   );
 };

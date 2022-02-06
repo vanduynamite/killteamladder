@@ -23,19 +23,6 @@ class CreateOrder extends React.Component {
       name0: '',
       purchasedInStore: false,
     });
-    // Keeping this for a bit for testing purposes
-    // this.setState({
-    //   numberOfItems: 3,
-    //   qty0: 1,
-    //   name0: 'item 1',
-    //   note0: 'note 1',
-    //   qty1: 2,
-    //   name1: 'item 2',
-    //   qty2: 3,
-    //   name2: 'item 3',
-    //   note2: 'note 3',
-    //   purchasedInStore: true,
-    // });
   }
 
   submit(e) {
@@ -82,7 +69,7 @@ class CreateOrder extends React.Component {
 
   render() {
     if (!this.props.loggedIn) return <EmptyDiv/>;
-    console.log(this.state);
+
     const itemInputs = [];
     for (let i = 0; i < this.state.numberOfItems; i++) {
       itemInputs.push(this.itemFields(i));

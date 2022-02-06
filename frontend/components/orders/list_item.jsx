@@ -39,6 +39,13 @@ const listItem = (data) => {
     );
   });
 
+  const checkSection = data.action ?
+    <div className={`team-rank ${selectedClass}`}>{data.checked ? 'X' : ''}</div> :
+    <EmptyDiv/>;
+
+  // TODO: use a different class to fill the width of the item if there is no
+  // click action.
+
   return (
     <div
       className={`team-list-item ${selectedClass}`}
@@ -60,9 +67,7 @@ const listItem = (data) => {
           </div>
         </div>
       </div>
-      <div className={`team-rank ${selectedClass}`}>
-        {data.checked ? 'X' : ''}
-      </div>
+      {checkSection}
     </div>
   );
 };

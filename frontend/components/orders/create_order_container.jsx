@@ -1,7 +1,6 @@
 import {connect} from 'react-redux';
 import {clearPathHistory} from '../../actions/ui_actions';
 import {newItems} from '../../actions/order_item_actions';
-import {newItemNotes} from '../../actions/item_note_actions';
 import CreateOrder from './create_order';
 
 const msp = (state, ownProps) => {

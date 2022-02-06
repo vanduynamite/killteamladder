@@ -47,9 +47,12 @@ export const newItems = (items, historyPush) => (dispatch) => {
   );
 };
 
-export const editItems = (items) => (dispatch) => {
+export const editItems = (items, historyPush) => (dispatch) => {
   return OrderItemAPI.editItems(items).then(
-    (payload) => dispatch(receiveOrderItems(payload)),
+    (payload) => {
+      dispatch(receiveOrderItems(payload));
+      if (historyPush) historyPush('/orders/');
+    },
     (errors) => dispatch(receiveOrderItemErrors(errors))
   );
 };

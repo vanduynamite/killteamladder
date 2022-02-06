@@ -68,8 +68,12 @@ class Main extends React.Component {
       const itemArray = statusesToDisplay[statusId];
 
       const itemList = itemArray.map((item) => {
+        const actionCb = this.props.toggleCheckedItem ?
+          this.maybeToggleCheckedItem.bind(this, item.id) :
+          undefined;
+
         return <ListItem
-          action={this.maybeToggleCheckedItem.bind(this, item.id)}
+          action={actionCb}
           key={item.id}
           item={item}
           distributor={distributors[item.distributorId]}
