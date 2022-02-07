@@ -49,10 +49,23 @@ class CreateOrder extends React.Component {
 
       // check for new notes
 
-      this.props.editItems(
-        Object.assign({}, this.state),
-        this.props.history.push
-      );
+      if (this.state.note !== '') {
+        this.props.newItemNotes(
+          Object.assign({}, this.state),
+          this.props.history.push
+        );
+      }
+
+      if (this.state.name !== '' ||
+          this.state.quantity !== '' ||
+          this.state.statusId !== 'x' ||
+          this.state.distributorId !== 'x' ||
+          this.state.itemCode !== '') {
+        this.props.editItems(
+          Object.assign({}, this.state),
+          this.props.history.push
+        );
+      }
     }
   }
 
@@ -148,10 +161,20 @@ class CreateOrder extends React.Component {
       type='text'
       extraClasses={'item-qty'}/>;
 
-    const noteEl = <Field  ctx={this}
+    const noteEl = <Field ctx={this}
       fieldName={'note'}
       label='Note'
       maxLength='256' />;
+
+    const statusList = this.getStatusList();
+    let statusEl = <EmptyDiv/>;
+
+    if (statusList.length > 1) {
+      statusEl = <SelectList ctx={this}
+        fieldName={'statusId'}
+        label='Status'
+        optionsList={statusList} />;
+    }
 
     const purchasedInStoreEl = <Checkbox ctx={this}
       fieldName='purchasedInStore'
@@ -164,11 +187,55 @@ class CreateOrder extends React.Component {
           {quantityEl}
         </div>
         {noteEl}
+        {statusEl}
         {purchasedInStoreEl}
       </div>
     );
   }
 
+  getStatusList() {
+    const statusList = [['x','Choose a status']];
+
+    const items = this.props.items;
+    const orderStatuses = this.props.orderStatuses;
+    const changeLinks = this.props.changeLinks;
+
+    const statusIds = {};
+    this.state.itemIdList.map((itemId) => {
+      const statusId = this.props.items[itemId].statusId;
+      if (!statusIds[statusId]) {
+        const toStatuses = {};
+        orderStatuses[statusId].changeLinkIds.forEach((id) => {
+          const changeLink = changeLinks[id];
+          if (changeLink) {
+            const toStatus = orderStatuses[changeLink.toStatusId];
+            toStatuses[toStatus.id] = toStatus;
+          }
+        });
+        statusIds[statusId] = toStatuses;
+      }
+    });
+
+    const statusIdsArray = Object.values(statusIds);
+    if (statusIdsArray.length === 0) return statusList;
+
+    const seedStatus = Object.values(statusIdsArray.pop());
+    seedStatus.forEach((status) => {
+      // see if this status is in all the other statuses
+      let statusPresent = true;
+      for (let i = 0; i < statusIdsArray.length; i++) {
+        const statusListToCheck = statusIdsArray[i];
+        if (!statusListToCheck[status.id]) {
+          statusPresent = false;
+          break;
+        }
+      }
+      if (statusPresent) statusList.push([status.id, status.name]);
+    });
+
+    // dang what's the O(n) on this
+    return statusList;
+  }
 }
 
 export default CreateOrder;

@@ -20,6 +20,7 @@ const msp = (state, ownProps) => {
   const invoices = state.entities.invoices;
   const shipments = state.entities.shipments;
   const orderStatuses = state.entities.orderStatuses;
+  const changeLinks = state.entities.changeLinks;
   const checkedItems = state.ui.checkedItems;
   const errors = state.errors.order_items;
 
@@ -33,6 +34,7 @@ const msp = (state, ownProps) => {
     invoices,
     shipments,
     orderStatuses,
+    changeLinks,
     checkedItems,
     errors,
   };
