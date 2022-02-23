@@ -25,6 +25,12 @@ const ladderPic = (fullPath) => {
           <img src={ window.orders_icon } id='logo' />
         </Link>
       );
+    case '/ordermaster':
+      return(
+        <Link to='/ordermaster/'>
+          <img src={ window.orders_icon } id='logo' />
+        </Link>
+      );
     case '/killteam':
       return (
         <Link to='/killteam/'>
@@ -91,7 +97,7 @@ const navButtons = (fullPath, loggedIn) => {
 
 const accountAndMatchButtons = (ladder) => {
   const newLink =
-    <Link to={ladder !== '/orders' ? `${ladder}/match/new` : '/orders/new'}>
+    <Link to={ladder !== '/orders' && ladder !== '/ordermaster' ? `${ladder}/match/new` : `${ladder}/new`}>
       <img src={ window.add } className='img-button' />
     </Link>;
 

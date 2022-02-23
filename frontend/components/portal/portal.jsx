@@ -18,6 +18,10 @@ class Portal extends React.Component {
           <Link to='/orders/'>
             <img src={ window.orders_icon } id='logo' />
           </Link>
+          <h2>Ordermaster</h2>
+          <Link to='/ordermaster/'>
+            <img src={ window.orders_icon } id='logo' />
+          </Link>
           <h2>Killteam Ladder</h2>
           <Link to='/killteam/'>
             <img src={ window.killteam_logo } id='logo' />
