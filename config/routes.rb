@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :shipments, only: [:create]
     resources :order_items, only: [:create, :index]
     patch :order_items, to: 'order_items#update'
+    get :open_items, to: 'order_items#open_items'
     get :new_items, to: 'order_items#new_items'
     get :invoiced_items, to: 'order_items#invoiced_items'
     get :ordered_items, to: 'order_items#ordered_items'

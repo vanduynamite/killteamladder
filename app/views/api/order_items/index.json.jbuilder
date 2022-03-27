@@ -3,7 +3,7 @@ distributors = Distributor.where(items: @items)
 invoices = Invoice.where(items: @items)
 shipments = Shipment.where(items: @items)
 notes = ItemNote.where(item: @items)
-users = User.where(item_notes: notes).or(User.where(id: @user.id))
+users = User.where(item_notes: notes).or(User.where(id: @user.id)).or(User.where(items: @items))
 statuses = OrderStatus.all.includes(:acceptable_status_change_links)
 status_changes = @user.ordermaster ?
   AcceptableStatusChange.all :

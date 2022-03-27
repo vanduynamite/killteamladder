@@ -97,6 +97,20 @@ class Api::OrderItemsController < ApplicationController
     render 'api/order_items/index.json.jbuilder'
   end
 
+  def open_items
+    ordermaster_index([
+      "awaiting_invoice",
+      "awaiting_order",
+      "awaiting_preorder",
+      "preordered",
+      "ordered",
+      "shipped",
+      "backordered",
+      "awaiting_refund",
+      "unknown",
+    ])
+  end
+
   def new_items
     ordermaster_index(["awaiting_invoice"])
   end

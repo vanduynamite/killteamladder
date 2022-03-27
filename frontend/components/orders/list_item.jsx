@@ -10,10 +10,9 @@ const listItem = (data) => {
 
   const selectedClass = data.checked ? 'dark-theme' : '';
   const dateCreatedString = new Date(item.dateCreated).toDateString();
-
-  const userInfo = currentUser === owner ?
-    <EmptyDiv/> :
-    <div><b>{`${owner.firstName} ${owner.lastName}`}</b></div>;
+  const userInfo = currentUser.ordermaster ?
+    <div><b>{`${owner.firstName} ${owner.lastName}`}</b></div> :
+    <EmptyDiv/>;
 
   const distributor = item.inStorePurchase ?
     <div>{'Purchased in store'}</div> :

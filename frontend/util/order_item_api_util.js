@@ -63,6 +63,7 @@ export const editItems = (items) => {
 export const getOrdermasterItems = (subset) => {
 
   // acceptable subset values:
+  // 'open_items'
   // 'new_items'
   // 'invoiced_items'
   // 'ordered_items'

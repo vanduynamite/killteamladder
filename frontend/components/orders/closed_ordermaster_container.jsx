@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {clearPathHistory, toggleCheckedItem, clearCheckedItems} from '../../actions/ui_actions';
-import {getItems} from '../../actions/order_item_actions';
+import {getOrdermasterItems} from '../../actions/order_item_actions';
 import Main from './order_main';
 
 const msp = (state, ownProps) => {
@@ -52,7 +52,7 @@ const mdp = dispatch => {
   return {
     clearPathHistory: () => dispatch(clearPathHistory()),
     clearCheckedItems: () => dispatch(clearCheckedItems()),
-    getItems: () => dispatch(getItems()),
+    getItems: () => dispatch(getOrdermasterItems('completed_items')),
   };
 };
 
