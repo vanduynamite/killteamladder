@@ -37,8 +37,11 @@ class Main extends React.Component {
       (<Link to={screenData.topLink.link} >{screenData.topLink.text}</Link>) :
       (<EmptyDiv/>);
 
+    const editButtonPath = this.props.currentUser.ordermaster ?
+      '/ordermaster/edit' :
+      '/orders/edit';
     const editButton = this.props.checkedItems && Object.keys(this.props.checkedItems).length !== 0 ?
-      <FloatingImageButton path={'/orders/edit'} image={window.edit} /> :
+      <FloatingImageButton path={editButtonPath} image={window.edit} /> :
       <EmptyDiv/> ;
 
     return (

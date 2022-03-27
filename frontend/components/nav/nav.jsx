@@ -28,7 +28,7 @@ const ladderPic = (fullPath) => {
     case '/ordermaster':
       return(
         <Link to='/ordermaster/'>
-          <img src={ window.orders_icon } id='logo' />
+          <img src={ window.carcosa_logo } id='logo' />
         </Link>
       );
     case '/killteam':
