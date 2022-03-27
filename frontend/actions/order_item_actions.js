@@ -37,21 +37,21 @@ export const getOrdermasterItems = (subset) => (dispatch) => {
   );
 };
 
-export const newItems = (items, historyPush) => (dispatch) => {
+export const newItems = (items, historyPush, ladder) => (dispatch) => {
   return OrderItemAPI.newItems(items).then(
     (payload) => {
       dispatch(receiveOrderItems(payload));
-      historyPush('/orders/');
+      historyPush(ladder);
     },
     (errors) => dispatch(receiveOrderItemErrors(errors))
   );
 };
 
-export const editItems = (items, historyPush) => (dispatch) => {
+export const editItems = (items, historyPush, ladder) => (dispatch) => {
   return OrderItemAPI.editItems(items).then(
     (payload) => {
       dispatch(receiveOrderItems(payload));
-      if (historyPush) historyPush('/orders/');
+      if (historyPush) historyPush(ladder);
     },
     (errors) => dispatch(receiveOrderItemErrors(errors))
   );

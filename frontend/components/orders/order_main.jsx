@@ -38,8 +38,7 @@ class Main extends React.Component {
       (<EmptyDiv/>);
 
     const editButtonPath = this.props.currentUser.ordermaster ?
-      '/ordermaster/edit' :
-      '/orders/edit';
+      '/ordermaster/edit' : '/orders/edit';
     const editButton = this.props.checkedItems && Object.keys(this.props.checkedItems).length !== 0 ?
       <FloatingImageButton path={editButtonPath} image={window.edit} /> :
       <EmptyDiv/> ;

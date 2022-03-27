@@ -19,10 +19,11 @@ const msp = (state, ownProps) => {
   };
 };
 
-const mdp = dispatch => {
+const mdp = (dispatch, ownProps) => {
+  const ladder = ownProps.match.path.slice(0,ownProps.match.path.indexOf('/', 1)) + '/';
   return {
     clearPathHistory: () => dispatch(clearPathHistory()),
-    newItems: (items, historyPush) => dispatch(newItems(items, historyPush)),
+    newItems: (items, historyPush) => dispatch(newItems(items, historyPush, ladder)),
   };
 };
 

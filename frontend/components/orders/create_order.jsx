@@ -79,6 +79,9 @@ class CreateOrder extends React.Component {
       <FloatingActionButton action={this.addItem.bind(this)} image={window.add} /> :
       <EmptyDiv/>;
 
+    const cancelButtonLink = this.props.currentUser.ordermaster ?
+      '/ordermaster/' : '/orders/';
+
     return (
       <div className='frame'>
         <h1>New order</h1>
@@ -90,7 +93,7 @@ class CreateOrder extends React.Component {
           </div>
           <Checkbox fieldName='purchasedInStore' label='Purchased in store' ctx={this} />
           <div className='form-buttons'>
-            <ButtonLink text='Cancel' path='/orders/' type='cancel' />
+            <ButtonLink text='Cancel' path={cancelButtonLink} type='cancel' />
             <SubmitButton active={ this.formValid() } />
           </div>
         </form>

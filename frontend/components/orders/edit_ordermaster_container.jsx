@@ -41,8 +41,8 @@ const msp = (state, ownProps) => {
 const mdp = dispatch => {
   return {
     clearPathHistory: () => dispatch(clearPathHistory()),
-    editItems: (items, historyPush) => dispatch(editItems(items, historyPush)),
-    newItemNotes: (items, historyPush) => dispatch(newItemNotes(items, historyPush)),
+    editItems: (items, historyPush) => dispatch(editItems(items, historyPush, '/ordermaster/')),
+    newItemNotes: (items, historyPush) => dispatch(newItemNotes(items, historyPush, '/ordermaster/')),
   };
 };
 

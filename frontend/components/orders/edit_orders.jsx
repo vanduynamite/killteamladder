@@ -110,6 +110,9 @@ class CreateOrder extends React.Component {
   render() {
     if (!this.props.loggedIn) return <EmptyDiv/>;
 
+    const cancelButtonLink = this.props.currentUser.ordermaster ?
+      '/ordermaster/' : '/orders/';
+
     return (
       <div className='frame'>
         <h1>Edit orders</h1>
@@ -122,7 +125,7 @@ class CreateOrder extends React.Component {
             {this.itemFields()}
           </div>
           <div className='form-buttons'>
-            <ButtonLink text='Cancel' path='/orders/' type='cancel' />
+            <ButtonLink text='Cancel' path={cancelButtonLink} type='cancel' />
             <SubmitButton active={ this.formValid() } />
           </div>
         </form>

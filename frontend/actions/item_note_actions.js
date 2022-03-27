@@ -10,11 +10,11 @@ const receiveItemNotes = (data) => {
   };
 };
 
-export const newItemNotes = (notes, historyPush) => (dispatch) => {
+export const newItemNotes = (notes, historyPush, ladder) => (dispatch) => {
   return ItemNoteAPI.newNotes(notes).then(
     payload => {
       dispatch(receiveItemNotes(payload));
-      if (historyPush) historyPush('/orders/');
+      if (historyPush) historyPush(ladder);
     }
   );
 };
