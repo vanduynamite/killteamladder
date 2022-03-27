@@ -1,10 +1,11 @@
 import React from 'react';
+import ButtonLink from '../general/button_link';
 import ListItem from './list_item';
 import {Link} from 'react-router-dom';
 import EmptyDiv from '../general/empty_div';
 import FloatingImageButton from '../general/floating_image_button';
 
-class Main extends React.Component {
+class InvoiceItems extends React.Component {
 
   constructor(props) {
     super(props);
@@ -47,6 +48,7 @@ class Main extends React.Component {
           <h1>{screenData.title}</h1>
           {titlebarLink}
         </div>
+        { this.ordermasterNavigation() }
         <div id={'ranking-list'}>
           { this.orderList(usersToDisplay) }
         </div>
@@ -102,11 +104,27 @@ class Main extends React.Component {
 
     const userIds = {};
     Object.keys(this.props.checkedItems).forEach((itemId) => {
-      userIds[this.props.items[itemId].userId] = true;
+      const item = this.props.items[itemId];
+      if (!item) return;
+      userIds[item.userId] = true;
     });
 
     return Object.keys(userIds).length === 1;
   }
+
+  ordermasterNavigation() {
+    if (!this.props.currentUser.ordermaster) {
+      return <EmptyDiv/>;
+    }
+
+    const buttons = this.props.screenData.ordermasterNavButtons.map((button) => {
+      const className = button.active ?
+        'ordermaster-button submit-active' :
+        'ordermaster-button submit-deactive';
+      return <ButtonLink text={button.text} path={button.path} type={className} />;
+    });
+    return <div className='ordermaster-nav'>{buttons}</div>;
+  }
 }
 
-export default Main;
+export default InvoiceItems;

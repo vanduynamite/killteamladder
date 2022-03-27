@@ -7,8 +7,7 @@ const msp = (state, ownProps) => {
   const loggedIn = state.session.id !== undefined && state.session.id !== null;
   if (!loggedIn) return {loggedIn};
 
-  let currentUser;
-  if (loggedIn) currentUser = state.entities.users[state.session.id];
+  const currentUser = state.entities.users[state.session.id];
   const users = state.entities.users;
 
   const orderItems = state.entities.orderItems;
@@ -17,8 +16,17 @@ const msp = (state, ownProps) => {
   const invoices = state.entities.invoices;
   const shipments = state.entities.shipments;
   const orderStatuses = state.entities.orderStatuses;
-
   const checkedItems = state.ui.checkedItems;
+
+  const statusNamesToInclude = [
+    'ordered',
+    'preordered',
+  ];
+  const itemsToInclude = Object.fromEntries(
+    Object.entries(orderItems).filter((item) => {
+      const statusName = orderStatuses[item[1].statusId].searchName;
+      return statusNamesToInclude.includes(statusName);
+    }));
   const statusesToInclude = Object.fromEntries(
     Object.entries(orderStatuses).filter((status) => {
       return status[1].complete === false;
@@ -27,17 +35,17 @@ const msp = (state, ownProps) => {
   const ordermasterNavButtons = [
     {text: 'Invoice', path: '/ordermaster/invoice', active: true},
     {text: 'Order', path: '/ordermaster/order', active: true},
-    {text: 'Ship', path: '/ordermaster/ship', active: true},
+    {text: 'Ship', path: '/ordermaster/ship', active: false},
     {text: 'Deliver', path: '/ordermaster/deliver', active: true},
   ];
 
   const screenData = {
-    title: 'Open orders',
+    title: 'Ship items',
     statusesToInclude,
     ordermasterNavButtons,
     topLink : {
-      text: 'Completed orders >',
-      link: '/ordermaster/closed',
+      text: '< All open orders',
+      link: '/ordermaster/',
     },
   };
 
@@ -46,7 +54,7 @@ const msp = (state, ownProps) => {
     loggedIn,
     currentUser,
     users,
-    items: orderItems,
+    items: itemsToInclude,
     notes: itemNotes,
     distributors,
     invoices,
@@ -61,7 +69,7 @@ const mdp = dispatch => {
     clearPathHistory: () => dispatch(clearPathHistory()),
     toggleCheckedItem: (itemId) => dispatch(toggleCheckedItem(itemId)),
     clearCheckedItems: () => dispatch(clearCheckedItems()),
-    getItems: () => dispatch(getOrdermasterItems('open_items')),
+    getItems: () => dispatch(getOrdermasterItems('ordered_items')),
   };
 };
 

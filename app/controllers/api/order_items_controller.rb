@@ -125,7 +125,7 @@ class Api::OrderItemsController < ApplicationController
   end
 
   def ordered_items
-    ordermaster_index(["ordered"])
+    ordermaster_index(["ordered", "preordered"])
   end
 
   def shipped_items

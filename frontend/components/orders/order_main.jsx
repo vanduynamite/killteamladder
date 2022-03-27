@@ -99,16 +99,18 @@ class Main extends React.Component {
   }
 
   ordermasterNavigation() {
-    if (!this.props.currentUser.ordermaster) {
+    if (!this.props.currentUser.ordermaster ||
+      !this.props.screenData.ordermasterNavButtons) {
       return <EmptyDiv/>;
     }
 
-    return (
-      <div className='ordermaster-nav'>
-        <ButtonLink text='Create invoices' path='/ordermaster/invoices' />
-        <ButtonLink text='Create shipments' path='/ordermaster/invoices' />
-      </div>
-    );
+    const buttons = this.props.screenData.ordermasterNavButtons.map((button) => {
+      const className = button.active ?
+        'ordermaster-button submit-active' :
+        'ordermaster-button submit-deactive';
+      return <ButtonLink text={button.text} path={button.path} type={className} />;
+    });
+    return <div className='ordermaster-nav'>{buttons}</div>;
   }
 
   maybeToggleCheckedItem(itemId) {
