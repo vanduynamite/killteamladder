@@ -1,5 +1,4 @@
 import React from 'react';
-import ButtonLink from '../general/button_link';
 import ListItem from './list_item';
 import {Link} from 'react-router-dom';
 import EmptyDiv from '../general/empty_div';
@@ -21,27 +20,25 @@ class Main extends React.Component {
     if (!this.props.loggedIn) return <EmptyDiv/>;
 
     const items = this.props.items;
-    const statuses = this.props.statuses;
     const screenData = this.props.screenData;
 
-    const statusesToInclude = screenData.statusesToInclude;
-    const statusesToDisplay = {};
+    const usersToInclude = this.props.users;
+    const usersToDisplay = {};
     Object.values(items).forEach((item) => {
-      if (!statusesToInclude[item.statusId]) return;
-      if (!statusesToDisplay[item.statusId]) {
-        statusesToDisplay[item.statusId] = [];
+      if (!usersToInclude[item.userId]) return;
+      if (!usersToDisplay[item.userId]) {
+        usersToDisplay[item.userId] = [];
       }
-      statusesToDisplay[item.statusId].push(item);
+      usersToDisplay[item.userId].push(item);
     });
 
     const titlebarLink = screenData.topLink ?
       (<Link to={screenData.topLink.link} >{screenData.topLink.text}</Link>) :
       (<EmptyDiv/>);
 
-    const editButtonPath = this.props.currentUser.ordermaster ?
-      '/ordermaster/edit' : '/orders/edit';
-    const editButton = this.props.checkedItems && Object.keys(this.props.checkedItems).length !== 0 ?
-      <FloatingImageButton path={editButtonPath} image={window.edit} /> :
+    const buttonPath = '/ordermaster/createinvoice';
+    const fab =  this.shouldShowFab() ?
+      <FloatingImageButton path={buttonPath} image={window.add} /> :
       <EmptyDiv/> ;
 
     return (
@@ -50,26 +47,24 @@ class Main extends React.Component {
           <h1>{screenData.title}</h1>
           {titlebarLink}
         </div>
-        { this.ordermasterNavigation() }
         <div id={'ranking-list'}>
-          { this.orderList(statusesToDisplay) }
+          { this.orderList(usersToDisplay) }
         </div>
-        {editButton}
+        {fab}
       </div>
     );
   }
 
-  orderList(statusesToDisplay) {
+  orderList(usersToDisplay) {
     const distributors = this.props.distributors;
-    const invoices = this.props.invoices;
     const notes = this.props.notes;
     const users = this.props.users;
     const checkedItems = this.props.checkedItems || {};
     const toggleCheckedItem = this.props.toggleCheckedItem;
 
-    return Object.keys(statusesToDisplay).map((statusId) => {
-      const status = this.props.statuses[statusId];
-      const itemArray = statusesToDisplay[statusId];
+    return Object.keys(usersToDisplay).map((userId) => {
+      const user = this.props.users[userId];
+      const itemArray = usersToDisplay[userId];
 
       const itemList = itemArray.map((item) => {
         const actionCb = this.props.toggleCheckedItem ?
@@ -81,7 +76,6 @@ class Main extends React.Component {
           key={item.id}
           item={item}
           distributor={distributors[item.distributorId]}
-          invoice={invoices[item.invoiceId]}
           notes={notes}
           checked={checkedItems[item.id]}
           users={users}
@@ -89,8 +83,8 @@ class Main extends React.Component {
       });
 
       return (
-        <div key={status.id}>
-          <h2>{status.name}</h2>
+        <div key={user.id}>
+          <h2>{`${user.firstName} ${user.lastName}`}</h2>
           {itemList}
         </div>
       );
@@ -98,22 +92,20 @@ class Main extends React.Component {
     });
   }
 
-  ordermasterNavigation() {
-    if (!this.props.currentUser.ordermaster) {
-      return <EmptyDiv/>;
-    }
-
-    return (
-      <div className='ordermaster-nav'>
-        <ButtonLink text='Create invoices' path='/ordermaster/invoices' />
-        <ButtonLink text='Create shipments' path='/ordermaster/invoices' />
-      </div>
-    );
-  }
-
   maybeToggleCheckedItem(itemId) {
     // Nothing here yet, but maybe in the future
     this.props.toggleCheckedItem(itemId);
+  }
+
+  shouldShowFab() {
+    if (!this.props.checkedItems) return false;
+
+    const userIds = {};
+    Object.keys(this.props.checkedItems).forEach((itemId) => {
+      userIds[this.props.items[itemId].userId] = true;
+    });
+
+    return Object.keys(userIds).length === 1;
   }
 }
 
