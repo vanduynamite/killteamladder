@@ -21,6 +21,11 @@ class Api::InvoicesController < ApplicationController
       return
     end
 
+    if invoice_params[:carcosa_id] && invoice_params[:carcosa_id].slice(0,3) != "CO#"
+      render json: ['Carcosa number must begin with CO#'], status: 422
+      return
+    end
+
     @invoice = Invoice.new(
       carcosa_id: invoice_params[:carcosa_id],
       square_id: invoice_params[:square_id],

@@ -18,9 +18,12 @@ const receiveInvoiceErrors = (errors) => {
   };
 };
 
-export const newInvoice = (invoice) => (dispatch) => {
+export const newInvoice = (invoice, historyPush, path) => (dispatch) => {
   return InvoiceAPI.newInvoice(invoice).then(
-    (payload) => dispatch(receiveInvoice(payload)),
+    (payload) => {
+      dispatch(receiveInvoice(payload));
+      if (historyPush) historyPush(path);
+    },
     (errors) => dispatch(receiveInvoiceErrors(errors))
   );
 };

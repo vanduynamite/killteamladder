@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import Account from './account/account_container';
 import ClosedOrders from './orders/closed_ordermaster_container';
+import CreateInvoice from './orders/create_invoice_container';
 import CreateOrder from './orders/create_order_container';
 import DeliverItems from './orders/deliver_items_container';
 import EditAccount from './account/edit_account_container';
@@ -28,7 +29,7 @@ class Ordermaster extends React.Component {
         <Route path={ '/ordermaster/new' } component={ CreateOrder } />
         <Route path={ '/ordermaster/edit' } component={ EditOrders } />
         <Route path={ '/ordermaster/invoice' } component={ InvoiceItems } />
-        <Route path={ '/ordermaster/createinvoice' } component={ InvoiceItems } />
+        <Route path={ '/ordermaster/createinvoice' } component={ CreateInvoice } />
         <Route path={ '/ordermaster/order' } component={ OrderItems } />
         <Route path={ '/ordermaster/ship' } component={ ShipItems } />
         <Route path={ '/ordermaster/deliver' } component={ DeliverItems } />

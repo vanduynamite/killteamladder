@@ -9,7 +9,7 @@ import FloatingActionButton from '../general/floating_action_button';
 import ImageActionButton from '../general/image_action_button';
 import Checkbox from '../general/checkbox';
 
-class CreateOrder extends React.Component {
+class EditOrder extends React.Component {
 
   constructor(props) {
     super(props);
@@ -116,6 +116,7 @@ class CreateOrder extends React.Component {
     return (
       <div className='frame'>
         <h1>Edit orders</h1>
+        { this.errorSection() }
         <h2>Items to update</h2>
         {this.itemList()}
         <form onSubmit={ this.submit.bind(this) } autoComplete='off'>
@@ -239,6 +240,16 @@ class CreateOrder extends React.Component {
     // dang what's the O(n) on this
     return statusList;
   }
+
+  errorSection() {
+    const errors = Object.values(this.props.errors);
+
+    if (errors.length === 0) {
+      return;
+    } else {
+      return (<div id='errors'>{ errors }</div>);
+    }
+  }
 }
 
-export default CreateOrder;
+export default EditOrder;

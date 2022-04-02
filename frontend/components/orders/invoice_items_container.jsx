@@ -14,6 +14,7 @@ const msp = (state, ownProps) => {
   const itemNotes = state.entities.itemNotes;
   const distributors = state.entities.distributors;
   const orderStatuses = state.entities.orderStatuses;
+  const invoices = state.entities.invoices;
 
   const checkedItems = state.ui.checkedItems;
   const itemsToInclude = Object.fromEntries(
@@ -42,6 +43,7 @@ const msp = (state, ownProps) => {
     loggedIn,
     currentUser,
     users,
+    invoices,
     items: itemsToInclude,
     notes: itemNotes,
     distributors,

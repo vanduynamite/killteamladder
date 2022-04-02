@@ -61,6 +61,7 @@ class InvoiceItems extends React.Component {
     const distributors = this.props.distributors;
     const notes = this.props.notes;
     const users = this.props.users;
+    const invoices = this.props.invoices;
     const checkedItems = this.props.checkedItems || {};
     const toggleCheckedItem = this.props.toggleCheckedItem;
 
@@ -77,6 +78,7 @@ class InvoiceItems extends React.Component {
           action={actionCb}
           key={item.id}
           item={item}
+          invoice={invoices[item.invoiceId]}
           distributor={distributors[item.distributorId]}
           notes={notes}
           checked={checkedItems[item.id]}

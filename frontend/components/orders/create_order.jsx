@@ -85,6 +85,7 @@ class CreateOrder extends React.Component {
     return (
       <div className='frame'>
         <h1>New order</h1>
+        { this.errorSection() }
         <form onSubmit={ this.submit.bind(this) } autoComplete='off'>
           <input autoComplete='false' name='hidden'
             type='text' style={{ display:'none' }} />
@@ -159,6 +160,16 @@ class CreateOrder extends React.Component {
       [qtyField]: undefined,
       [noteField]: undefined,
     });
+  }
+
+  errorSection() {
+    const errors = Object.values(this.props.errors);
+
+    if (errors.length === 0) {
+      return;
+    } else {
+      return (<div id='errors'>{ errors }</div>);
+    }
   }
 
 }

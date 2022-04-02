@@ -8,7 +8,7 @@ export const newInvoice = (invoice) => {
   // }
 
   invoice.carcosa_id = invoice.carcosaId;
-  invoice.square_id = invoice.squareId;
+  if (invoice.squareId !== '') invoice.square_id = invoice.squareId;
   invoice.item_id_list = invoice.itemIdList;
 
   return $.ajax({

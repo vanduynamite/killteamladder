@@ -28,6 +28,7 @@ const errorFieldMap = {
   "Not all of these items are awaiting invoice": "itemIdList",
   "Carcosa number has already been taken": "carcosaId",
   "Carcosa number can't be blank": "carcosaId",
+  "Carcosa number must begin with CO#": "carcosaId",
 };
 
 export default invoicesErrorsReducer;
