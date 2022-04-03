@@ -74,7 +74,6 @@ class CreateInvoice extends React.Component {
   formValid() {
     if (!this.state.itemIdList) return false;
     if (this.state.itemIdList.length === 0) return false;
-    if (this.state.carcosaId === '') return false;
 
     return true;
   }
@@ -125,7 +124,7 @@ class CreateInvoice extends React.Component {
   itemFields() {
     const carcosaIdEl = <Field ctx={this}
       fieldName={'carcosaId'}
-      label={'Carcosa order ID'}
+      label={'Carcosa order ID (override)'}
       maxLength='10' />;
 
     const squareIdEl = <Field ctx={this}

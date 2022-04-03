@@ -7,7 +7,7 @@ export const newInvoice = (invoice) => {
   //   item_id_list: [1, 2, 3],
   // }
 
-  invoice.carcosa_id = invoice.carcosaId;
+  if (invoice.carcosaId !== '') invoice.carcosa_id = invoice.carcosaId;
   if (invoice.squareId !== '') invoice.square_id = invoice.squareId;
   invoice.item_id_list = invoice.itemIdList;
 

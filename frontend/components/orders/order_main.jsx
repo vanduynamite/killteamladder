@@ -9,6 +9,7 @@ class Main extends React.Component {
 
   constructor(props) {
     super(props);
+    this.groupIdField = this.props.screenData.initialGroupIdField;
   }
 
   componentDidMount() {
@@ -20,19 +21,7 @@ class Main extends React.Component {
   render() {
     if (!this.props.loggedIn) return <EmptyDiv/>;
 
-    const items = this.props.items;
-    const statuses = this.props.statuses;
     const screenData = this.props.screenData;
-
-    const statusesToInclude = screenData.statusesToInclude;
-    const statusesToDisplay = {};
-    Object.values(items).forEach((item) => {
-      if (!statusesToInclude[item.statusId]) return;
-      if (!statusesToDisplay[item.statusId]) {
-        statusesToDisplay[item.statusId] = [];
-      }
-      statusesToDisplay[item.statusId].push(item);
-    });
 
     const titlebarLink = screenData.topLink ?
       (<Link to={screenData.topLink.link} >{screenData.topLink.text}</Link>) :
@@ -52,50 +41,96 @@ class Main extends React.Component {
         </div>
         { this.ordermasterNavigation() }
         <div id={'ranking-list'}>
-          { this.orderList(statusesToDisplay) }
+          { this.getOrderList() }
         </div>
         {editButton}
       </div>
     );
   }
 
-  orderList(statusesToDisplay) {
+  getOrderList() {
+    const groupsToDisplay = this.getGroupsToDisplay();
+    const itemList = this.getGroupedOrderList(groupsToDisplay);
+    return itemList;
+  }
+
+  getGroupsToDisplay() {
+    const items = this.props.items;
+    const groupIdField = this.groupIdField;
+
+    const groupsToDisplay = {};
+    Object.values(items).forEach((item) => {
+      const entityId = item[groupIdField];
+      if (!groupsToDisplay[entityId]) {
+        groupsToDisplay[entityId] = [];
+      }
+      groupsToDisplay[entityId].push(item);
+    });
+
+    return groupsToDisplay;
+  }
+
+  getGroupedOrderList(groups) {
+    return Object.keys(groups).map((groupId) => {
+      return this.getOneGroupList(groups[groupId]);
+    });
+  }
+
+  getOneGroupList(itemArray) {
+    const checkedItems = this.props.checkedItems || {};
     const distributors = this.props.distributors;
     const invoices = this.props.invoices;
     const notes = this.props.notes;
     const users = this.props.users;
-    const checkedItems = this.props.checkedItems || {};
-    const toggleCheckedItem = this.props.toggleCheckedItem;
 
-    return Object.keys(statusesToDisplay).map((statusId) => {
-      const status = this.props.statuses[statusId];
-      const itemArray = statusesToDisplay[statusId];
+    const itemList = itemArray.map((item) => {
+      const actionCb = this.props.toggleCheckedItem ?
+        this.maybeToggleCheckedItem.bind(this, item.id) :
+        undefined;
 
-      const itemList = itemArray.map((item) => {
-        const actionCb = this.props.toggleCheckedItem ?
-          this.maybeToggleCheckedItem.bind(this, item.id) :
-          undefined;
-
-        return <ListItem
-          action={actionCb}
-          key={item.id}
-          item={item}
-          distributor={distributors[item.distributorId]}
-          invoice={invoices[item.invoiceId]}
-          notes={notes}
-          checked={checkedItems[item.id]}
-          users={users}
-          currentUser={this.props.currentUser} />;
-      });
-
-      return (
-        <div key={status.id}>
-          <h2>{status.name}</h2>
-          {itemList}
-        </div>
-      );
-
+      return <ListItem
+        action={actionCb}
+        key={"item" + item.id}
+        item={item}
+        distributor={distributors[item.distributorId]}
+        invoice={invoices[item.invoiceId]}
+        notes={notes}
+        checked={checkedItems[item.id]}
+        users={users}
+        currentUser={this.props.currentUser} />;
     });
+
+    const groupKey = itemArray[0][this.groupIdField];
+    const groupName = this.getGroupName(this.groupIdField, groupKey);
+
+    return (
+      <div key={"group" + groupKey}>
+        <h2>{groupName}</h2>
+        {itemList}
+      </div>
+    );
+  }
+
+  getGroupName(groupIdField, groupId) {
+    if (!groupId) return 'Unknown group';
+    
+    switch (groupIdField) {
+      case 'distributorId':
+        return this.props.distributors[groupId].name;
+
+      case 'invoiceId':
+        return this.props.invoices[groupId].carcosaId;
+
+      case 'statusId':
+        return this.props.statuses[groupId].name;
+
+      case 'userId':
+        const user = this.props.users[groupId];
+        return `${user.firstName} ${user.lastName}`;
+
+      default:
+        return 'Unknown group';
+    }
   }
 
   ordermasterNavigation() {

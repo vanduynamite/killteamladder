@@ -19,34 +19,37 @@ const msp = (state, ownProps) => {
   const invoices = state.entities.invoices;
   const shipments = state.entities.shipments;
   const orderStatuses = state.entities.orderStatuses;
-
   const checkedItems = state.ui.checkedItems;
-  const statusesToInclude = Object.fromEntries(
-    Object.entries(orderStatuses).filter((status) => {
-      return status[1].complete === false;
+
+  const statusIdsToInclude = Object.keys(orderStatuses).filter((statusId) => {
+    return orderStatuses[statusId].complete === false;
+  });
+  const itemsToInclude = Object.fromEntries(
+    Object.entries(orderItems).filter((item) => {
+      return statusIdsToInclude.includes(String(item[1].statusId));
     }));
 
   const screenData = {
     title: 'Open orders',
-    statusesToInclude,
     topLink : {
       text: 'Completed orders >',
       link: '/orders/closed',
     },
+    initialGroupIdField: 'statusId',
   };
 
   return {
-    screenData,
-    loggedIn,
+    checkedItems,
     currentUser,
-    users,
-    items: orderItems,
-    notes: itemNotes,
     distributors,
     invoices,
+    loggedIn,
+    items: itemsToInclude,
+    notes: itemNotes,
+    screenData,
     shipments,
     statuses: orderStatuses,
-    checkedItems,
+    users,
   };
 };
 

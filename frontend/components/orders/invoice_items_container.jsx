@@ -23,7 +23,7 @@ const msp = (state, ownProps) => {
     }));
 
   const ordermasterNavButtons = [
-    {text: 'Invoice', path: '/ordermaster/invoice', active: false},
+    {text: 'Invoice', path: '/ordermaster/', active: false},
     {text: 'Order', path: '/ordermaster/order', active: true},
     {text: 'Ship', path: '/ordermaster/ship', active: true},
     {text: 'Deliver', path: '/ordermaster/deliver', active: true},
@@ -33,9 +33,10 @@ const msp = (state, ownProps) => {
     title: 'Create invoices',
     ordermasterNavButtons,
     topLink : {
-      text: '< All open orders',
-      link: '/ordermaster/',
+      text: 'Completed orders >',
+      link: '/ordermaster/closed',
     },
+    initialGroupIdField: 'userId',
   };
 
   return {

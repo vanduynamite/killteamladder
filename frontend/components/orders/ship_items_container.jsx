@@ -18,49 +18,45 @@ const msp = (state, ownProps) => {
   const orderStatuses = state.entities.orderStatuses;
   const checkedItems = state.ui.checkedItems;
 
-  const statusNamesToInclude = [
+  const statusesToInclude = [
     'ordered',
     'preordered',
   ];
   const itemsToInclude = Object.fromEntries(
     Object.entries(orderItems).filter((item) => {
       const statusName = orderStatuses[item[1].statusId].searchName;
-      return statusNamesToInclude.includes(statusName);
-    }));
-  const statusesToInclude = Object.fromEntries(
-    Object.entries(orderStatuses).filter((status) => {
-      return status[1].complete === false;
+      return statusesToInclude.includes(statusName);
     }));
 
   const ordermasterNavButtons = [
     {text: 'Invoice', path: '/ordermaster/invoice', active: true},
     {text: 'Order', path: '/ordermaster/order', active: true},
-    {text: 'Ship', path: '/ordermaster/ship', active: false},
+    {text: 'Ship', path: '/ordermaster/', active: false},
     {text: 'Deliver', path: '/ordermaster/deliver', active: true},
   ];
 
   const screenData = {
     title: 'Ship items',
-    statusesToInclude,
     ordermasterNavButtons,
     topLink : {
-      text: '< All open orders',
-      link: '/ordermaster/',
+      text: 'Completed orders >',
+      link: '/ordermaster/closed',
     },
+    initialGroupIdField: 'statusId',
   };
 
   return {
-    screenData,
-    loggedIn,
+    checkedItems,
     currentUser,
-    users,
-    items: itemsToInclude,
-    notes: itemNotes,
     distributors,
     invoices,
+    loggedIn,
+    items: itemsToInclude,
+    notes: itemNotes,
+    screenData,
     shipments,
     statuses: orderStatuses,
-    checkedItems,
+    users,
   };
 };
 
