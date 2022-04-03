@@ -27,7 +27,7 @@ class Api::InvoicesController < ApplicationController
     end
 
     @invoice = Invoice.new(
-      carcosa_id: invoice_params[:carcosa_id],
+      carcosa_id: get_carcosa_id(),
       square_id: invoice_params[:square_id],
     )
     if !@invoice.save
@@ -63,6 +63,23 @@ class Api::InvoicesController < ApplicationController
   # end
 
   private
+
+  def get_carcosa_id
+    return invoice_params[:carcosa_id] if invoice_params[:carcosa_id]
+
+    last_carcosa_id = Invoice.last.carcosa_id
+    last_carcosa_num = (last_carcosa_id.slice(3, last_carcosa_id.length - 3)).to_i()
+    valid_num_found = false
+    while !valid_num_found
+      last_carcosa_num += 1
+      possible_carcosa_id = "CO#" + last_carcosa_num.to_s()
+      if !Invoice.find_by(carcosa_id: possible_carcosa_id)
+        valid_num_found = true
+      end
+    end
+
+    return possible_carcosa_id
+  end
 
   def invoice_params
     params.require(:invoice).permit(
