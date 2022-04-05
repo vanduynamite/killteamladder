@@ -8,9 +8,11 @@ class Portal extends React.Component {
   }
 
   render() {
-    const orderMasterEl = this.props.currentUser.ordermaster ?
-      (<><h2>Ordermaster</h2><Link to='/ordermaster/'>
-       <img src={ window.carcosa_logo } id='logo' /></Link></>) : <></>;
+    let orderMasterEl;
+    if (this.props.loggedIn && this.props.currentUser.ordermaster) {
+      orderMasterEl = (<><h2>Ordermaster</h2><Link to='/ordermaster/'>
+        <img src={ window.carcosa_logo } id='logo' /></Link></>);
+    }
        // <h2>Orders</h2>
        // <Link to='/orders/'>
        //   <img src={ window.orders_icon } id='logo' />
