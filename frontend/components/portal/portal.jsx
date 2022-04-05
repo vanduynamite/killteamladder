@@ -11,16 +11,16 @@ class Portal extends React.Component {
     const orderMasterEl = this.props.currentUser.ordermaster ?
       (<><h2>Ordermaster</h2><Link to='/ordermaster/'>
        <img src={ window.carcosa_logo } id='logo' /></Link></>) : <></>;
+       // <h2>Orders</h2>
+       // <Link to='/orders/'>
+       //   <img src={ window.orders_icon } id='logo' />
+       // </Link>
     return (
       <div className='frame'>
         <h1>
           Carcosa Club Portal
         </h1>
         <div id='ranking-list'>
-          <h2>Orders</h2>
-          <Link to='/orders/'>
-            <img src={ window.orders_icon } id='logo' />
-          </Link>
           { orderMasterEl }
           <h2>Killteam Ladder</h2>
           <Link to='/killteam/'>
