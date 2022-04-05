@@ -6,8 +6,7 @@ const Background = props => {
   const fullPath = props.history.location.pathname;
   const ladder = fullPath.slice(0, fullPath.indexOf('/', 1));
 
-  let backgroundPath = window.killteam_background;
-  if (ladder === '/underworlds') backgroundPath = window.underworlds_background;
+  const backgroundPath = window.killteam_background;
 
   return (
     <div id='background'>
