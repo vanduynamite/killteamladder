@@ -8,9 +8,11 @@ export const newShipment = (shipment) => {
   //   item_id_list: [1, 2, 3],
   // }
 
-  shipment.tracking_num = shipment.trackingNum;
-  shipment.distributor_id = shipment.distributorId;
-  shipment.distributor_invoice = shipment.distributorInvoice;
+  if (shipment.trackingNum) shipment.tracking_num = shipment.trackingNum;
+  if (shipment.distributorId && shipment.distributorId !== 'x') {
+    shipment.distributor_id = shipment.distributorId;
+  }
+  if (shipment.distributorInvoice) shipment.distributor_invoice = shipment.distributorInvoice;
   shipment.item_id_list = shipment.itemIdList;
 
   return $.ajax({

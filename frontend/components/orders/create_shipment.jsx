@@ -9,14 +9,15 @@ import FloatingActionButton from '../general/floating_action_button';
 import ImageActionButton from '../general/image_action_button';
 import Checkbox from '../general/checkbox';
 
-class CreateInvoice extends React.Component {
+class CreateShipment extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       itemIdList: [],
-      carcosaId: '',
-      squareId: '',
+      distributorId: 'x',
+      distributorInvoice: '',
+      trackingNum: '',
       note: '',
     };
   }
@@ -29,8 +30,9 @@ class CreateInvoice extends React.Component {
 
     this.setState({
       itemIdList: checkedItemsArray,
-      carcosaId: '',
-      squareId: '',
+      distributorId: 'x',
+      distributorInvoice: '',
+      trackingNum: '',
       note: '',
     });
   }
@@ -45,7 +47,7 @@ class CreateInvoice extends React.Component {
         );
       }
 
-      this.props.newInvoice(
+      this.props.newShipment(
         Object.assign({}, this.state),
         this.props.history.push
       );
@@ -54,9 +56,7 @@ class CreateInvoice extends React.Component {
 
   updateField(field) {
     return e => {
-      if (e.target.value !== 'x') {
-        this.setState({ [field]: e.target.value });
-      }
+      this.setState({ [field]: e.target.value });
     };
   }
 
@@ -70,13 +70,13 @@ class CreateInvoice extends React.Component {
   render() {
     if (!this.props.loggedIn) return <EmptyDiv/>;
 
-    const cancelButtonLink = '/ordermaster/invoice';
+    const cancelButtonLink = '/ordermaster/ship';
 
     return (
       <div className='frame'>
-        <h1>Create invoice</h1>
+        <h1>Create shipment</h1>
         { this.errorSection() }
-        <h2>Items to invoice</h2>
+        <h2>Items to ship</h2>
         {this.itemList()}
         <form onSubmit={ this.submit.bind(this) } autoComplete='off'>
           <input autoComplete='false' name='hidden'
@@ -111,15 +111,20 @@ class CreateInvoice extends React.Component {
   }
 
   itemFields() {
-    const carcosaIdEl = <Field ctx={this}
-      fieldName={'carcosaId'}
-      label={'Carcosa order ID (override)'}
-      maxLength='10' />;
+    const trackingNumEl = <Field ctx={this}
+      fieldName={'trackingNum'}
+      label={'Tracking number'}
+      maxLength='256' />;
 
-    const squareIdEl = <Field ctx={this}
-      fieldName={'squareId'}
-      label='Square ID'
-      maxLength='7' />;
+    const distributorIdEl = <SelectList ctx={this}
+      fieldName={'distributorId'}
+      label='Distributor'
+      optionsList={this.distributorList()} />;
+
+    const distributorInvoiceEl = <Field ctx={this}
+      fieldName={'distributorInvoice'}
+      label='Distributor invoice'
+      maxLength='256' />;
 
     const noteEl = <Field ctx={this}
       fieldName={'note'}
@@ -128,11 +133,20 @@ class CreateInvoice extends React.Component {
 
     return (
       <div className='new-item-fields'>
-        {carcosaIdEl}
-        {squareIdEl}
+        {trackingNumEl}
+        {distributorIdEl}
+        {distributorInvoiceEl}
         {noteEl}
       </div>
     );
+  }
+
+  distributorList() {
+    const distributors = Object.values(this.props.distributors);
+    const result = distributors.map(dist => [dist.id, dist.name]);
+    result.sort((a,b) => a[1] <= b[1] ? -1 : 1);
+    result.unshift(['x', 'Select a distributor']);
+    return result;
   }
 
   errorSection() {
@@ -146,4 +160,4 @@ class CreateInvoice extends React.Component {
   }
 }
 
-export default CreateInvoice;
+export default CreateShipment;

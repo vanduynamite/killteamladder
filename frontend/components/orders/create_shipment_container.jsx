@@ -1,8 +1,8 @@
 import {connect} from 'react-redux';
 import {clearPathHistory} from '../../actions/ui_actions';
-import {newInvoice} from '../../actions/invoice_actions';
+import {newShipment} from '../../actions/shipment_actions';
 import {newItemNotes} from '../../actions/item_note_actions';
-import CreateInvoice from './create_invoice';
+import CreateShipment from './create_shipment';
 
 const msp = (state, ownProps) => {
   const loggedIn = state.session.id !== undefined && state.session.id !== null;
@@ -22,8 +22,8 @@ const msp = (state, ownProps) => {
   const errors = state.errors.invoices;
 
   return {
-    checkedItems,
     currentUser,
+    checkedItems,
     distributors,
     errors,
     invoices,
@@ -39,9 +39,9 @@ const msp = (state, ownProps) => {
 const mdp = dispatch => {
   return {
     clearPathHistory: () => dispatch(clearPathHistory()),
-    newInvoice: (items, historyPush) => dispatch(newInvoice(items, historyPush, '/ordermaster/invoice')),
-    newItemNotes: (items, historyPush) => dispatch(newItemNotes(items, historyPush, '/ordermaster/invoice')),
+    newShipment: (items, historyPush) => dispatch(newShipment(items, historyPush, '/ordermaster/ship')),
+    newItemNotes: (items, historyPush) => dispatch(newItemNotes(items, historyPush, '/ordermaster/ship')),
   };
 };
 
-export default connect(msp, mdp)(CreateInvoice);
+export default connect(msp, mdp)(CreateShipment);

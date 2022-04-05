@@ -27,10 +27,13 @@ class Main extends React.Component {
       (<Link to={screenData.topLink.link} >{screenData.topLink.text}</Link>) :
       (<EmptyDiv/>);
 
-    const editButtonPath = this.props.currentUser.ordermaster ?
-      '/ordermaster/edit' : '/orders/edit';
-    const editButton = this.props.checkedItems && Object.keys(this.props.checkedItems).length !== 0 ?
-      <FloatingImageButton path={editButtonPath} image={window.edit} /> :
+    let editButtonPath = '/orders/edit';
+    if (this.props.currentUser.ordermaster) {
+      editButtonPath = this.props.screenData.fabPath || '/ordermaster/edit';  
+    }
+    const fabIcon = this.props.screenData.fabIcon || window.edit;
+    const fab = this.props.checkedItems && Object.keys(this.props.checkedItems).length !== 0 ?
+      <FloatingImageButton path={editButtonPath} image={fabIcon} /> :
       <EmptyDiv/> ;
 
     return (
@@ -43,7 +46,7 @@ class Main extends React.Component {
         <div id={'ranking-list'}>
           { this.getOrderList() }
         </div>
-        {editButton}
+        {fab}
       </div>
     );
   }
@@ -113,7 +116,7 @@ class Main extends React.Component {
 
   getGroupName(groupIdField, groupId) {
     if (!groupId) return 'Unknown group';
-    
+
     switch (groupIdField) {
       case 'distributorId':
         return this.props.distributors[groupId].name;

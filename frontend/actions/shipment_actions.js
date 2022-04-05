@@ -18,9 +18,12 @@ const receiveShipmentErrors = (errors) => {
   };
 };
 
-export const newShipment = (shipment) => (dispatch) => {
+export const newShipment = (shipment, historyPush, path) => (dispatch) => {
   return ShipmentAPI.newShipment(shipment).then(
-    (payload) => dispatch(receiveShipment(payload)),
+    (payload) => {
+      dispatch(receiveShipment(payload));
+      if (historyPush) historyPush(path);
+    },
     (errors) => dispatch(receiveShipmentErrors(errors))
   );
 };

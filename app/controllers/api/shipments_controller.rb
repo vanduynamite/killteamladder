@@ -37,7 +37,7 @@ class Api::ShipmentsController < ApplicationController
         return false
       end
 
-      if distributors[0].id != distributor_id
+      if distributors.length == 1 && distributors[0].id != distributor_id
         render json: ['The items on this shipment are for the wrong distibutor'], status: 422
         return false
       end

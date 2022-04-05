@@ -43,6 +43,8 @@ const msp = (state, ownProps) => {
       link: '/ordermaster/closed',
     },
     initialGroupIdField: 'statusId',
+    fabIcon: window.add,
+    fabPath: '/ordermaster/createshipment',
   };
 
   return {
