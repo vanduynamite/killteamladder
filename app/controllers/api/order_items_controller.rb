@@ -25,7 +25,7 @@ class Api::OrderItemsController < ApplicationController
 
     @items = []
 
-    distributor = Distributor.find_by(name: "Unknown distributor")
+    distributor = Distributor.find_by(search_name: "unknown")
     status = OrderStatus.find_by(search_name: "awaiting_invoice")
     names.each_with_index do |_, i|
       item = OrderItem.create(

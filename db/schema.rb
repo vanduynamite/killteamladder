@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_04_170540) do
+ActiveRecord::Schema.define(version: 2022_04_06_022018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,10 +27,160 @@ ActiveRecord::Schema.define(version: 2022_01_04_170540) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "bb_advancements", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "rank", null: false
+    t.integer "spp_cost", null: false
+    t.integer "value_increase", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "requires_skill_id", default: false, null: false
+    t.boolean "stat_upgrade", default: false, null: false
+    t.boolean "random", default: false, null: false
+    t.boolean "primary_skill", default: false, null: false
+  end
+
+  create_table "bb_player_advancements", force: :cascade do |t|
+    t.integer "bb_player_id", null: false
+    t.integer "bb_advancement_id", null: false
+    t.integer "bb_skill_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_player_skill_groups", force: :cascade do |t|
+    t.integer "bb_player_template_id", null: false
+    t.integer "bb_skill_group_id", null: false
+    t.boolean "primary", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_player_skills", force: :cascade do |t|
+    t.integer "bb_player_id", null: false
+    t.integer "bb_skill_id", null: false
+    t.string "modifier"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_player_template_skills", force: :cascade do |t|
+    t.integer "bb_player_template_id", null: false
+    t.integer "bb_skill_id", null: false
+    t.string "modifier"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_player_templates", force: :cascade do |t|
+    t.integer "bb_team_template_id", null: false
+    t.string "position_name", null: false
+    t.integer "max_allowed", null: false
+    t.integer "cost", null: false
+    t.integer "ma", null: false
+    t.integer "st", null: false
+    t.integer "ag", null: false
+    t.integer "pa"
+    t.integer "av", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_players", force: :cascade do |t|
+    t.integer "team_id", null: false
+    t.integer "bb_player_template_id", null: false
+    t.string "position_name", null: false
+    t.string "name", null: false
+    t.integer "number", null: false
+    t.integer "ma_original", null: false
+    t.integer "st_original", null: false
+    t.integer "ag_original", null: false
+    t.integer "pa_original", null: false
+    t.integer "av_original", null: false
+    t.integer "hiring_fee", null: false
+    t.integer "current_value", null: false
+    t.integer "ma_improvement", default: 0, null: false
+    t.integer "st_improvement", default: 0, null: false
+    t.integer "ag_improvement", default: 0, null: false
+    t.integer "pa_improvement", default: 0, null: false
+    t.integer "av_improvement", default: 0, null: false
+    t.integer "spp", default: 0, null: false
+    t.boolean "mng", default: false, null: false
+    t.integer "ni", default: 0, null: false
+    t.boolean "temporarily_retired", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_position_group_limits", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "max", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_position_groups", force: :cascade do |t|
+    t.integer "bb_position_group_limits_id", null: false
+    t.integer "bb_player_template_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_skill_groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_skills", force: :cascade do |t|
+    t.integer "bb_skill_group_id", null: false
+    t.string "name", null: false
+    t.text "description"
+    t.boolean "must_use", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_special_rules", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_team_special_rules", force: :cascade do |t|
+    t.integer "bb_special_rule_id", null: false
+    t.integer "bb_team_template_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_team_templates", force: :cascade do |t|
+    t.integer "faction_id", null: false
+    t.integer "reroll_cost", null: false
+    t.integer "tier", null: false
+    t.boolean "apothecary", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bb_teams", force: :cascade do |t|
+    t.integer "team_id", null: false
+    t.integer "rerolls", default: 0, null: false
+    t.integer "dedicated_fans", default: 1, null: false
+    t.integer "treasury", default: 1000000, null: false
+    t.integer "team_value", default: 0, null: false
+    t.integer "current_team_value", default: 0, null: false
+    t.integer "assistant_coaches", default: 0, null: false
+    t.integer "cheerleaders", default: 0, null: false
+    t.integer "apothecaries", default: 0, null: false
+  end
+
   create_table "distributors", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "search_name"
     t.index ["name"], name: "index_distributors_on_name", unique: true
   end
 
