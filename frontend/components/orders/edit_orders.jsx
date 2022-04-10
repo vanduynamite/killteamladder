@@ -28,6 +28,8 @@ class EditOrder extends React.Component {
   componentDidMount() {
     this.props.clearPathHistory();
 
+    if (this.props.getDistributors) this.props.getDistributors();
+
     if (!this.props.checkedItems) return;
     const checkedItemsArray = Object.keys(this.props.checkedItems);
 
@@ -170,6 +172,14 @@ class EditOrder extends React.Component {
       label='Note'
       maxLength='256' />;
 
+    let distributorEl = <EmptyDiv/>;
+    if (this.props.currentUser.ordermaster) {
+      distributorEl = <SelectList ctx={this}
+        fieldName={'distributorId'}
+        label={'Distributor'}
+        optionsList={this.getDistributorList()} />;
+    }
+
     const statusList = this.getStatusList();
     let statusEl = <EmptyDiv/>;
 
@@ -191,10 +201,21 @@ class EditOrder extends React.Component {
           {quantityEl}
         </div>
         {noteEl}
+        {distributorEl}
         {statusEl}
         {purchasedInStoreEl}
       </div>
     );
+  }
+
+  getDistributorList() {
+    const distributorList = [['x', 'Choose a distributor']];
+
+    Object.values(this.props.distributors).forEach((distributor) => {
+      distributorList.push([distributor.id, distributor.name]);
+    });
+
+    return distributorList;
   }
 
   getStatusList() {

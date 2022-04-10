@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import {clearPathHistory} from '../../actions/ui_actions';
 import {editItems} from '../../actions/order_item_actions';
 import {newItemNotes} from '../../actions/item_note_actions';
+import {getDistributors} from '../../actions/distributor_actions';
 import EditOrders from './edit_orders';
 
 const msp = (state, ownProps) => {
@@ -42,6 +43,7 @@ const mdp = dispatch => {
   return {
     clearPathHistory: () => dispatch(clearPathHistory()),
     editItems: (items, historyPush) => dispatch(editItems(items, historyPush, '/ordermaster/')),
+    getDistributors: () => dispatch(getDistributors()),
     newItemNotes: (items, historyPush) => dispatch(newItemNotes(items, historyPush, '/ordermaster/')),
   };
 };
