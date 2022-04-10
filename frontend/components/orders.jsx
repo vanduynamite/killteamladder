@@ -6,8 +6,8 @@ import OpenOrders from './orders/open_orders_container';
 import ClosedOrders from './orders/closed_orders_container';
 import CreateOrder from './orders/create_order_container';
 import EditOrders from './orders/edit_orders_container';
-import Account from './account/account_container';
-import EditAccount from './account/edit_account_container';
+import Account from './orders/account/account_container';
+import EditAccount from './orders/account/edit_account_container';
 
 class Orders extends React.Component {
 
@@ -20,6 +20,8 @@ class Orders extends React.Component {
   render() {
     return (
       <Switch>
+        <ProtectedRoute path={ '/orders/account/edit' } component={ EditAccount } />
+        <ProtectedRoute path={ '/orders/account' } component={ Account } />
         <Route path={ '/orders/closed' } component={ ClosedOrders } />
         <Route path={ '/orders/new' } component={ CreateOrder } />
         <Route path={ '/orders/edit' } component={ EditOrders } />
@@ -27,8 +29,6 @@ class Orders extends React.Component {
       </Switch>
     );
   }
-  // <ProtectedRoute path={ 'account/edit' } component={ EditAccount } />
-  // <ProtectedRoute path={ 'account' } component={ Account } />
 }
 
 const msp = (state, ownProps) => {

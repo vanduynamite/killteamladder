@@ -5,9 +5,16 @@ json.users do
     json.lastName user.last_name
     json.email user.email
 
-    json.teamIds teams.sort_by { |t| t[:points] }.reverse.map { |t| t.id }
-    json.retiredTeamIds retired_teams.sort_by { |t| t[:points] }.reverse.map { |t| t.id }
+    if teams
+      json.teamIds teams.sort_by { |t| t[:points] }.reverse.map { |t| t.id }
+    end
 
-    json.stats stats
+    if retired_teams
+      json.retiredTeamIds retired_teams.sort_by { |t| t[:points] }.reverse.map { |t| t.id }
+    end
+
+    if stats
+      json.stats stats
+    end
   end
 end

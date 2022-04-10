@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import EmptyDiv from '../general/empty_div';
 import ImageButton from '../general/image_button';
 
 const Nav = (props) => {
@@ -96,6 +97,11 @@ const navButtons = (fullPath, loggedIn) => {
 };
 
 const accountAndMatchButtons = (ladder) => {
+  let accountLink = <Link to={`${ladder}/account`}>
+      <img src={ window.account } className='img-button' />
+    </Link>;
+  if (ladder === '/ordermaster') accountLink = <EmptyDiv/>;
+
   const newLink =
     <Link to={ladder !== '/orders' && ladder !== '/ordermaster' ? `${ladder}/match/new` : `${ladder}/new`}>
       <img src={ window.add } className='img-button' />
@@ -103,9 +109,7 @@ const accountAndMatchButtons = (ladder) => {
 
   return (
     <div id='nav-button-group'>
-      <Link to={`${ladder}/account`}>
-        <img src={ window.account } className='img-button' />
-      </Link>
+      {accountLink}
       {newLink}
       <Link to='/'>
         <img src={ window.close } className='img-button' />

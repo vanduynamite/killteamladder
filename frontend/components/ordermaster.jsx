@@ -2,13 +2,13 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
-import Account from './account/account_container';
+import Account from './orders/account/account_container';
 import ClosedOrders from './orders/closed_ordermaster_container';
 import CreateInvoice from './orders/create_invoice_container';
 import CreateShipment from './orders/create_shipment_container';
 import CreateOrder from './orders/create_order_container';
 import DeliverItems from './orders/deliver_items_container';
-import EditAccount from './account/edit_account_container';
+import EditAccount from './orders/account/edit_account_container';
 import EditOrders from './orders/edit_ordermaster_container';
 import InvoiceItems from './orders/invoice_items_container';
 import OpenOrders from './orders/open_ordermaster_container';
@@ -26,6 +26,8 @@ class Ordermaster extends React.Component {
   render() {
     return (
       <Switch>
+        <ProtectedRoute path={ '/ordermaster/account/edit' } component={ EditAccount } />
+        <ProtectedRoute path={ '/ordermaster/account' } component={ Account } />
         <Route path={ '/ordermaster/closed' } component={ ClosedOrders } />
         <Route path={ '/ordermaster/new' } component={ CreateOrder } />
         <Route path={ '/ordermaster/edit' } component={ EditOrders } />
