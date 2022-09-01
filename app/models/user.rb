@@ -34,6 +34,14 @@ class User < ApplicationRecord
 
   has_many :item_notes
 
+  has_many :notes_on_items,
+    through: :items,
+    source: :notes
+
+  has_many :status_changes_on_items,
+    through: :items,
+    source: :status_changes
+    
   attr_reader :password
 
   def self.find_by_credentials(email, pw)
