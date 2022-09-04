@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
 import {
   login,
-  clearSessionErrors } from '../../actions/session_actions';
+  clearSessionErrors,
+  passwordReset,
+} from '../../actions/session_actions';
 import Login from './login';
 
 const msp = state => {
@@ -16,6 +18,7 @@ const mdp = dispatch => {
   return {
     login: user => dispatch(login(user)),
     clearErrors: () => dispatch(clearSessionErrors()),
+    passwordReset: user => dispatch(passwordReset(user)),
   };
 };
 

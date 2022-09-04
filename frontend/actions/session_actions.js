@@ -54,3 +54,7 @@ export const logout = () => dispatch => {
     payload => dispatch(removeCurrentUser(payload))
   );
 };
+
+export const passwordReset = user => dispatch => {
+  return SessionAPI.passwordReset(user);
+};

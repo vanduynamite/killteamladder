@@ -12,6 +12,7 @@ class LoginForm extends React.Component {
     this.state = {
       email: '',
       password: '',
+      passwordResetRequested: false,
     };
     this.updateField = this.updateField.bind(this);
   }
@@ -36,6 +37,14 @@ class LoginForm extends React.Component {
     return true;
   }
 
+  passwordReset() {
+    if (this.state.email === '') return false;
+    this.props.passwordReset({
+      email: this.state.email,
+    });
+    this.setState({ passwordResetRequested: true });
+  }
+
   render() {
     return (
       <div className='frame'>
@@ -58,6 +67,7 @@ class LoginForm extends React.Component {
             <ButtonLink text='Cancel' path='/' type='cancel' />
             <SubmitButton active={ this.formValid() } />
           </div>
+          { this.passwordResetSection() }
         </form>
       </div>
     );
@@ -80,6 +90,18 @@ class LoginForm extends React.Component {
         </>
       );
     }
+  }
+
+  passwordResetSection() {
+    const passwordSpan = this.state.passwordResetRequested ?
+      <div>Password reset requested</div> :
+      <span onClick={ this.passwordReset.bind(this) }>Forgot password?</span>;
+    
+    return (
+      <div id='passwordreset'>
+        { passwordSpan }
+      </div>
+    );
   }
 
 }

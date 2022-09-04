@@ -26,3 +26,12 @@ export const logout = () => {
     url: '/api/session',
   });
 };
+
+export const passwordReset = user => {
+  user.email = user.email.toLowerCase();
+  return $.ajax({
+    method: 'PATCH',
+    url: `/api/passwordreset`,
+    data: { user },
+  });
+};
