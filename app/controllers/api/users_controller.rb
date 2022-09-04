@@ -46,7 +46,7 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  def password_reset
+  def admin_password_reset
     return false unless admin_user?
     user = User.find_by(email: user_params[:email])
     if user
@@ -55,6 +55,17 @@ class Api::UsersController < ApplicationController
     else
       render json: ["Email address #{user_params[:email]} not found"], status: 422
     end
+  end
+
+  def password_reset
+    user = User.find_by(email: user_params[:email])
+    if user
+      new_password = user.reset_password!
+      UserMailer.with(user: user, new_password: new_password)
+    end
+
+    render json: ["We've emailed a new password to the address entered, assuming it exists!"]
+
   end
 
   def authorize_2020_league

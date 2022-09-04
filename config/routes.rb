@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: :json} do
     resources :users, only: [:create, :show, :update]
+    patch :adminpasswordreset, to: 'users#admin_password_reset'
     patch :passwordreset, to: 'users#password_reset'
     patch :authorizeleague, to: 'users#authorize_2020_league'
     resources :teams, only: [:create, :show, :index, :update]

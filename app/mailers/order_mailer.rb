@@ -1,6 +1,5 @@
 
 class OrderMailer < ApplicationMailer
-  ADMIN_EMAIL = 'carcosaclub@gmail.com'
 
   def daily_update_email
     @user = params[:user]
@@ -13,7 +12,10 @@ class OrderMailer < ApplicationMailer
       return;
     end
 
-    mail(to: @user.email, subject: "Daily update on your Carcosa orders")
+    mail(
+      to: @user.email, 
+      subject: "Daily update on your Carcosa orders",
+    )
   end
 
 end
