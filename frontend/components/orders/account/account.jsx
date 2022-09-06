@@ -23,6 +23,7 @@ class Account extends React.Component {
           My account
         </h1>
         { this.accountDetails() }
+        { this.accountStats() }
         <SubmitButton text='Log out' active={ true } action={ this.props.logout } />
       </div>
     );
@@ -43,6 +44,21 @@ class Account extends React.Component {
         <div>
           <ImageButton path={`${this.props.ladder}/account/edit`} image={ window.edit } />
         </div>
+      </div>
+    );
+  }
+
+  accountStats() {
+    const stats = this.props.currentUser.stats;
+    if (!stats) return;
+    
+    return (
+      <div className='info-container' id='account-stats'>
+        <Statistic name='Items awaiting invoice' stat={ stats.newItems }/>
+        <Statistic name='Items awaiting order' stat={ stats.invoicedItems } grey={ true }/>
+        <Statistic name='Items awaiting shipping' stat={ stats.orderedItems }/>
+        <Statistic name='Items awaiting deliver' stat={ stats.shippedItems } grey={ true }/>
+        <Statistic name='Items in limbo' stat={ stats.issueItems }/>
       </div>
     );
   }

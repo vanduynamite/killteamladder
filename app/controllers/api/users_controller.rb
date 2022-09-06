@@ -8,6 +8,8 @@ class Api::UsersController < ApplicationController
       @retired_teams = @user.teams.where(active: false, ladder_name: params[:ladder])
       @rankings = get_rankings(params[:ladder])
       @stats = @user.stats(params[:ladder])
+    else
+      @stats = @user.order_stats()
     end
 
     if @user

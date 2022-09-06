@@ -98,6 +98,28 @@ class User < ApplicationRecord
     results
   end
 
+  def order_stats
+    items = self.items
+
+    search_array = [
+      "new",
+      "invoiced",
+      "ordered",
+      "shipped",
+      "issue",
+    ]
+
+    results = {}
+
+    search_array.each do |name|
+      status_array = OrderStatus.public_send(name + "_statuses")
+      item_count = items.where(status: OrderStatus.where(search_name: status_array)).count
+      results[name + "Items"] = item_count
+    end
+
+    results
+  end
+
   private
 
   def create_session!
