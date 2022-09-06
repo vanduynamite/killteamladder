@@ -8,6 +8,12 @@ class Portal extends React.Component {
   }
 
   render() {
+    let orderEl;
+    if (this.props.loggedIn && this.props.currentUser.ordermaster) {
+      orderEl = (<><h2>Orders</h2><Link to='/orders/'>
+        <img src={ window.orders_icon } id='logo' /></Link></>);
+    }
+
     let orderMasterEl;
     if (this.props.loggedIn && this.props.currentUser.ordermaster) {
       orderMasterEl = (<><h2>Ordermaster</h2><Link to='/ordermaster/'>
@@ -19,10 +25,7 @@ class Portal extends React.Component {
           Carcosa Club Portal
         </h1>
         <div id='ranking-list'>
-          <h2>Orders</h2>
-          <Link to='/orders/'>
-            <img src={ window.orders_icon } id='logo' />
-          </Link>
+          { orderEl }
           { orderMasterEl }
           <h2>Killteam Ladder</h2>
           <Link to='/killteam/'>

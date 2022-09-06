@@ -65,8 +65,11 @@ const navButtons = (fullPath, loggedIn) => {
   const path = fullPath.slice(fullPath.indexOf('/',1));
 
   if (ladder === '') {
-    if (!loggedIn) return authButtons(ladder);
-    return;
+    if (!loggedIn) {
+      return authButtons(ladder);
+    } else {
+      return <div id='nav-button-group'>{ accountButton('/orders') }</div>;
+    }
   }
 
   switch (path) {
@@ -97,11 +100,6 @@ const navButtons = (fullPath, loggedIn) => {
 };
 
 const accountAndMatchButtons = (ladder) => {
-  let accountLink = <Link to={`${ladder}/account`}>
-      <img src={ window.account } className='img-button' />
-    </Link>;
-  if (ladder === '/ordermaster') accountLink = <EmptyDiv/>;
-
   const newLink =
     <Link to={ladder !== '/orders' && ladder !== '/ordermaster' ? `${ladder}/match/new` : `${ladder}/new`}>
       <img src={ window.add } className='img-button' />
@@ -109,7 +107,7 @@ const accountAndMatchButtons = (ladder) => {
 
   return (
     <div id='nav-button-group'>
-      {accountLink}
+      { accountButton(ladder) }
       {newLink}
       <Link to='/'>
         <img src={ window.close } className='img-button' />
@@ -117,6 +115,15 @@ const accountAndMatchButtons = (ladder) => {
     </div>
   );
 };
+
+const accountButton = (ladder) => {
+  let accountLink = <Link to={`${ladder}/account`}>
+      <img src={ window.account } className='img-button' />
+    </Link>;
+  if (ladder === '/ordermaster') accountLink = <EmptyDiv/>;
+
+  return accountLink;
+}
 
 const authButtons = (ladder) => {
   let backLink;
