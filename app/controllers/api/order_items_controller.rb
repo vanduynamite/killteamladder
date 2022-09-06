@@ -98,46 +98,31 @@ class Api::OrderItemsController < ApplicationController
   end
 
   def open_items
-    ordermaster_index([
-      "awaiting_invoice",
-      "awaiting_order",
-      "awaiting_preorder",
-      "preordered",
-      "ordered",
-      "shipped",
-      "backordered",
-      "awaiting_refund",
-      "unknown",
-    ])
+    ordermaster_index(OrderStatus.open_statuses)
   end
 
   def new_items
-    ordermaster_index(["awaiting_invoice"])
+    ordermaster_index(OrderStatus.new_statuses)
   end
 
   def invoiced_items
-    ordermaster_index([
-      "awaiting_order",
-      "awaiting_preorder",
-      "preordered",
-      "backordered",
-    ])
+    ordermaster_index(OrderStatus.invoiced_statuses)
   end
 
   def ordered_items
-    ordermaster_index(["ordered", "preordered"])
+    ordermaster_index(OrderStatus.ordered_statuses)
   end
 
   def shipped_items
-    ordermaster_index(["shipped"])
+    ordermaster_index(OrderStatus.shipped_statuses)
   end
 
   def completed_items
-    ordermaster_index(["refunded", "delivered"])
+    ordermaster_index(OrderStatus.completed_statuses)
   end
 
   def items_with_issue
-    ordermaster_index(["awaiting_refund", "unknown"])
+    ordermaster_index(OrderStatus.issue_statuses)
   end
 
   private

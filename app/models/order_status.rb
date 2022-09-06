@@ -29,4 +29,60 @@ class OrderStatus < ApplicationRecord
     through: :acceptable_status_change_links,
     source: :change_to
 
+  def self.open_statuses
+    return [
+      "awaiting_invoice",
+      "awaiting_order",
+      "awaiting_preorder",
+      "preordered",
+      "ordered",
+      "shipped",
+      "backordered",
+      "awaiting_refund",
+      "unknown",
+    ]
+  end
+
+  def self.new_statuses
+    return [
+      "awaiting_invoice",
+    ]
+  end
+
+  def self.invoiced_statuses
+    return [
+      "awaiting_order",
+      "awaiting_preorder",
+      "preordered",
+      "backordered",
+    ]
+  end
+
+  def self.ordered_statuses
+    return [
+      "ordered", 
+      "preordered",
+    ]
+  end
+
+  def self.shipped_statuses
+    return [
+      "shipped",
+    ]
+  end
+
+  def self.completed_statuses
+    return [
+      "refunded",
+      "delivered",
+    ]
+  end
+
+  def self.issue_statuses
+    return [
+      "awaiting_refund",
+      "unknown",
+    ]
+  end
+
 end
