@@ -29,6 +29,7 @@ gem 'jquery-rails'
 gem "activesupport", ">= 5.2.4.3"
 gem "rack", ">= 2.1.4"
 gem "nokogiri", ">= 1.10.8"
+gem "whenever", require: false
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

@@ -61,7 +61,7 @@ class Api::UsersController < ApplicationController
     user = User.find_by(email: user_params[:email])
     if user
       new_password = user.reset_password!
-      UserMailer.with(user: user, new_password: new_password)
+      UserMailer.with(user: user, new_password: new_password).password_reset_email.deliver_now
     end
 
     render json: ["We've emailed a new password to the address entered, assuming it exists!"]
