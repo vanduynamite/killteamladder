@@ -23,10 +23,11 @@ export default () => {
         <Route path='/orders' component={ Orders } />
         <Route path='/ordermaster' component={ Ordermaster } />
         <Route path='/killteam' component={ Ladder } />
-        <Route path='/underworlds' component={ Ladder } />
         <Route path='/40k' component={ Ladder } />
         <Route path='/' component={ Portal } />
       </Switch>
     </>
   );
+  // Underworlds is not currently being played very much
+  // <Route path='/underworlds' component={ Ladder } />
 };

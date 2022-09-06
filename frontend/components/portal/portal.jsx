@@ -28,10 +28,6 @@ class Portal extends React.Component {
           <Link to='/killteam/'>
             <img src={ window.killteam_logo } id='logo' />
           </Link>
-          <h2>Warhammer Underworlds Ladder</h2>
-          <Link to='/underworlds/'>
-            <img src={ window.underworlds_logo } id='logo' />
-          </Link>
           <h2>40k ITC Ladder</h2>
           <h4>Ladder for the 2020 40k challenge league</h4>
           <Link to='/40k/'>
@@ -41,6 +37,11 @@ class Portal extends React.Component {
       </div>
     );
   }
+  // Underworlds is not currently being played very much
+          // <h2>Warhammer Underworlds Ladder</h2>
+          // <Link to='/underworlds/'>
+          //   <img src={ window.underworlds_logo } id='logo' />
+          // </Link>
 
 }
 
