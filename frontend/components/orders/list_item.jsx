@@ -9,6 +9,8 @@ const listItem = (data) => {
   const owner = data.users[item.userId];
 
   const selectedClass = data.checked ? 'dark-theme' : '';
+  const fullWidthClass = data.fullWidth ? 'team-names-uncheckable' : '';
+
   const dateCreatedString = new Date(item.dateCreated).toDateString();
   const userInfo = currentUser.ordermaster ?
     <div><b>{`${owner.firstName} ${owner.lastName}`}</b></div> :
@@ -49,7 +51,7 @@ const listItem = (data) => {
     <div
       className={`team-list-item ${selectedClass}`}
       onClick={data.action}>
-      <div className={`team-names ${selectedClass}`}>
+      <div className={`team-names ${selectedClass} ${fullWidthClass}`}>
         <div>
           <h2>{item.name}</h2>
           <div className={'team-faction-and-owner'}>

@@ -99,6 +99,7 @@ class Main extends React.Component {
         invoice={invoices[item.invoiceId]}
         notes={notes}
         checked={checkedItems[item.id]}
+        fullWidth={this.props.screenData.fullWidthItems}
         users={users}
         currentUser={this.props.currentUser} />;
     });

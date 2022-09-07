@@ -34,6 +34,7 @@ const msp = (state, ownProps) => {
       link: '/ordermaster/',
     },
     initialGroupIdField: 'statusId',
+    fullWidthItems: true,
   };
 
   return {

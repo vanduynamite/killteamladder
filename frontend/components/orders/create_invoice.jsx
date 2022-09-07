@@ -105,6 +105,7 @@ class CreateInvoice extends React.Component {
         invoice={this.props.invoices[item.invoiceId]}
         notes={this.props.notes}
         checked={false}
+        fullWidth={true}
         users={this.props.users}
         currentUser={this.props.currentUser} />;
     });

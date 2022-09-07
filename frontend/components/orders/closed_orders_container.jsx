@@ -38,6 +38,7 @@ const msp = (state, ownProps) => {
       link: '/orders/',
     },
     initialGroupIdField: 'statusId',
+    fullWidthItems: true,
   };
 
   return {
