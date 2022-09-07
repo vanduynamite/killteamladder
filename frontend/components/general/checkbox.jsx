@@ -19,6 +19,7 @@ export default function({ fieldName, label, ctx, disabled=false,
   const inputField =
     <input type='checkbox'
       id={ fieldName }
+      checked={ !!ctx.state[fieldName] }
       className={ klass }
       onChange={ ctx.updateField(fieldName) }
       disabled={ disabled }/>;

@@ -11,6 +11,7 @@ export const editUser = user => {
 
   user.first_name = user.firstName;
   user.last_name = user.lastName;
+  user.receive_daily_email = user.receiveDailyEmail;
   if (user.password === '') delete user.password;
 
   return $.ajax({

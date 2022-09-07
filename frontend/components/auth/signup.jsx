@@ -1,6 +1,7 @@
 import React from 'react';
 import Field from '../general/field';
 import ButtonLink from '../general/button_link';
+import Checkbox from '../general/checkbox';
 import SubmitButton from '../general/submit_button';
 import { Link } from 'react-router-dom';
 
@@ -15,6 +16,7 @@ class SignupForm extends React.Component {
       email: '',
       password: '',
       reenterPassword: '',
+      receiveDailyEmail: false,
     };
 
     this.updateField = this.updateField.bind(this);
@@ -30,6 +32,7 @@ class SignupForm extends React.Component {
       this.setState({ lastName: this.props.user.lastName });
       this.setState({ email: this.props.user.email });
       this.setState({ id: this.props.user.id });
+      this.setState({ receiveDailyEmail: this.props.user.receiveDailyEmail })
     }
     this.props.clearErrors();
   }
@@ -40,6 +43,7 @@ class SignupForm extends React.Component {
       this.setState({ lastName: this.props.user.lastName });
       this.setState({ email: this.props.user.email });
       this.setState({ id: this.props.user.id });
+      this.setState({ receiveDailyEmail: this.props.user.receiveDailyEmail })
     }
   }
 
@@ -51,7 +55,13 @@ class SignupForm extends React.Component {
   }
 
   updateField(field) {
-    return e => this.setState({ [field]: e.target.value });
+    return e => {
+      if (field === 'receiveDailyEmail') {
+        this.setState({receiveDailyEmail: !this.state.receiveDailyEmail});
+        return;
+      }
+      this.setState({ [field]: e.target.value });
+    };
   }
 
   formValid() {
@@ -95,6 +105,8 @@ class SignupForm extends React.Component {
               type='password' ctx={ this } />
             <Field fieldName='reenterPassword' label={ rePasswordLabel }
               type='password' ctx={ this } />
+            <Checkbox fieldName='receiveDailyEmail' label='Receive daily order updates' 
+              ctx={ this } />
           </div>
 
           <div className='form-buttons'>

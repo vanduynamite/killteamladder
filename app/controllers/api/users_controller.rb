@@ -94,6 +94,7 @@ class Api::UsersController < ApplicationController
       :email,
       :password,
       :authorized,
+      :receive_daily_email,
     )
   end
 
