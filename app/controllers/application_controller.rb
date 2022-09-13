@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ordermaster?
-    return false unless logged_in? && current_user.ordermaster
+    return false unless logged_in? && current_user.permissions.ordermaster
     true
   end
 
@@ -62,12 +62,12 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_user?
-    return false unless logged_in? && current_user.admin
+    return false unless logged_in? && current_user.permissions.admin
     true
   end
 
   def league_admin?
-    return false unless logged_in? && LEAGUE_ADMINS.include?(current_user.email)
+    return false unless logged_in? && current_user.permissions.ladder_admin
     true
   end
 

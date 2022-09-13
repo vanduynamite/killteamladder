@@ -18,7 +18,7 @@ class Api::MatchupsController < ApplicationController
     return false unless not_matched_last?(@team1, @team2)
     return false unless not_matched_last?(@team2, @team1)
     return false unless valid_results?
-
+    return false unless signed_up_for_league?
 
     @matchup1 = @team1.matchups.new(
       result: matchup_params[:result].to_i,
@@ -193,6 +193,15 @@ class Api::MatchupsController < ApplicationController
   def on_same_ladder?
     unless @team1.ladder == @team2.ladder
       render json: ['Teams must be on the same ladder, come on now'], status: 422
+      return false
+    end
+    true
+  end
+
+  def signed_up_for_league?
+    user = User.find(@team1.user_id)
+    if @team1.ladder_name == '/40k' && !user.permissions.ladder_40k
+      render json: ['You are not signed up for the 40K league. Please contact an admin.'], status: 422
       return false
     end
     true

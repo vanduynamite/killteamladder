@@ -9,7 +9,7 @@ class Portal extends React.Component {
 
   render() {
     let orderEl;
-    if (this.props.loggedIn && this.props.currentUser.ordermaster) {
+    if (this.props.loggedIn && this.props.currentUser.canOrder) {
       orderEl = (<><h2>Orders</h2><Link to='/orders/'>
         <img src={ window.orders_icon } id='logo' /></Link></>);
     }

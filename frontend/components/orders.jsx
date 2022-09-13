@@ -32,6 +32,15 @@ class Orders extends React.Component {
 }
 
 const msp = (state, ownProps) => {
+  const loggedIn = state.session.id !== undefined && state.session.id !== null;
+  if (!loggedIn) return {loggedIn};
+
+  const canOrder = state.entities.users[state.session.id].canOrder;
+  if (!canOrder) {
+    ownProps.history.push('/');
+    return {};
+  }
+
   return {};
 };
 

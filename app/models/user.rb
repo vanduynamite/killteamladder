@@ -41,6 +41,11 @@ class User < ApplicationRecord
   has_many :status_changes_on_items,
     through: :items,
     source: :status_changes
+
+  has_one :permissions,
+    class_name: :ApprovedEmail,
+    foreign_key: :email,
+    primary_key: :email
     
   attr_reader :password
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_06_194805) do
+ActiveRecord::Schema.define(version: 2022_09_12_214048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 2022_09_06_194805) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "member", default: false, null: false
+    t.boolean "admin", default: false, null: false
+    t.boolean "order", default: false, null: false
+    t.boolean "ordermaster", default: false, null: false
+    t.boolean "unpacker", default: false, null: false
+    t.boolean "ladder_admin", default: false, null: false
+    t.boolean "ladder_40k", default: false, null: false
   end
 
   create_table "bb_advancements", force: :cascade do |t|
