@@ -5,7 +5,7 @@ shipments = Shipment.where(items: @items)
 notes = ItemNote.where(item: @items)
 users = User.where(item_notes: notes).or(User.where(id: @user.id)).or(User.where(items: @items))
 statuses = OrderStatus.all.includes(:acceptable_status_change_links)
-status_changes = @user.ordermaster ?
+status_changes = @user.permissions.ordermaster ?
   AcceptableStatusChange.all :
   AcceptableStatusChange.where(ordermaster_only: false)
 

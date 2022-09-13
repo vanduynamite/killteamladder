@@ -141,7 +141,7 @@ class Api::OrderItemsController < ApplicationController
   end
 
   def all_items_can_update_to_new_status(new_status)
-    acceptable_status_change_links = @user.ordermaster ?
+    acceptable_status_change_links = @user.permissions.ordermaster ?
       AcceptableStatusChange.where(change_to: new_status) :
       AcceptableStatusChange.where(change_to: new_status, ordermaster_only: false)
     acceptable_from_statuses = OrderStatus.where(acceptable_status_change_links: acceptable_status_change_links)
