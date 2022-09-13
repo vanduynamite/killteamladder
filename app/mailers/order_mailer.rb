@@ -26,10 +26,12 @@ class OrderMailer < ApplicationMailer
     end
 
     @status_keys = @status_updates.keys.sort
+
+    date_string = Date.today.strftime("%d%b%y")
     
     mail(
       to: @user.email, 
-      subject: "Daily update on your Carcosa orders",
+      subject: "Daily update on your Carcosa orders " + date_string,
     )
   end
 
