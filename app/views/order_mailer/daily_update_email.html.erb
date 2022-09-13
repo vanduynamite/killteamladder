@@ -4,9 +4,25 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p>Name: <%= @user.first_name %>
-    <p>
-    <p>Number of new notes: <%= @notes.count %>
-    <p>Number of new status changes: <%= @status_changes.count %>
+    <p>Automatic update for your items, see below for changes that happened yesterday.
+    <%- @status_keys.each do |key| %>
+      <p>Moved to <b><%= @status_updates[key][:name] %></b>:
+      <ul>
+        <%- @status_updates[key][:items].each do |item| %>
+          <li><%= item %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <%- if @notes.count != 0 %>
+      <p>New notes on your items:
+      <ul>
+        <%- @notes.each do |note| %>
+          <li>
+            <%= note.item.description %> - <i><%= note.note %></i>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+    <p>Items with no changes will not appear here. Please log in to the <a href="https://portal.carcosaclub.com/">Carcosa Portal</a> for all details. You can turn these email updates off by logging in and editing your account.
   </body>
 </html>

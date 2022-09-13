@@ -12,6 +12,21 @@ class OrderMailer < ApplicationMailer
       return;
     end
 
+    @status_updates = {}
+
+    @status_changes.each do |s|
+      new_status = s.new_status
+      if !@status_updates[new_status.sort_num]
+        @status_updates[new_status.sort_num] = {
+          name: new_status.name,
+          items: []
+        }
+      end
+      @status_updates[new_status.sort_num][:items] << s.item.description
+    end
+
+    @status_keys = @status_updates.keys.sort
+    
     mail(
       to: @user.email, 
       subject: "Daily update on your Carcosa orders",

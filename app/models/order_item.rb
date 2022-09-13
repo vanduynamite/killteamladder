@@ -52,4 +52,8 @@ class OrderItem < ApplicationRecord
     self.shipment_id ? Shipment.find(self.shipment_id) : nil
   end
 
+  def description
+    self.quantity.to_s + "x " + self.name
+  end
+
 end

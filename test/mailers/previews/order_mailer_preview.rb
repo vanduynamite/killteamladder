@@ -14,7 +14,7 @@ class OrderMailerPreview < ActionMailer::Preview
   end
 
   def daily_update_email
-    user = User.third # a@b.c
+    user = User.first # paul.vanduyn@gmail.com
     OrderMailer.with(user: user).daily_update_email
   end
 end
