@@ -86,7 +86,7 @@ class Api::InvoicesController < ApplicationController
   end
 
   def invoice_params
-    params.permit(:invoice).permit(
+    params.require(:invoice).permit(
       :carcosa_id,
       :square_id,
       :item_id_list => [],

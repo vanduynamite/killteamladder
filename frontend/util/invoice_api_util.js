@@ -19,8 +19,14 @@ export const newInvoice = (invoice) => {
 };
 
 export const getNextCarcosaId = () => {
+  
+  // Because back-end has params.require, I have to send it something
+  // IDK, I tried to fix it another way but I'll hack it like this
+  const hackAttackInvoice = { square_id: '' };
+
   return $.ajax({
     method: 'GET',
     url: '/api/get_next_carcosa_id',
+    data: { invoice: hackAttackInvoice },
   });
 };
