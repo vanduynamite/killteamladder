@@ -54,6 +54,18 @@ class Main extends React.Component {
   getOrderList() {
     const groupsToDisplay = this.getGroupsToDisplay();
     const itemList = this.getGroupedOrderList(groupsToDisplay);
+    if (itemList.length === 0) {
+      if (!this.props.currentUser.ordermaster) {
+        return (
+          <>
+            <h2>Nothing to see here!</h2>
+            <span>Order something by clicking the + at the bottom right!</span>
+          </>
+        );
+      } else {
+        return <h2>Hello Ordermaster. This screen is empty! Good job! Or order something, I dunno what screen this is.</h2>;
+      }
+    }
     return itemList;
   }
 
