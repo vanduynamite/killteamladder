@@ -57,6 +57,10 @@ class Api::InvoicesController < ApplicationController
     render 'api/invoices/create.json.jbuilder'
   end
 
+  def get_next_carcosa_id
+    render json: [get_carcosa_id()], status: 200
+  end
+
   # def destroy
   # # TODO: implement later
   # # Don't forget to add back into the route
@@ -82,7 +86,7 @@ class Api::InvoicesController < ApplicationController
   end
 
   def invoice_params
-    params.require(:invoice).permit(
+    params.permit(:invoice).permit(
       :carcosa_id,
       :square_id,
       :item_id_list => [],

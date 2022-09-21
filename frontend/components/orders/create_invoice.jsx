@@ -23,16 +23,24 @@ class CreateInvoice extends React.Component {
 
   componentDidMount() {
     this.props.clearPathHistory();
+    this.props.getNextCarcosaId();
 
     if (!this.props.checkedItems) return;
     const checkedItemsArray = Object.keys(this.props.checkedItems);
+    const carcosaId = this.props.nextCarcosaId ?? '';
 
     this.setState({
       itemIdList: checkedItemsArray,
-      carcosaId: '',
+      carcosaId: carcosaId,
       squareId: '',
       note: '',
     });
+  }
+  
+  componentDidUpdate(prevProps) {
+    if (!prevProps.nextCarcosaId && this.props.nextCarcosaId) {
+      this.setState({ carcosaId: this.props.nextCarcosaId });
+    }
   }
 
   submit(e) {
@@ -114,7 +122,7 @@ class CreateInvoice extends React.Component {
   itemFields() {
     const carcosaIdEl = <Field ctx={this}
       fieldName={'carcosaId'}
-      label={'Carcosa order ID (override)'}
+      label={'Carcosa order ID'}
       maxLength='10' />;
 
     const squareIdEl = <Field ctx={this}

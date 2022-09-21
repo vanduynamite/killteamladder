@@ -1,4 +1,4 @@
-import {RECEIVE_INVOICE} from '../../actions/invoice_actions';
+import {RECEIVE_CARCOSA_ID, RECEIVE_INVOICE} from '../../actions/invoice_actions';
 import {RECEIVE_ORDER_ITEMS} from '../../actions/order_item_actions';
 import {merge} from 'lodash';
 
@@ -10,6 +10,9 @@ const invoiceReducer = (state = {}, action) => {
     case RECEIVE_INVOICE:
     case RECEIVE_ORDER_ITEMS:
       return merge(newState, action.invoices);
+
+    case RECEIVE_CARCOSA_ID:
+      return merge(newState, {'nextCarcosaId': action.nextCarcosaId});
 
     default:
       return newState;

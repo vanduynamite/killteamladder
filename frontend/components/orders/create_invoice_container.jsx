@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {clearPathHistory} from '../../actions/ui_actions';
-import {newInvoice} from '../../actions/invoice_actions';
+import {getNextCarcosaId, newInvoice} from '../../actions/invoice_actions';
 import {newItemNotes} from '../../actions/item_note_actions';
 import CreateInvoice from './create_invoice';
 
@@ -20,6 +20,7 @@ const msp = (state, ownProps) => {
   const orderStatuses = state.entities.orderStatuses;
   const checkedItems = state.ui.checkedItems;
   const errors = state.errors.invoices;
+  const nextCarcosaId = state.entities.invoices.nextCarcosaId;
 
   return {
     checkedItems,
@@ -29,6 +30,7 @@ const msp = (state, ownProps) => {
     invoices,
     items,
     loggedIn,
+    nextCarcosaId,
     notes,
     orderStatuses,
     shipments,
@@ -39,6 +41,7 @@ const msp = (state, ownProps) => {
 const mdp = dispatch => {
   return {
     clearPathHistory: () => dispatch(clearPathHistory()),
+    getNextCarcosaId: () => dispatch(getNextCarcosaId()),
     newInvoice: (items, historyPush) => dispatch(newInvoice(items, historyPush, '/ordermaster/invoice')),
     newItemNotes: (items, historyPush) => dispatch(newItemNotes(items, historyPush, '/ordermaster/invoice')),
   };

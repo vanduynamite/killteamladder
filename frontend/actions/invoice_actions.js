@@ -1,5 +1,6 @@
 import * as InvoiceAPI from '../util/invoice_api_util';
 
+export const RECEIVE_CARCOSA_ID = 'RECEIVE_CARCOSA_ID';
 export const RECEIVE_INVOICE = 'RECEIVE_INVOICE';
 export const RECEIVE_INVOICE_ERRORS = 'RECEIVE_INVOICE_ERRORS';
 
@@ -18,6 +19,13 @@ const receiveInvoiceErrors = (errors) => {
   };
 };
 
+const receiveNextCarcosaId = (data) => {
+  return {
+    type: RECEIVE_CARCOSA_ID,
+    nextCarcosaId: data[0],
+  }
+}
+
 export const newInvoice = (invoice, historyPush, path) => (dispatch) => {
   return InvoiceAPI.newInvoice(invoice).then(
     (payload) => {
@@ -25,5 +33,11 @@ export const newInvoice = (invoice, historyPush, path) => (dispatch) => {
       if (historyPush) historyPush(path);
     },
     (errors) => dispatch(receiveInvoiceErrors(errors))
+  );
+};
+
+export const getNextCarcosaId = () => (dispatch) => {
+  return InvoiceAPI.getNextCarcosaId().then(
+    (payload) => dispatch(receiveNextCarcosaId(payload))
   );
 };

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     get :shipped_items, to: 'order_items#shipped_items'
     get :completed_items, to: 'order_items#completed_items'
     get :items_with_issue, to: 'order_items#items_with_issue'
+    get :get_next_carcosa_id, to: 'invoices#get_next_carcosa_id'
   end
 
 end

@@ -17,3 +17,10 @@ export const newInvoice = (invoice) => {
     data: { invoice },
   });
 };
+
+export const getNextCarcosaId = () => {
+  return $.ajax({
+    method: 'GET',
+    url: '/api/get_next_carcosa_id',
+  });
+};
