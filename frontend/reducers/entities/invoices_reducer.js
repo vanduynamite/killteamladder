@@ -8,6 +8,9 @@ const invoiceReducer = (state = {}, action) => {
 
   switch (action.type) {
     case RECEIVE_INVOICE:
+      action.invoices.nextCarcosaId = '';
+      return merge(newState, action.invoices);
+    
     case RECEIVE_ORDER_ITEMS:
       return merge(newState, action.invoices);
 
