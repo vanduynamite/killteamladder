@@ -3,6 +3,7 @@ export const signup = user => {
 
   user.first_name = user.firstName;
   user.last_name = user.lastName;
+  user.email = user.email.toLowerCase();
 
   return $.ajax({
     method: 'POST',
