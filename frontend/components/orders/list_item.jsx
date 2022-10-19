@@ -11,6 +11,8 @@ const listItem = (data) => {
   const selectedClass = data.checked ? 'dark-theme' : '';
   const fullWidthClass = data.fullWidth ? 'team-names-uncheckable' : '';
 
+  const itemName = item.quantity === 1 ? item.name : item.quantity + 'x ' + item.name;
+
   const dateCreatedString = new Date(item.dateCreated).toDateString();
   const userInfo = currentUser.ordermaster ?
     <div><b>{`${owner.firstName} ${owner.lastName}`}</b></div> :
@@ -53,7 +55,7 @@ const listItem = (data) => {
       onClick={data.action}>
       <div className={`team-names ${selectedClass} ${fullWidthClass}`}>
         <div>
-          <h2>{item.name}</h2>
+          <h2>{itemName}</h2>
           <div className={'team-faction-and-owner'}>
             <div>{`Quantity: ${item.quantity}`}</div>
             <div>{`${dateCreatedString}`}</div>
