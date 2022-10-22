@@ -92,7 +92,7 @@ class CreateOrder extends React.Component {
           <div className='inputs'>
             {itemInputs}
           </div>
-          <Checkbox fieldName='purchasedInStore' label='Purchased in store' ctx={this} />
+          <Checkbox fieldName='purchasedInStore' label='Picked up in store' ctx={this} />
           <div className='form-buttons'>
             <ButtonLink text='Cancel' path={cancelButtonLink} type='cancel' />
             <SubmitButton active={ this.formValid() } />
