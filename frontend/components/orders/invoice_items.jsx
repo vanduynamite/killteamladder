@@ -63,7 +63,6 @@ class InvoiceItems extends React.Component {
     const users = this.props.users;
     const invoices = this.props.invoices;
     const checkedItems = this.props.checkedItems || {};
-    const toggleCheckedItem = this.props.toggleCheckedItem;
 
     return Object.keys(usersToDisplay).map((userId) => {
       const user = this.props.users[userId];

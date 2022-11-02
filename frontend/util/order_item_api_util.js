@@ -6,6 +6,8 @@ export const newItems = (items) => {
   //   quantity_list: [1, 1],
   //   note_list: ['note1', null],
   //   purchased_in_store: false,
+  //   nonmemberPurchase: false,
+  //   nonmemberEmail: 'hoodydoo@boogoo.doo'
   // }
 
   items.name_list = [];
@@ -19,6 +21,8 @@ export const newItems = (items) => {
   }
 
   items.purchased_in_store = items.purchasedInStore;
+  items.nonmember_purchase = items.nonmemberPurchase;
+  items.nonmember_email = items.nonmemberEmail;
 
   return $.ajax({
     method: 'POST',

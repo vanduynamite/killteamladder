@@ -22,6 +22,8 @@ class CreateOrder extends React.Component {
       qty0: 1,
       name0: '',
       purchasedInStore: false,
+      nonmemberPurchase: false,
+      nonmemberEmail: '',
     });
   }
 
@@ -44,7 +46,19 @@ class CreateOrder extends React.Component {
         if (val === '0') return;
       }
       if (field === 'purchasedInStore') {
+        // If non-member purchase, it must be picked up in store.
+        if (this.state.nonmemberPurchase) return;
+
         this.setState({purchasedInStore: !this.state.purchasedInStore});
+        return;
+      }
+      if (field === 'nonmemberPurchase') {
+        const previousState = this.state.nonmemberPurchase;
+        this.setState({
+          purchasedInStore: !previousState,
+          nonmemberPurchase: !previousState,
+          nonmemberEmail: '',
+        });
         return;
       }
       if (e.target.value !== 'x') {
@@ -63,6 +77,10 @@ class CreateOrder extends React.Component {
       if (!Number.isInteger(this.state[qtyField] * 1)) return false;
       if (this.state[qtyField] * 1 < 0) return false;
       if (this.state[qtyField] === '0') return false;
+    }
+    if (this.state.nonmemberPurchase) {
+      if (!this.state.purchasedInStore) return false;
+      if (!this.state.nonmemberEmail) return false;
     }
     return true;
   }
@@ -93,6 +111,8 @@ class CreateOrder extends React.Component {
             {itemInputs}
           </div>
           <Checkbox fieldName='purchasedInStore' label='Picked up in store' ctx={this} />
+          <Checkbox fieldName='nonmemberPurchase' label='Non-member purchase' ctx={this} />
+          { this.nonmemberPurchaseSection() }
           <div className='form-buttons'>
             <ButtonLink text='Cancel' path={cancelButtonLink} type='cancel' />
             <SubmitButton active={ this.formValid() } />
@@ -102,21 +122,21 @@ class CreateOrder extends React.Component {
       </div>
     );
   }
-
+  
   itemFields(number) {
     const qty = `qty${number}`;
     const name = `name${number}`;
     const note = `note${number}`;
-
+    
     const noteEl = this.state[note] !== undefined ?
-      <Field fieldName={note} label='Note' maxLength='256' ctx={this} /> :
-      <div onClick={this.addNote.bind(this, number)} className='item-note'>Add note</div>;
-
+    <Field fieldName={note} label='Note' maxLength='256' ctx={this} /> :
+    <div onClick={this.addNote.bind(this, number)} className='item-note'>Add note</div>;
+    
     const showDelete = number !== 0 && number === this.state.numberOfItems - 1;
     const deleteButton = showDelete ?
-      <ImageActionButton action={this.deleteLastItem.bind(this)} image={window.close} /> :
-      <EmptyDiv/>;
-
+    <ImageActionButton action={this.deleteLastItem.bind(this)} image={window.close} /> :
+    <EmptyDiv/>;
+    
     return (
       <div className='new-item-fields' key={number}>
         <div className='name-inputs'>
@@ -130,30 +150,30 @@ class CreateOrder extends React.Component {
       </div>
     );
   }
-
+  
   addNote(number) {
     const fieldName = `note${number}`;
     this.setState({[fieldName]: ''});
   }
-
+  
   addItem() {
     const numberOfItems = this.state.numberOfItems;
     const nameField = `name${numberOfItems}`;
     const qtyField = `qty${numberOfItems}`;
-
+    
     this.setState({
       numberOfItems: numberOfItems + 1,
       [nameField]: '',
       [qtyField]: 1,
     });
   }
-
+  
   deleteLastItem() {
     const numberOfItems = this.state.numberOfItems - 1;
     const nameField = `name${numberOfItems}`;
     const qtyField = `qty${numberOfItems}`;
     const noteField = `note${numberOfItems}`;
-
+    
     this.setState({
       numberOfItems: numberOfItems,
       [nameField]: undefined,
@@ -161,7 +181,21 @@ class CreateOrder extends React.Component {
       [noteField]: undefined,
     });
   }
-
+  
+  nonmemberPurchaseSection() {
+    if (this.state.nonmemberPurchase) {
+      return (
+        <div className='inputs'>
+          <h3>Non-members may only pick up in store and do not get the member discount!</h3>
+          <h3>Enter the email address to invoice. If the invoice is not paid in a timely manner,
+            the member on submitting this order will be responsible for paying.
+          </h3>
+          <Field fieldName='nonmemberEmail' label='Email to invoice' maxLength='256' ctx={this} />
+        </div>
+      );
+    }
+  }
+  
   errorSection() {
     const errors = Object.values(this.props.errors);
 
