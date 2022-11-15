@@ -3,8 +3,9 @@ class OrderMailer < ApplicationMailer
 
   def daily_update_email
     @user = params[:user]
-    @notes = @user.notes_on_items.where(
-      "item_notes.created_at >= ?", 1.day.ago)
+    @notes = []
+    # @user.notes_on_items.where(
+    #   "item_notes.created_at >= ?", 1.day.ago)
     @status_changes = @user.status_changes_on_items.where(
       "status_changes.created_at >= ?", 1.day.ago)
 
@@ -16,6 +17,9 @@ class OrderMailer < ApplicationMailer
 
     @status_changes.each do |s|
       new_status = s.new_status
+
+      next unless new_status.complete
+
       if !@status_updates[new_status.sort_num]
         @status_updates[new_status.sort_num] = {
           name: new_status.name,
@@ -31,7 +35,7 @@ class OrderMailer < ApplicationMailer
     
     mail(
       to: @user.email, 
-      subject: "Daily update on your Carcosa orders " + date_string,
+      subject: "Update on your Carcosa orders " + date_string,
     )
   end
 

@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p>Automatic update for your items, see below for changes that happened yesterday.
+    <p>Automatic update for your items. See below for items that were completed yesterday.
     <%- @status_keys.each do |key| %>
       <p>Moved to <b><%= @status_updates[key][:name] %></b>:
       <ul>
@@ -23,6 +23,6 @@
         <% end %>
       </ul>
     <% end %>
-    <p>Items with no changes will not appear here. Please log in to the <a href="https://portal.carcosaclub.com/">Carcosa Portal</a> for all details. You can turn these email updates off by logging in and editing your account.
+    <p>Only completed items appear here. Please log in to the <a href="https://portal.carcosaclub.com/">Carcosa Portal</a> for all details. You can turn these email updates off by logging in and editing your account.
   </body>
 </html>
