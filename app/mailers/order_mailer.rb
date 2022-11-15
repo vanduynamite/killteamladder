@@ -10,7 +10,7 @@ class OrderMailer < ApplicationMailer
       "status_changes.created_at >= ?", 1.day.ago)
 
     if (@notes.count == 0 && @status_changes.count == 0) 
-      return;
+      return
     end
 
     @status_updates = {}
@@ -31,6 +31,10 @@ class OrderMailer < ApplicationMailer
     end
 
     @status_keys = @status_updates.keys.sort
+
+    if (@status_keys.count == 0)
+      return
+    end
 
     date_string = Date.today.strftime("%d%b%y")
     
