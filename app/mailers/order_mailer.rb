@@ -19,6 +19,7 @@ class OrderMailer < ApplicationMailer
       new_status = s.new_status
 
       next unless new_status.complete
+      next if s.item.purchased_in_store
 
       if !@status_updates[new_status.sort_num]
         @status_updates[new_status.sort_num] = {
