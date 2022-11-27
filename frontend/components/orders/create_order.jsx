@@ -111,7 +111,7 @@ class CreateOrder extends React.Component {
             {itemInputs}
           </div>
           <Checkbox fieldName='purchasedInStore' label='Picked up in store' ctx={this} />
-          <Checkbox fieldName='nonmemberPurchase' label='Non-member purchase' ctx={this} />
+          {/* <Checkbox fieldName='nonmemberPurchase' label='Non-member purchase' ctx={this} /> */}
           { this.nonmemberPurchaseSection() }
           <div className='form-buttons'>
             <ButtonLink text='Cancel' path={cancelButtonLink} type='cancel' />

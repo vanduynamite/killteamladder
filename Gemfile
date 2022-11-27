@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.3'
+ruby '3.1.3'
 
 # Bundle edge Rails instead: gem 'Rails', github: 'Rails/rails'
-gem 'rails', '~> 5.2.2'
+gem 'rails', '~> 6.1.7'
 gem "rubyzip", ">= 1.3.0"
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
@@ -31,6 +31,10 @@ gem "rack", ">= 2.1.4"
 gem "nokogiri", ">= 1.10.8"
 gem "whenever", require: false
 
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
@@ -55,8 +59,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/Rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring', '>=3.0.0'
 end
 
 group :test do

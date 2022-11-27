@@ -23,7 +23,7 @@
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",
   "version": "1.0.0",
   "engines": {
-    "node": "8.10.x"
+    "node": "16.3.x"
   },
   "main": "index.js",
   "directories": {
