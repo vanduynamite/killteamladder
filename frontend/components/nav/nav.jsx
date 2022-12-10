@@ -50,6 +50,12 @@ const ladderPic = (fullPath) => {
           <img src={ window.warhammer40k_logo } id='logo' />
         </Link>
       );
+    case '/aeronautica':
+      return (
+        <Link to='/aeronautica/'>
+          <img src={ window.aeronautica_logo } id='logo' />
+        </Link>
+      );
     case '':
     case '/carcosa':
       return (
