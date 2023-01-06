@@ -1,21 +1,28 @@
 import React from 'react';
 import ButtonLink from '../general/button_link';
-import ListItem from './list_item';
-import {Link} from 'react-router-dom';
 import EmptyDiv from '../general/empty_div';
 import FloatingImageButton from '../general/floating_image_button';
+import ImageActionButton from '../general/image_action_button';
+import ListItem from './list_item';
+import TextActionButton from '../general/text_action_button';
+import {Link} from 'react-router-dom';
 
 class Main extends React.Component {
 
   constructor(props) {
     super(props);
-    this.groupIdField = this.props.screenData.initialGroupIdField;
+    this.state = {
+      groupIdField: this.props.screenData.initialGroupIdField,
+    };
   }
 
   componentDidMount() {
     this.props.clearPathHistory();
     this.props.clearCheckedItems();
     this.props.getItems();
+    this.setState({
+      groupIdField: this.props.screenData.initialGroupIdField,
+    });
   }
 
   render() {
@@ -71,7 +78,7 @@ class Main extends React.Component {
 
   getGroupsToDisplay() {
     const items = this.props.items;
-    const groupIdField = this.groupIdField;
+    const groupIdField = this.state.groupIdField;
 
     const groupsToDisplay = {};
     Object.values(items).forEach((item) => {
@@ -116,8 +123,8 @@ class Main extends React.Component {
         currentUser={this.props.currentUser} />;
     });
 
-    const groupKey = itemArray[0][this.groupIdField];
-    const groupName = this.getGroupName(this.groupIdField, groupKey);
+    const groupKey = itemArray[0][this.state.groupIdField];
+    const groupName = this.getGroupName(this.state.groupIdField, groupKey);
 
     return (
       <div key={"group" + groupKey}>
@@ -161,7 +168,54 @@ class Main extends React.Component {
         'ordermaster-button submit-deactive';
       return <ButtonLink text={button.text} path={button.path} type={className} />;
     });
-    return <div className='ordermaster-nav'>{buttons}</div>;
+    return (
+      <>
+        <div className='ordermaster-nav'>{buttons}</div>
+        { this.groupings() }
+      </>
+    );
+  }
+
+  groupings() {
+    const possibleGroups = [
+      {text: 'Status', field: 'statusId'},
+      {text: 'Distributor', field: 'distributorId'},
+      {text: 'Person', field: 'userId'},
+    ];
+
+    const buttonMappingCb = (button) => {
+      const className = this.state.groupIdField === button.field ?
+      'submit-deactive' :
+      'submit-active';
+
+      return <TextActionButton 
+        action={this.changeGrouping.bind(this, button.field)}
+        className={className}
+        text={button.text}
+      />
+    };
+
+    const buttons = possibleGroups.map(buttonMappingCb);
+
+    return <div className='ordermaster-group-filter'>
+      {buttons}
+      <ImageActionButton
+        action={this.toggleFilters} 
+        className={'filter-img-button'}
+        image={window.filter} 
+      />
+    </div>;
+  }
+
+  changeGrouping(field) {
+    this.setState({
+      groupIdField: field,
+    });
+  }
+
+  toggleFilters() {
+    // Doesn't do anything yet but I wanted to submit this
+    console.log('toggle me softly');
   }
 
   maybeToggleCheckedItem(itemId) {
