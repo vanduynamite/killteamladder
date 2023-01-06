@@ -36,6 +36,10 @@ class Portal extends React.Component {
           <Link to='/40k/'>
             <img src={ window.warhammer40k_logo } id='logo' />
           </Link>
+          <h2>Aeronautica Ladder</h2>
+          <Link to='/aeronautica/'>
+            <img src={ window.aeronautica_logo } id='logo' />
+          </Link>
         </div>
       </div>
     );

@@ -6,7 +6,13 @@ const Background = props => {
   const fullPath = props.history.location.pathname;
   const ladder = fullPath.slice(0, fullPath.indexOf('/', 1));
 
-  const backgroundPath = ladder === '/killteam' || ladder === '/40k' ? 
+  const laddersToUseBloodspatter = [
+    '/killteam',
+    '/40k',
+    '/aeronautica',
+  ];
+
+  const backgroundPath = laddersToUseBloodspatter.includes(ladder) ? 
     window.killteam_background :
     '';
 
