@@ -110,7 +110,7 @@ class CreateOrder extends React.Component {
           <div className='inputs'>
             {itemInputs}
           </div>
-          <Checkbox fieldName='purchasedInStore' label='Picked up in store' ctx={this} />
+          <Checkbox fieldName='purchasedInStore' label='Took off the shelf' ctx={this} />
           {/* <Checkbox fieldName='nonmemberPurchase' label='Non-member purchase' ctx={this} /> */}
           { this.nonmemberPurchaseSection() }
           <div className='form-buttons'>

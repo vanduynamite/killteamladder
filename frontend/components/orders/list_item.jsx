@@ -19,7 +19,7 @@ const listItem = (data) => {
     <EmptyDiv/>;
 
   const distributor = item.inStorePurchase ?
-    <div>{'Picked up in store'}</div> :
+    <div>{'Took off the shelf'}</div> :
     <div>{data.distributor.name}</div>;
 
   const carcosaNum = item.invoiceId ?

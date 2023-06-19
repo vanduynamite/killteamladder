@@ -193,7 +193,7 @@ class EditOrder extends React.Component {
 
     const purchasedInStoreEl = <Checkbox ctx={this}
       fieldName='purchasedInStore'
-      label='Picked up in store' />;
+      label='Took off the shelf' />;
 
     return (
       <div className='new-item-fields'>
