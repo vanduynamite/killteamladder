@@ -10,10 +10,11 @@ class Api::TeamsController < ApplicationController
     @team.faction = Faction.find(@team.faction_id).faction_name
     @rankings = get_rankings(@team.ladder_name)
 
-    if @team.ladder_name == '/40k' && !@user.permissions.ladder_40k
-      render json: ['You are not signed up for the 40K league. Please contact an admin.'], status: 401
-      return
-    end
+    ## Disabling this for the 2025 league
+    # if @team.ladder_name == '/40k' && !@user.permissions.ladder_40k
+    #   render json: ['You are not signed up for the 40K league. Please contact an admin.'], status: 401
+    #   return
+    # end
 
     if @team.save
       render 'api/teams/create.json.jbuilder'

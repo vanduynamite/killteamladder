@@ -31,8 +31,8 @@ class Portal extends React.Component {
           <Link to='/killteam/'>
             <img src={ window.killteam_logo } id='logo' />
           </Link>
-          <h2>40k ITC Ladder</h2>
-          <h4>Ladder for the 2020 40k challenge league</h4>
+          <h2>40k League Ladder</h2>
+          <h4>Spring 2025 Season</h4>
           <Link to='/40k/'>
             <img src={ window.warhammer40k_logo } id='logo' />
           </Link>
