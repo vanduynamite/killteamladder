@@ -28,16 +28,16 @@ class Ordermaster extends React.Component {
       <Switch>
         <ProtectedRoute path={ '/ordermaster/account/edit' } component={ EditAccount } />
         <ProtectedRoute path={ '/ordermaster/account' } component={ Account } />
-        <Route path={ '/ordermaster/closed' } component={ ClosedOrders } />
-        <Route path={ '/ordermaster/new' } component={ CreateOrder } />
-        <Route path={ '/ordermaster/edit' } component={ EditOrders } />
-        <Route path={ '/ordermaster/invoice' } component={ InvoiceItems } />
-        <Route path={ '/ordermaster/createinvoice' } component={ CreateInvoice } />
-        <Route path={ '/ordermaster/order' } component={ OrderItems } />
-        <Route path={ '/ordermaster/ship' } component={ ShipItems } />
-        <Route path={ '/ordermaster/createshipment' } component={ CreateShipment } />
-        <Route path={ '/ordermaster/deliver' } component={ DeliverItems } />
-        <Route path={ '/ordermaster/' } component={ OpenOrders } />
+        <ProtectedRoute path={ '/ordermaster/closed' } component={ ClosedOrders } />
+        <ProtectedRoute path={ '/ordermaster/new' } component={ CreateOrder } />
+        <ProtectedRoute path={ '/ordermaster/edit' } component={ EditOrders } />
+        <ProtectedRoute path={ '/ordermaster/invoice' } component={ InvoiceItems } />
+        <ProtectedRoute path={ '/ordermaster/createinvoice' } component={ CreateInvoice } />
+        <ProtectedRoute path={ '/ordermaster/order' } component={ OrderItems } />
+        <ProtectedRoute path={ '/ordermaster/ship' } component={ ShipItems } />
+        <ProtectedRoute path={ '/ordermaster/createshipment' } component={ CreateShipment } />
+        <ProtectedRoute path={ '/ordermaster/deliver' } component={ DeliverItems } />
+        <ProtectedRoute path={ '/ordermaster/' } component={ OpenOrders } />
       </Switch>
     );
   }
