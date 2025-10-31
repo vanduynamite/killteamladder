@@ -30,6 +30,7 @@ gem "activesupport", ">= 5.2.4.3"
 gem "rack", ">= 2.1.4"
 gem "nokogiri", ">= 1.10.8"
 gem "whenever", require: false
+gem 'concurrent-ruby', '1.3.4'
 
 gem 'net-smtp', require: false
 gem 'net-imap', require: false
