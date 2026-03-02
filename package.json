@@ -15,7 +15,7 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "serialize-javascript": ">=6.0.2",
+    "serialize-javascript": ">=7.0.3",
     "set-value": ">=4.0.1",
     "webpack": "^5.102.1",
     "webpack-cli": "^6.0.1"
